@@ -1,0 +1,34 @@
+@startuml LL Abdul website
+
+interface Resource {
+    name: string
+    icon: URL
+    description: string
+}
+
+interface Champion extends Resource {}
+
+interface Matchup {
+    early: string
+    mid: string
+    videos: URL[]
+}
+
+Matchup -up-> "2" Champion: currentChamp and enemyChamp
+Matchup -> "*" Item: startItems AND build
+Matchup -down-> "2" SummonerSpell: summonerSpells
+Matchup -left-> "1" Runes: runePage
+
+interface Runes {
+    primary: string
+    secondary: string
+    shards: string[] // shard names "adaptive force", "adaptive force", "health"
+}
+
+interface SummonerSpell extends Resource {
+    cooldown: number
+} 
+
+interface Item extends Resource {
+    cost: number
+}
