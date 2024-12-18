@@ -11,9 +11,12 @@
   "description": "",
   "devDependencies": {
     "@types/node": "^22.10.2",
+    "@types/winston": "^2.4.4",
     "typescript": "^5.7.2"
   },
   "dependencies": {
-    "poro": "^2.3.0"
+    "@vercel/node": "^5.0.0",
+    "poro": "^2.3.0",
+    "winston": "^3.17.0"
   }
 }

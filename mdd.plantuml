@@ -6,23 +6,33 @@ interface Resource {
     description: string
 }
 
-interface Champion extends Resource {}
+interface Champion extends Resource {
+    alias : string
+}
 
-interface Matchup {
+interface MatchupGuide {
     early: string
     mid: string
     videos: URL[]
+    difficulty:  MatchupDifficulty
+    runes: Runes
+    startItems : Item[]
+    build : Item[]
+    champion: Champion
+    enemyChampion : Champion
+    summonerSpells : SummonerSpell[]
 }
 
-Matchup -up-> "2" Champion: currentChamp and enemyChamp
-Matchup -> "*" Item: startItems AND build
-Matchup -down-> "2" SummonerSpell: summonerSpells
-Matchup -left-> "1" Runes: runePage
+MatchupGuide -up-> "2" Champion: currentChamp and enemyChamp
+MatchupGuide -> "*" Item: startItems AND build
+MatchupGuide -down-> "2" SummonerSpell: summonerSpells
+MatchupGuide -left-> "1" Runes: runePage
+MatchupGuide -down-> "1" MatchupDifficulty: difficulty
 
 interface Runes {
     primary: string
     secondary: string
-    shards: string[] // shard names "adaptive force", "adaptive force", "health"
+    shards: string[]  //shard names "adaptive force", "adaptive force", "health"
 }
 
 interface SummonerSpell extends Resource {
@@ -32,3 +42,36 @@ interface SummonerSpell extends Resource {
 interface Item extends Resource {
     cost: number
 }
+
+enum MatchupDifficulty {
+    EASY = "EASY",
+    SKILL = "SKILL",
+    HARD = "HARD"
+}
+
+interface ChampionGuide{
+    champion : Champion
+    early : string
+    mid : string
+    late : string
+    videos: URL[]
+}
+
+enum MechanicsDifficulty {
+    BASIC = "BASIC",
+    ADVANCED = "ADVANCED",
+    EXPERT = "EXPERT"
+}
+
+interface MechanicsGuide{
+    champion : Champion
+    videos : URL[]
+    description : string
+    difficulty : MechanicsDifficulty
+}
+
+ChampionGuide -up-> "*" MechanicsGuide: mechanics guides
+MechanicsGuide -down-> "1" MechanicsDifficulty: difficulty
+
+
+
