@@ -55,6 +55,7 @@ export async function getTreeName(iconPath: string) {
     const pathParts = iconPath.split("/");
     const stylesIndex = pathParts.indexOf("Styles")
     const treeName = stylesIndex !== -1 && pathParts[stylesIndex + 1] !== filter ? pathParts[stylesIndex + 1] : "Not Found"
+    if (!treeName) throw new Error("Treename not found");
     return treeName
 
 
