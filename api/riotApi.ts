@@ -21,13 +21,43 @@ export async function getSummonerSpells() {
 export async function getRunes() {
     const resources = await getResources("perks")
     const runes = await Promise.all(resources.map(async rune => {
+        const treeName = await getTreeName(rune.iconPath)
+
         return {
             icon: await getRuneIcon(rune.name),
             name: rune.name,
-            description: rune.longDesc
+            description: rune.longDesc,
+            tree: treeName
         }
+
+
     }))
-    return runes
+    const validRunes = runes.filter(rune => rune.tree !== "Not Found")
+    return validRunes
+
+} export async function getRunesFromTree(treeName: string) {
+    const resources = await getRunes()
+    const runes = resources.filter((rune) => rune.tree.toLowerCase() === treeName.toLowerCase())
+    return runes;
+
+}
+
+export async function getRune(runeName: string) {
+    const runes = await getRunes()
+    const runeNameWithoutSpaces = runeName.replace(/\s+/g, "").toLowerCase();
+    const rune = runes.find(rune => rune.name.replace(/\s+/g, "").toLowerCase() === runeNameWithoutSpaces)
+    if (!rune) throw new Error(`Rune with name "${runeName}" not found`);
+    return rune
+}
+
+export async function getTreeName(iconPath: string) {
+    let filter = "RunesIcon.png"
+    const pathParts = iconPath.split("/");
+    const stylesIndex = pathParts.indexOf("Styles")
+    const treeName = stylesIndex !== -1 && pathParts[stylesIndex + 1] !== filter ? pathParts[stylesIndex + 1] : "Not Found"
+    if (!treeName) throw new Error("Treename not found");
+    return treeName
+
 
 }
 
