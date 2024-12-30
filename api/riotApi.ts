@@ -82,6 +82,24 @@ export async function getChampion(championName: string) {
     return champions
 
 }
+export async function getItems() {
+    const resources = await getResources("items")
+    const itemsInShop = resources.filter(items => items.inStore === true && items.active === true)
+    const items = await Promise.all(itemsInShop.map(async items => {
+        console.log(items)
+        return {
+            icon: await getItemIcon(items.name),
+            name: items.name,
+            description: items.description,
+            price: items.price
+        }
+
+
+    }))
+
+    return items
+
+}
 
 export async function getRuneField(name: string, field: string) {
     return await getResourceField('perks', name, field)
@@ -113,6 +131,7 @@ export async function getItemIcon(spellName: string) {
 export async function getRuneIcon(name: string) {
     return await getResourceIcon('perks', name)
 }
+
 export async function getResourceIcon(fileName: string, wantedResource: string) {
     const resources = await getResources(fileName);
 
