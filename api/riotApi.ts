@@ -61,17 +61,7 @@ export async function getTreeName(iconPath: string) {
 
 }
 
-
-export async function getChampion(championName: string) {
-    const rawData = await fetch(cdClient.champion.championData(championName))
-    const resource = await rawData.json();
-    return {
-        icon: cdClient.champion.basePortrait(championName),
-        title: resource.title,
-        name: resource.name,
-        alias: resource.alias,
-    }
-} export async function getChampions() {
+export async function getChampions() {
     const resources = await getResources("champion-summary")
     const championNames = resources.map(champion => champion.alias).filter(alias => alias !== "None")
     const champions = await Promise.all(championNames.map(async name => {
@@ -82,11 +72,20 @@ export async function getChampion(championName: string) {
     return champions
 
 }
+export async function getChampion(championName: string) {
+    const rawData = await fetch(cdClient.champion.championData(championName))
+    const resource = await rawData.json();
+    return {
+        icon: cdClient.champion.basePortrait(championName),
+        title: resource.title,
+        name: resource.name,
+        alias: resource.alias,
+    }
+}
 export async function getItems() {
     const resources = await getResources("items")
-    const itemsInShop = resources.filter(items => items.inStore === true && items.active === true)
+    const itemsInShop = resources.filter(items => items.inStore === true)
     const items = await Promise.all(itemsInShop.map(async items => {
-        console.log(items)
         return {
             icon: await getItemIcon(items.name),
             name: items.name,
@@ -99,6 +98,13 @@ export async function getItems() {
 
     return items
 
+}
+export async function getItem(itemName: string) {
+    const items = await getItems()
+    const itemNameWithoutSpecials = itemName.replace(/[\s']/g, "").toLowerCase();
+    const item = items.find(rune => rune.name.replace(/[\s']/g, "").toLowerCase() === itemNameWithoutSpecials);
+    if (!item) throw new Error(`Item with name "${itemName}" not found`);
+    return item
 }
 
 export async function getRuneField(name: string, field: string) {
