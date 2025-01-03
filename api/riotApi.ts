@@ -87,6 +87,7 @@ export async function getItems() {
     const itemsInShop = resources.filter(items => items.inStore === true)
     const items = await Promise.all(itemsInShop.map(async items => {
         return {
+            id: items.id,
             icon: await getItemIcon(items.name),
             name: items.name,
             description: items.description,

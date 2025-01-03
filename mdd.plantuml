@@ -1,6 +1,7 @@
 @startuml LL Abdul website
 
 interface Resource {
+    id: number
     name: string
     icon: URL
     description: string
@@ -49,7 +50,7 @@ enum MatchupDifficulty {
     HARD = "HARD"
 }
 
-interface ChampionGuide{
+interface GeneralChampionGuide{
     champion : Champion
     early : string
     mid : string
@@ -70,7 +71,7 @@ interface MechanicsGuide{
     difficulty : MechanicsDifficulty
 }
 
-ChampionGuide -up-> "*" MechanicsGuide: mechanics guides
+GeneralChampionGuide -up-> "*" MechanicsGuide: mechanics guides
 MechanicsGuide -down-> "1" MechanicsDifficulty: difficulty
 
 
