@@ -6,13 +6,13 @@ const dbName = "league_coaching_website"; // Replace with your database name
 const collectionName = "matchups"; // Replace with your collection name
 
 export default async function handler(req, res) {
-    // Ensure the request method is GET
+
     if (req.method !== "GET") {
         res.setHeader("Allow", ["GET"]);
         return res.status(405).json({ message: `Method ${req.method} not allowed` });
     }
 
-    const { championName } = req.query; // Get the champion name from the query string
+    const { championName } = req.query;
 
     if (!championName) {
         return res.status(400).json({ message: "championName query parameter is required" });

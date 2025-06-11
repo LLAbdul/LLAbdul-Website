@@ -72,11 +72,11 @@ export async function getChampions() {
     return champions
 
 }
-export async function getChampion(championName: string) {
-    const rawData = await fetch(cdClient.champion.championData(championName))
+export async function getChampion(championAlias: string) {
+    const rawData = await fetch(cdClient.champion.championData(championAlias))
     const resource = await rawData.json();
     return {
-        icon: cdClient.champion.basePortrait(championName),
+        icon: cdClient.champion.basePortrait(championAlias),
         title: resource.title,
         name: resource.name,
         alias: resource.alias,
