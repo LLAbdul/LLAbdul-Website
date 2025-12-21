@@ -107,7 +107,7 @@ export async function getChampions(): Promise<Champion[]> {
 export async function getChampion(championAlias: string): Promise<Champion> {
     try {
         const resources = await getChampionSummary();
-        const rawChampion: RawChampionData | undefined = resources.find(c => c.alias.toLowerCase() === championAlias.toLowerCase());
+        const rawChampion: RawChampionData = resources.find(c => c.alias.toLowerCase() === championAlias.toLowerCase());
 
         if (!rawChampion) {
             throw new Error(`Champion with alias "${championAlias}" not found`);
