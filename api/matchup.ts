@@ -1,5 +1,7 @@
 import { MongoClient } from "mongodb";
+import { VercelRequest, type VercelResponse } from '@vercel/node';
 import { getChampion } from "./riotApi";
+import { MatchupResponse } from "./types";
 
 const uri = process.env.MONGODB_URI; // Set this in Vercel's environment variables
 const dbName = "league_coaching_website"; // Replace with your database name

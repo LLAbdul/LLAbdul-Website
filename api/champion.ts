@@ -1,5 +1,6 @@
 import { VercelRequest, type VercelResponse } from '@vercel/node';
 import { getChampion } from './riotApi';
+import { Champion, ApiResponse } from './types';
 
 interface QueryParams {
     alias: string

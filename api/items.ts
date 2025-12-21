@@ -1,5 +1,6 @@
 import { VercelRequest, type VercelResponse } from '@vercel/node';
 import { getItems } from './riotApi';
+import { Item, ApiResponse } from './types';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
     const item = await getItems();

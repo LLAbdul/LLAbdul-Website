@@ -1,5 +1,6 @@
 import { VercelRequest, type VercelResponse } from '@vercel/node';
 import { getRune } from '../riotApi';
+import { Rune, ApiResponse } from '../types';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
     const name = req.query['name']

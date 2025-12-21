@@ -1,14 +1,17 @@
 import { CommunityDragon } from "poro";
 
+// Import types from separate file for better organization
+import type { Champion, Item, Rune, SummonerSpell, RawChampionData, RawItemData, RawRuneData, RawSummonerSpellData, MatchupData, MatchupResponse, ApiResponse } from './types';
+export type { Champion, Item, Rune, SummonerSpell, RawChampionData, RawItemData, RawRuneData, RawSummonerSpellData, MatchupData, MatchupResponse, ApiResponse } from './types';
 
 const cdClient = new CommunityDragon('latest', 'default');
 const BASE_URL = "https://raw.communitydragon.org";
 
 export async function getSummonerSpells() {
     try {
-    const resources = await getResources("summoner-spells")
+    const resources = await getSummonerSpellsData()
     const newResources = resources.filter(spell => spell.name !== "")
-    const summonerSpells = await Promise.all(newResources.map(async spell => {
+    const summonerSpells: SummonerSpell[] = await Promise.all(newResources.map(async spell => {
         console.log(spell)
         return {
             icon: await getSummonerSpellIcon(spell.name),
@@ -23,32 +26,32 @@ export async function getSummonerSpells() {
         throw new Error(error.message);
     }
 }
-export async function getRunes() {
+export async function getRunes(): Promise<Rune[]> {
     try {
-    const resources = await getResources("perks")
-    const runes = await Promise.all(resources.map(async rune => {
-        const treeName = await getTreeName(rune.iconPath)
+        const resources = await getPerksData();
+        const runes: Rune[] = await Promise.all(resources.map(async rune => {
+            const treeName = await getTreeName(rune.iconPath)
 
-        return {
-            icon: await getRuneIcon(rune.name),
-            name: rune.name,
-            description: rune.longDesc,
-            tree: treeName
-        }
+            return {
+                icon: await getRuneIcon(rune.name),
+                name: rune.name,
+                description: rune.longDesc,
+                tree: treeName
+            }
 
 
-    }))
-    const validRunes = runes.filter(rune => rune.tree !== "Not Found")
-    return validRunes
+        }))
+        const validRunes = runes.filter(rune => rune.tree !== "Not Found")
+        return validRunes
     } catch (error: any) {
         console.error("Error in getRunes:", error);
         throw new Error(error.message);
     }
 
-} export async function getRunesFromTree(treeName: string) {
+} export async function getRunesFromTree(treeName: string): Promise<Rune[]> {
     try {
     const resources = await getRunes()
-    const runes = resources.filter((rune) => rune.tree.toLowerCase() === treeName.toLowerCase())
+    const runes: Rune[] = resources.filter((rune) => rune.tree.toLowerCase() === treeName.toLowerCase())
     return runes;
     } catch (error: any) {
         console.error("Error in getRunesFromTree:", error);
@@ -56,11 +59,11 @@ export async function getRunes() {
     }
 }
 
-export async function getRune(runeName: string) {
+export async function getRune(runeName: string): Promise<Rune> {
     try {
     const runes = await getRunes()
     const runeNameWithoutSpaces = runeName.replace(/\s+/g, "").toLowerCase();
-    const rune = runes.find(rune => rune.name.replace(/\s+/g, "").toLowerCase() === runeNameWithoutSpaces)
+    const rune: Rune = runes.find(rune => rune.name.replace(/\s+/g, "").toLowerCase() === runeNameWithoutSpaces)
     if (!rune) throw new Error(`Rune with name "${runeName}" not found`);
     return rune
     } catch (error: any) {
@@ -84,67 +87,64 @@ export async function getTreeName(iconPath: string) {
 
 }
 
-export async function getChampions() {
+export async function getChampions(): Promise<Champion[]> {
     try {
-    const resources = await getResources("champion-summary")
-    const champions = await Promise.all(resources
-        .filter(champion => champion.alias !== "None")
-        .map(async champion => ({
-            icon: await getChampionIcon(champion.alias),
-            title: champion.description,
-            name: champion.name,
-            alias: champion.alias,
-        })));
-    return champions;
+        const resources = await getChampionSummary();
+        const champions: Champion[] = await Promise.all(resources
+            .filter(rawChampion => rawChampion.alias !== "None")
+            .map(async rawChampion => ({
+                icon: await getChampionIcon(rawChampion.alias),
+                title: rawChampion.description,
+                name: rawChampion.name,
+                alias: rawChampion.alias,
+            })));
+        return champions;
     } catch (error: any) {
         console.error("Error in getChampions:", error);
         throw new Error(error.message);
     }
 }
-export async function getChampion(championAlias: string) {
+export async function getChampion(championAlias: string): Promise<Champion> {
     try {
-        const resources = await getResources("champion-summary");
-        const champion = resources.find(c => c.alias.toLowerCase() === championAlias.toLowerCase());
+        const resources = await getChampionSummary();
+        const rawChampion: RawChampionData | undefined = resources.find(c => c.alias.toLowerCase() === championAlias.toLowerCase());
 
-        if (!champion) {
+        if (!rawChampion) {
             throw new Error(`Champion with alias "${championAlias}" not found`);
         }
 
         return {
-            icon: await getChampionIcon(champion.alias),
-            title: champion.description,
-            name: champion.name,
-            alias: champion.alias,
+            icon: await getChampionIcon(rawChampion.alias),
+            title: rawChampion.description,
+            name: rawChampion.name,
+            alias: rawChampion.alias,
         };
     } catch (error: any) {
         console.error(`Error in getChampion for ${championAlias}:`, error);
         throw new Error(error.message);
     }
 }
-export async function getItems() {
+export async function getItems(): Promise<Item[]> {
     try{
-    const resources = await getResources("items")
-    const itemsInShop = resources.filter(items => items.inStore === true)
-    const items = await Promise.all(itemsInShop.map(async items => {
-        return {
-            id: items.id,
-            icon: await getItemIcon(items.name),
-            name: items.name,
-            description: items.description,
-            price: items.price
-        }
+        const resources = await getItemsData()
+        const itemsInShop = resources.filter(items => items.inStore === true)
+        const items: Item[] = await Promise.all(itemsInShop.map(async items => {
+            return {
+                id: items.id,
+                icon: await getItemIcon(items.name),
+                name: items.name,
+                description: items.description,
+                price: items.price
+            } as Item;
+        }))
 
-
-    }))
-
-    return items
+        return items;
     } catch (error: any) {
         console.error("Error in getItems:", error);
         throw new Error(error.message);
     }
-
 }
-export async function getItem(itemName: string) {
+export async function getItem(itemName: string): Promise<Item> {
     try {
     const items = await getItems()
     const itemNameWithoutSpecials = itemName.replace(/[\s']/g, "").toLowerCase();
@@ -177,15 +177,64 @@ export async function getResourceField(fileName: string, wantedResource: string,
         throw new Error(error.message);
     }
 }
-export async function getResources(fileName: string) {
+// Individual typed resource getter functions
+export async function getChampionSummary(): Promise<RawChampionData[]> {
     try {
-    const resourceUrl = cdClient.meta(fileName as any);
-    const rawData = await fetch(resourceUrl);
-    const resource = await rawData.json();
-
-    return resource;
+        const resourceUrl = cdClient.meta("champion-summary" as any);
+        const rawData = await fetch(resourceUrl);
+        const resource = await rawData.json() as RawChampionData[];
+        return resource;
     } catch (error: any) {
-        console.error("Error in getResources:", error);
+        console.error("Error in getChampionSummary:", error);
+        throw new Error(error.message);
+    }
+}
+
+export async function getPerksData(): Promise<RawRuneData[]> {
+    try {
+        const resourceUrl = cdClient.meta("perks" as any);
+        const rawData = await fetch(resourceUrl);
+        const resource = await rawData.json() as RawRuneData[];
+        return resource;
+    } catch (error: any) {
+        console.error("Error in getPerksData:", error);
+        throw new Error(error.message);
+    }
+}
+
+export async function getItemsData(): Promise<RawItemData[]> {
+    try {
+        const resourceUrl = cdClient.meta("items" as any);
+        const rawData = await fetch(resourceUrl);
+        const resource = await rawData.json() as RawItemData[];
+        return resource;
+    } catch (error: any) {
+        console.error("Error in getItemsData:", error);
+        throw new Error(error.message);
+    }
+}
+
+export async function getSummonerSpellsData(): Promise<RawSummonerSpellData[]> {
+    try {
+        const resourceUrl = cdClient.meta("summoner-spells" as any);
+        const rawData = await fetch(resourceUrl);
+        const resource = await rawData.json() as RawSummonerSpellData[];
+        return resource;
+    } catch (error: any) {
+        console.error("Error in getSummonerSpellsData:", error);
+        throw new Error(error.message);
+    }
+}
+
+// Generic fallback for other resources
+export async function getResources(fileName: string): Promise<any> {
+    try {
+        const resourceUrl = cdClient.meta(fileName as any);
+        const rawData = await fetch(resourceUrl);
+        const resource = await rawData.json();
+        return resource;
+    } catch (error: any) {
+        console.error(`Error in getResources for ${fileName}:`, error);
         throw new Error(error.message);
     }
 }

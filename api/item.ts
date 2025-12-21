@@ -1,5 +1,6 @@
 import { VercelRequest, type VercelResponse } from '@vercel/node';
 import { getItem } from './riotApi';
+import { Item, ApiResponse } from './types';
 
 interface QueryParams {
     name: string
