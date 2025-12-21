@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@vercel/node": "^5.5.16",
-    "mongodb": "^6.12.0",
+    "mongodb": "^6.21.0",
     "poro": "^2.3.0",
     "winston": "^3.17.0"
   }
