@@ -15,8 +15,8 @@
     "typescript": "^5.7.2"
   },
   "dependencies": {
-    "@vercel/node": "^5.0.0",
-    "poro": "^2.3.0",
+    "@vercel/node": "^5.5.16",
+    "poro": "^0.0.1",
     "winston": "^3.17.0"
   }
 }
