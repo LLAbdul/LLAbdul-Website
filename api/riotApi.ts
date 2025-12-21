@@ -46,28 +46,41 @@ export async function getRunes() {
     }
 
 } export async function getRunesFromTree(treeName: string) {
+    try {
     const resources = await getRunes()
     const runes = resources.filter((rune) => rune.tree.toLowerCase() === treeName.toLowerCase())
     return runes;
-
+    } catch (error: any) {
+        console.error("Error in getRunesFromTree:", error);
+        throw new Error(error.message);
+    }
 }
 
 export async function getRune(runeName: string) {
+    try {
     const runes = await getRunes()
     const runeNameWithoutSpaces = runeName.replace(/\s+/g, "").toLowerCase();
     const rune = runes.find(rune => rune.name.replace(/\s+/g, "").toLowerCase() === runeNameWithoutSpaces)
     if (!rune) throw new Error(`Rune with name "${runeName}" not found`);
     return rune
+    } catch (error: any) {
+        console.error("Error in getRune:", error);
+        throw new Error(error.message);
+    }
 }
 
 export async function getTreeName(iconPath: string) {
+    try {
     let filter = "RunesIcon.png"
     const pathParts = iconPath.split("/");
     const stylesIndex = pathParts.indexOf("Styles")
     const treeName = stylesIndex !== -1 && pathParts[stylesIndex + 1] !== filter ? pathParts[stylesIndex + 1] : "Not Found"
     if (!treeName) throw new Error("Treename not found");
     return treeName
-
+    } catch (error: any) {
+        console.error("Error in getTreeName:", error);
+        throw new Error(error.message);
+    }
 
 }
 
@@ -132,49 +145,90 @@ export async function getItems() {
 
 }
 export async function getItem(itemName: string) {
+    try {
     const items = await getItems()
     const itemNameWithoutSpecials = itemName.replace(/[\s']/g, "").toLowerCase();
     const item = items.find(rune => rune.name.replace(/[\s']/g, "").toLowerCase() === itemNameWithoutSpecials);
     if (!item) throw new Error(`Item with name "${itemName}" not found`);
     return item
+    } catch (error: any) {
+        console.error("Error in getItem:", error);
+        throw new Error(error.message);
+    }
 }
 
 export async function getRuneField(name: string, field: string) {
+    try {
     return await getResourceField('perks', name, field)
+    } catch (error: any) {
+        console.error("Error in getRuneField:", error);
+        throw new Error(error.message);
+    }
 }
 
 export async function getResourceField(fileName: string, wantedResource: string, field: string) {
+    try {
     const resources = await getResources(fileName);
 
     const description = resources.find(resource => resource.name.toLowerCase().includes(wantedResource))[field];
     return description
+    } catch (error: any) {
+        console.error("Error in getResourceField:", error);
+        throw new Error(error.message);
+    }
 }
 export async function getResources(fileName: string) {
+    try {
     const resourceUrl = cdClient.meta(fileName as any);
     const rawData = await fetch(resourceUrl);
     const resource = await rawData.json();
 
     return resource;
+    } catch (error: any) {
+        console.error("Error in getResources:", error);
+        throw new Error(error.message);
+    }
 }
 
 // ICONS
 export async function getSummonerSpellIcon(spellName: string) {
+    try {
     return await getResourceIcon('summoner-spells', spellName)
+    } catch (error: any) {
+        console.error("Error in getSummonerSpellIcon:", error);
+        throw new Error(error.message);
+    }
 }
 
 export async function getItemIcon(itemName: string) {
+    try {
     return await getResourceIcon('items', itemName)
+    } catch (error: any) {
+        console.error("Error in getItemIcon:", error);
+        throw new Error(error.message);
+    }
 }
 
 export async function getRuneIcon(name: string) {
+    try {
     return await getResourceIcon('perks', name)
+    } catch (error: any) {
+        console.error("Error in getRuneIcon:", error);
+        throw new Error(error.message);
+    }
 }
 
 export async function getChampionIcon(championName: string) {
+    try {
     return await getResourceIcon('champion-summary', championName)
+    } catch (error: any) {
+        console.error("Error in getChampionIcon:", error);
+        throw new Error(error.message);
+    }
 }
 
 export async function getResourceIcon(fileName: string, wantedResource: string) {
+    try {
     const resources = await getResources(fileName);
 
     const resource = resources.find(resource => resource.name.toLowerCase().includes(wantedResource.toLowerCase()) ||
@@ -197,6 +251,10 @@ export async function getResourceIcon(fileName: string, wantedResource: string) 
 
     const resourcePath = iconPath.replace('/lol-game-data/assets', '/latest/plugins/rcp-be-lol-game-data/global/default').toLowerCase();
     return BASE_URL + resourcePath
+    } catch (error: any) {
+        console.error("Error in getResourceIcon:", error);
+        throw new Error(error.message);
+    }
 }
 
 
