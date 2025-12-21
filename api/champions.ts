@@ -1,5 +1,5 @@
 import { VercelRequest, type VercelResponse } from '@vercel/node';
-import { getChampion, getChampions, getRuneField, getRuneIcon } from './riotApi';
+import { getChampions } from './riotApi';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
     const champion = await getChampions();
