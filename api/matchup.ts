@@ -26,10 +26,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
 // GET: Retrieve matchup data (existing functionality)
 async function handleGetMatchup(req: VercelRequest, res: VercelResponse) {
-    const { championName } = req.query;
+    const { enemyChampion } = req.query;
 
-    if (!championName || typeof championName !== "string") {
-        return res.status(400).json({ message: "championName query parameter is required and must be a string" });
+    if (!enemyChampion || typeof enemyChampion !== "string") {
+        return res.status(400).json({ message: "enemyChampion query parameter is required and must be a string" });
     }
 
     const client = new MongoClient(uri);
@@ -41,12 +41,11 @@ async function handleGetMatchup(req: VercelRequest, res: VercelResponse) {
         const db = client.db(dbName);
         const collection = db.collection(collectionName);
 
-        console.log(`Searching for matchups involving: "${championName}"...`);
+        console.log(`Searching for matchups involving: "${enemyChampion}"...`);
         // Find matchups where the champion is either the enemy OR the champion you're playing
         const query = {
             $or: [
-                { enemyChampion: championName },  // Yasuo is the enemy
-                { champion: championName }        // Yasuo is the champion you're playing
+                { enemyChampion: enemyChampion } // Yasuo is the enemy
             ]
         };
         const results = await collection.find(query).toArray();
@@ -55,11 +54,11 @@ async function handleGetMatchup(req: VercelRequest, res: VercelResponse) {
             const matchup = results[0]
             matchup.champion = await getChampion(matchup.champion)
             res.status(200).json({
-                message: `Found ${results.length} matchup(s) involving "${championName}"`,
+                message: `Found ${results.length} matchup(s) involving "${enemyChampion}"`,
                 matchup,
             });
         } else {
-            res.status(404).json({ message: `No matchups found involving "${championName}"` });
+            res.status(404).json({ message: `No matchups found involving "${enemyChampion}"` });
         }
     } catch (error) {
         console.error("Error querying MongoDB:", error.message);
