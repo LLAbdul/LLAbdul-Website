@@ -1,8 +1,8 @@
 import { VercelRequest, type VercelResponse } from '@vercel/node';
 import { getRune } from '../riotApi';
-import { Rune, ApiResponse } from '../types';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
+    try {
     const name = req.query['name']
 
     if (!name || typeof name !== "string") {
@@ -16,4 +16,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(200).send({
         data: runeData
     });
+    } catch (error: any) {
+        console.error("Error in runes/[name] endpoint:", error);
+        return res.status(500).send({
+            error: "Internal server error",
+            message: error.message
+        });
+    }
 }
