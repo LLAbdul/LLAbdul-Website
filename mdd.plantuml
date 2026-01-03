@@ -1,4 +1,4 @@
-@startuml LL Abdul website
+@startuml LL Abdul website diagram
 
 interface Resource {
     id: number
