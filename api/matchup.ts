@@ -150,12 +150,12 @@ async function handleCreateMatchup(req: VercelRequest, res: VercelResponse) {
 
 async function handleUpdateMatchup(req: VercelRequest, res: VercelResponse) {
     try {
-        const { championName } = req.query;
+        const { enemyChampion: enemyChampion } = req.query;
 
         // 1. Validate query parameter
-        if (!championName || typeof championName !== "string") {
+        if (!enemyChampion || typeof enemyChampion !== "string") {
             return res.status(400).json({
-                message: "championName query parameter is required and must be a string"
+                message: "enemyChampion query parameter is required and must be a string"
             });
         }
 
@@ -177,8 +177,8 @@ async function handleUpdateMatchup(req: VercelRequest, res: VercelResponse) {
             // Find matchups where championName is either the enemy or the champion
             const query = {
                 $or: [
-                    { enemyChampion: championName },
-                    { champion: championName }
+                    { enemyChampion: enemyChampion },
+                    { champion: enemyChampion }
                 ]
             };
             const updateDoc = {
@@ -194,13 +194,13 @@ async function handleUpdateMatchup(req: VercelRequest, res: VercelResponse) {
             // 5. Check if document was found and updated
             if (result.matchedCount === 0) {
                 return res.status(404).json({
-                    message: `No matchup found involving "${championName}"`
+                    message: `No matchup found involving "${enemyChampion}"`
                 });
             }
 
-            console.log(`Matchup updated for "${championName}"`);
+            console.log(`Matchup updated for "${enemyChampion}"`);
             res.status(200).json({
-                message: `Matchup updated successfully for "${championName}"`,
+                message: `Matchup updated successfully for "${enemyChampion}"`,
                 modifiedCount: result.modifiedCount
             });
         } catch (dbError: any) {
