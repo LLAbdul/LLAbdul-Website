@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es2016", /* Set the JavaScript language version */
+    "target": "es2017", /* Set the JavaScript language version */
     "module": "commonjs", /* Use CommonJS for Node.js */
     "rootDir": "./", /* Specify the root directory for source files */
     "outDir": "./dist", /* Specify the output directory for compiled files */

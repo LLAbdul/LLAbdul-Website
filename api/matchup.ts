@@ -1,11 +1,9 @@
-import { MongoClient } from "mongodb";
 import { VercelRequest, VercelResponse } from '@vercel/node';
 import { getChampion } from "./riotApi";
+import { getMongoClient } from "./lib/mongo";
 
-const uri = process.env.MONGODB_URI; // Set this in Vercel's environment variables
 const dbName = "league_coaching_website"; // Replace with your database name
 const collectionName = "matchups"; // Replace with your collection name
-
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
     // Handle different HTTP methods
@@ -32,12 +30,8 @@ async function handleGetMatchup(req: VercelRequest, res: VercelResponse) {
         return res.status(400).json({ message: "enemyChampion query parameter is required and must be a string" });
     }
 
-    const client = new MongoClient(uri);
-
     try {
-        console.log("Connecting to MongoDB...");
-        await client.connect();
-
+        const client = await getMongoClient();
         const db = client.db(dbName);
         const collection = db.collection(collectionName);
 
@@ -60,12 +54,9 @@ async function handleGetMatchup(req: VercelRequest, res: VercelResponse) {
         } else {
             res.status(404).json({ message: `No matchups found involving "${enemyChampion}"` });
         }
-    } catch (error) {
+    } catch (error: any) {
         console.error("Error querying MongoDB:", error.message);
         res.status(500).json({ message: "Internal Server Error", error: error.message });
-    } finally {
-        console.log("Closing MongoDB connection.");
-        await client.close();
     }
 }
 
@@ -101,14 +92,11 @@ async function handleCreateMatchup(req: VercelRequest, res: VercelResponse) {
             });
         }
 
-        const client = new MongoClient(uri);
+        const client = await getMongoClient();
+        const db = client.db(dbName);
+        const collection = db.collection(collectionName);
 
         try {
-            console.log("Connecting to MongoDB...");
-            await client.connect();
-
-            const db = client.db(dbName);
-            const collection = db.collection(collectionName);
 
             // 4. Check if matchup already exists (optional)
             const existingMatchup = await collection.findOne({ enemyChampion });
@@ -144,10 +132,14 @@ async function handleCreateMatchup(req: VercelRequest, res: VercelResponse) {
                 insertedId: result.insertedId,
                 matchup: newMatchup
             });
-        } finally {
-            await client.close();
+        } catch (dbError: any) {
+            console.error("Error creating matchup in database:", dbError);
+            res.status(500).json({
+                message: "Internal Server Error",
+                error: dbError?.message || "Unknown error"
+            });
         }
-    } catch (error) {
+    } catch (error: any) {
         console.error("Error creating matchup:", error);
         res.status(500).json({
             message: "Internal Server Error",
@@ -175,14 +167,11 @@ async function handleUpdateMatchup(req: VercelRequest, res: VercelResponse) {
             });
         }
 
-        const client = new MongoClient(uri);
+        const client = await getMongoClient();
+        const db = client.db(dbName);
+        const collection = db.collection(collectionName);
 
         try {
-            console.log("Connecting to MongoDB...");
-            await client.connect();
-
-            const db = client.db(dbName);
-            const collection = db.collection(collectionName);
 
             // 3. Prepare update query and data
             // Find matchups where championName is either the enemy or the champion
@@ -214,10 +203,14 @@ async function handleUpdateMatchup(req: VercelRequest, res: VercelResponse) {
                 message: `Matchup updated successfully for "${championName}"`,
                 modifiedCount: result.modifiedCount
             });
-        } finally {
-            await client.close();
+        } catch (dbError: any) {
+            console.error("Error updating matchup in database:", dbError);
+            res.status(500).json({
+                message: "Internal Server Error",
+                error: dbError?.message || "Unknown error"
+            });
         }
-    } catch (error) {
+    } catch (error: any) {
         console.error("Error updating matchup:", error);
         res.status(500).json({
             message: "Internal Server Error",
