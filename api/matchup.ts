@@ -1,6 +1,7 @@
 import { VercelRequest, VercelResponse } from '@vercel/node';
 import { getChampion } from "./riotApi";
 import { getMongoClient } from "./lib/mongo";
+import { verifyApiKey } from "./lib/auth";
 
 const dbName = "league_coaching_website"; // Replace with your database name
 const collectionName = "matchups"; // Replace with your collection name
@@ -74,6 +75,11 @@ async function handleGetMatchup(req: VercelRequest, res: VercelResponse) {
 
 // POST: Create new matchup data
 async function handleCreateMatchup(req: VercelRequest, res: VercelResponse) {
+    // Vérifier l'API Key avant de continuer
+    if (!verifyApiKey(req, res)) {
+        return; // La réponse d'erreur a déjà été envoyée par verifyApiKey
+    }
+
     try {
         // 1. Validate request body structure
         const {
@@ -161,6 +167,11 @@ async function handleCreateMatchup(req: VercelRequest, res: VercelResponse) {
 }
 
 async function handleUpdateMatchup(req: VercelRequest, res: VercelResponse) {
+    // Vérifier l'API Key avant de continuer
+    if (!verifyApiKey(req, res)) {
+        return; // La réponse d'erreur a déjà été envoyée par verifyApiKey
+    }
+
     try {
         const { enemyChampion: enemyChampion } = req.query;
 
