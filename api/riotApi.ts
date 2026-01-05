@@ -124,19 +124,28 @@ export async function getChampion(championAlias: string): Promise<Champion> {
         throw new Error(error.message);
     }
 }
+export function formatItemIcon(item: RawItemData): string {
+    let iconUrl = '';
+    if (item.iconPath) {
+        const resourcePath = item.iconPath.replace('/lol-game-data/assets', '/latest/plugins/rcp-be-lol-game-data/global/default').toLowerCase();
+        iconUrl = BASE_URL + resourcePath;
+    }
+    return iconUrl;
+}
 export async function getItems(): Promise<Item[]> {
     try{
         const resources = await getItemsData()
         const itemsInShop = resources.filter(items => items.inStore === true)
-        const items: Item[] = await Promise.all(itemsInShop.map(async items => {
+        
+        const items: Item[] = itemsInShop.map(item => {
             return {
-                id: items.id,
-                icon: await getItemIcon(items.name),
-                name: items.name,
-                description: items.description,
-                price: items.price
-            } as Item;
-        }))
+                id: item.id,
+                icon: formatItemIcon(item),
+                name: item.name,
+                description: item.description,
+                price: item.price
+            };
+        })
 
         return items;
     } catch (error: any) {
