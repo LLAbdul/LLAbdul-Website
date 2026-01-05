@@ -1,4 +1,4 @@
-import { MongoClient, MongoClientOptions } from "mongodb";
+import { MongoClient, MongoClientOptions, ServerApiVersion } from "mongodb";
 
 const uri = process.env.MONGODB_URI;
 if (!uri) {
@@ -10,6 +10,11 @@ declare global {
 }
 
 const options: MongoClientOptions = {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  },
   serverSelectionTimeoutMS: 5000,
   connectTimeoutMS: 5000,
   socketTimeoutMS: 10000,
