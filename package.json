@@ -11,11 +11,14 @@
   "description": "",
   "_comment": "Note: Warnings about deprecated packages (request, request-promise, uuid, har-validator) come from transitive dependencies of 'poro' package. These are warnings only and do not break the build.",
   "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^22.10.2",
     "typescript": "^5.7.2"
   },
   "dependencies": {
     "@vercel/node": "^5.5.16",
+    "jsonwebtoken": "^9.0.3",
+    "jwks-rsa": "^3.2.0",
     "mongodb": "^7.0.0",
     "poro": "^2.3.0",
     "winston": "^3.17.0"
