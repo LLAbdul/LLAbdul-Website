@@ -9,9 +9,9 @@
   "author": "",
   "license": "ISC",
   "description": "",
+  "_comment": "Note: Warnings about deprecated packages (request, request-promise, uuid, har-validator) come from transitive dependencies of 'poro' package. These are warnings only and do not break the build.",
   "devDependencies": {
     "@types/node": "^22.10.2",
-    "@types/winston": "^2.4.4",
     "typescript": "^5.7.2"
   },
   "dependencies": {

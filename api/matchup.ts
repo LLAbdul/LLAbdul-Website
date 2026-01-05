@@ -31,6 +31,14 @@ async function handleGetMatchup(req: VercelRequest, res: VercelResponse) {
     }
 
     try {
+        // Check if MONGODB_URI is configured
+        if (!process.env.MONGODB_URI) {
+            return res.status(500).json({ 
+                message: "MongoDB not configured", 
+                error: "MONGODB_URI environment variable is missing" 
+            });
+        }
+
         const client = await getMongoClient();
         const db = client.db(dbName);
         const collection = db.collection(collectionName);
@@ -56,7 +64,11 @@ async function handleGetMatchup(req: VercelRequest, res: VercelResponse) {
         }
     } catch (error: any) {
         console.error("Error querying MongoDB:", error.message);
-        res.status(500).json({ message: "Internal Server Error", error: error.message });
+        res.status(500).json({ 
+            message: "Internal Server Error", 
+            error: error.message,
+            details: process.env.MONGODB_URI ? "MongoDB URI is configured" : "MongoDB URI is missing"
+        });
     }
 }
 
