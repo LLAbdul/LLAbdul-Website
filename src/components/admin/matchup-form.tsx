@@ -1,8 +1,10 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { ArrowLeft, Loader2, Save } from "lucide-react";
+import { ArrowLeft, Loader2 } from "lucide-react";
 import Link from "next/link";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { createMatchup, updateMatchup } from "@/app/admin/actions";
 
 interface MatchupFormData {
@@ -16,28 +18,13 @@ interface MatchupFormData {
   summonerSpells: string;
 }
 
-interface MatchupFormProps {
-  initialData?: MatchupFormData;
-  mode: "create" | "edit";
-  matchupId?: string;
-}
-
 const difficulties = ["EASY", "SKILL", "HARD"];
 
-export function MatchupForm({ initialData, mode }: MatchupFormProps) {
+export function MatchupForm({ initialData, mode }: { initialData?: MatchupFormData; mode: "create" | "edit" }) {
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState("");
   const [data, setData] = useState<MatchupFormData>(
-    initialData || {
-      enemyChampion: "",
-      champion: "Yasuo",
-      difficulty: "SKILL",
-      early: "",
-      mid: "",
-      late: "",
-      videos: "",
-      summonerSpells: "Flash, Ignite",
-    }
+    initialData || { enemyChampion: "", champion: "Yasuo", difficulty: "SKILL", early: "", mid: "", late: "", videos: "", summonerSpells: "Flash, Ignite" }
   );
 
   function update(field: keyof MatchupFormData, value: string) {
@@ -47,187 +34,87 @@ export function MatchupForm({ initialData, mode }: MatchupFormProps) {
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError("");
-
-    const videos = data.videos
-      .split("\n")
-      .map((v) => v.trim())
-      .filter(Boolean);
-    const summonerSpells = data.summonerSpells
-      .split(",")
-      .map((s) => s.trim())
-      .filter(Boolean);
+    const videos = data.videos.split("\n").map((v) => v.trim()).filter(Boolean);
+    const summonerSpells = data.summonerSpells.split(",").map((s) => s.trim()).filter(Boolean);
 
     startTransition(async () => {
       try {
-        if (mode === "create") {
-          const result = await createMatchup({
-            enemyChampion: data.enemyChampion,
-            champion: data.champion,
-            difficulty: data.difficulty,
-            early: data.early,
-            mid: data.mid,
-            late: data.late || undefined,
-            videos,
-            summonerSpells,
-          });
-          if (result?.error) setError(result.error);
-        } else {
-          const result = await updateMatchup(data.enemyChampion, {
-            difficulty: data.difficulty,
-            early: data.early,
-            mid: data.mid,
-            late: data.late || undefined,
-            videos,
-            summonerSpells,
-          });
-          if (result?.error) setError(result.error);
-        }
+        const result = mode === "create"
+          ? await createMatchup({ ...data, late: data.late || undefined, videos, summonerSpells })
+          : await updateMatchup(data.enemyChampion, { difficulty: data.difficulty, early: data.early, mid: data.mid, late: data.late || undefined, videos, summonerSpells });
+        if (result?.error) setError(result.error);
       } catch (err: any) {
-        if (err?.message !== "NEXT_REDIRECT") {
-          setError("Something went wrong. Please try again.");
-        }
+        if (err?.message !== "NEXT_REDIRECT") setError("Something went wrong.");
       }
     });
   }
 
+  const inputClass = "w-full px-3 py-2 rounded-md bg-background text-foreground text-sm border border-border placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring";
+
   return (
-    <div className="max-w-2xl mx-auto space-y-6 py-4">
-      <div className="flex items-center gap-3 animate-in-up">
-        <Link href="/admin/matchups" className="text-foreground-muted hover:text-foreground transition-colors">
+    <div className="max-w-2xl space-y-6 py-6">
+      <div className="flex items-center gap-3">
+        <Link href="/admin/matchups" className="text-muted-foreground hover:text-foreground transition-colors">
           <ArrowLeft className="w-5 h-5" />
         </Link>
-        <h1 className="text-xl font-display font-bold tracking-wide">
-          {mode === "create" ? "New Matchup Guide" : "Edit Matchup Guide"}
-        </h1>
+        <h1 className="text-xl font-bold">{mode === "create" ? "New Matchup" : "Edit Matchup"}</h1>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-5 animate-in-up" style={{ animationDelay: "0.1s" }}>
-        {/* Champion + Enemy */}
-        <div className="grid sm:grid-cols-2 gap-4">
-          <div className="space-y-2">
-            <label className="text-xs font-display font-semibold uppercase tracking-wider text-foreground-muted">
-              Your Champion
-            </label>
-            <select
-              value={data.champion}
-              onChange={(e) => update("champion", e.target.value)}
-              className="w-full px-4 py-3 rounded-lg bg-surface border border-border text-foreground text-sm focus:outline-none focus:border-accent-purple/50"
-            >
-              <option value="Yasuo">Yasuo</option>
-              <option value="Yone">Yone</option>
-            </select>
-          </div>
-          <div className="space-y-2">
-            <label className="text-xs font-display font-semibold uppercase tracking-wider text-foreground-muted">
-              Enemy Champion
-            </label>
-            <input
-              type="text"
-              value={data.enemyChampion}
-              onChange={(e) => update("enemyChampion", e.target.value)}
-              placeholder="e.g. Zed"
-              required
-              disabled={mode === "edit"}
-              className="w-full px-4 py-3 rounded-lg bg-surface border border-border text-foreground placeholder:text-foreground-subtle text-sm focus:outline-none focus:border-accent-purple/50 disabled:opacity-50"
-            />
-          </div>
-        </div>
+      <Card>
+        <CardContent>
+          <form onSubmit={handleSubmit} className="space-y-5">
+            <div className="grid sm:grid-cols-2 gap-4">
+              <div className="space-y-1.5">
+                <label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Champion</label>
+                <select value={data.champion} onChange={(e) => update("champion", e.target.value)} className={inputClass}>
+                  <option value="Yasuo">Yasuo</option>
+                  <option value="Yone">Yone</option>
+                </select>
+              </div>
+              <div className="space-y-1.5">
+                <label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Enemy</label>
+                <input type="text" value={data.enemyChampion} onChange={(e) => update("enemyChampion", e.target.value)} placeholder="e.g. Zed" required disabled={mode === "edit"} className={`${inputClass} disabled:opacity-50`} />
+              </div>
+            </div>
 
-        {/* Difficulty */}
-        <div className="space-y-2">
-          <label className="text-xs font-display font-semibold uppercase tracking-wider text-foreground-muted">
-            Difficulty
-          </label>
-          <div className="flex gap-2">
-            {difficulties.map((d) => (
-              <button
-                key={d}
-                type="button"
-                onClick={() => update("difficulty", d)}
-                className={`px-4 py-2 rounded-lg text-sm font-medium border transition-colors ${
-                  data.difficulty === d
-                    ? d === "EASY"
-                      ? "bg-difficulty-easy/20 text-difficulty-easy border-difficulty-easy/30"
-                      : d === "SKILL"
-                      ? "bg-difficulty-skill/20 text-difficulty-skill border-difficulty-skill/30"
-                      : "bg-difficulty-hard/20 text-difficulty-hard border-difficulty-hard/30"
-                    : "bg-surface border-border text-foreground-muted hover:text-foreground"
-                }`}
-              >
-                {d}
-              </button>
+            <div className="space-y-1.5">
+              <label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Difficulty</label>
+              <div className="flex gap-2">
+                {difficulties.map((d) => (
+                  <Button key={d} type="button" variant={data.difficulty === d ? "default" : "outline"} size="sm" onClick={() => update("difficulty", d)}>
+                    {d}
+                  </Button>
+                ))}
+              </div>
+            </div>
+
+            {(["early", "mid", "late"] as const).map((phase) => (
+              <div key={phase} className="space-y-1.5">
+                <label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                  {phase.charAt(0).toUpperCase() + phase.slice(1)} Game{phase === "late" ? " (optional)" : ""}
+                </label>
+                <textarea value={data[phase]} onChange={(e) => update(phase, e.target.value)} placeholder={`Strategy...`} rows={3} className={`${inputClass} resize-y`} />
+              </div>
             ))}
-          </div>
-        </div>
 
-        {/* Strategy phases */}
-        {(["early", "mid", "late"] as const).map((phase) => (
-          <div key={phase} className="space-y-2">
-            <label className="text-xs font-display font-semibold uppercase tracking-wider text-foreground-muted">
-              {phase === "early" ? "Early Game" : phase === "mid" ? "Mid Game" : "Late Game (optional)"}
-            </label>
-            <textarea
-              value={data[phase]}
-              onChange={(e) => update(phase, e.target.value)}
-              placeholder={`Strategy for ${phase} game...`}
-              rows={4}
-              className="w-full px-4 py-3 rounded-lg bg-surface border border-border text-foreground placeholder:text-foreground-subtle text-sm focus:outline-none focus:border-accent-purple/50 resize-y"
-            />
-          </div>
-        ))}
+            <div className="space-y-1.5">
+              <label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Summoner Spells</label>
+              <input type="text" value={data.summonerSpells} onChange={(e) => update("summonerSpells", e.target.value)} placeholder="Flash, Ignite" className={inputClass} />
+            </div>
 
-        {/* Summoner Spells */}
-        <div className="space-y-2">
-          <label className="text-xs font-display font-semibold uppercase tracking-wider text-foreground-muted">
-            Summoner Spells (comma-separated)
-          </label>
-          <input
-            type="text"
-            value={data.summonerSpells}
-            onChange={(e) => update("summonerSpells", e.target.value)}
-            placeholder="Flash, Ignite"
-            className="w-full px-4 py-3 rounded-lg bg-surface border border-border text-foreground placeholder:text-foreground-subtle text-sm focus:outline-none focus:border-accent-purple/50"
-          />
-        </div>
+            <div className="space-y-1.5">
+              <label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Video URLs (one per line)</label>
+              <textarea value={data.videos} onChange={(e) => update("videos", e.target.value)} placeholder="https://youtube.com/watch?v=..." rows={3} className={`${inputClass} resize-y`} />
+            </div>
 
-        {/* Videos */}
-        <div className="space-y-2">
-          <label className="text-xs font-display font-semibold uppercase tracking-wider text-foreground-muted">
-            Video URLs (one per line)
-          </label>
-          <textarea
-            value={data.videos}
-            onChange={(e) => update("videos", e.target.value)}
-            placeholder={"https://youtube.com/watch?v=...\nhttps://youtube.com/watch?v=..."}
-            rows={3}
-            className="w-full px-4 py-3 rounded-lg bg-surface border border-border text-foreground placeholder:text-foreground-subtle text-sm focus:outline-none focus:border-accent-purple/50 resize-y"
-          />
-        </div>
+            {error && <p className="text-sm text-destructive">{error}</p>}
 
-        {error && (
-          <p className="text-sm text-difficulty-hard p-3 rounded-lg bg-difficulty-hard/10 border border-difficulty-hard/20">
-            {error}
-          </p>
-        )}
-
-        <button
-          type="submit"
-          disabled={isPending || !data.enemyChampion}
-          className="w-full py-3 rounded-lg bg-accent-purple text-white font-medium text-sm hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 glow-purple"
-        >
-          {isPending ? (
-            <>
-              <Loader2 className="w-4 h-4 animate-spin" />
-              Saving...
-            </>
-          ) : (
-            <>
-              <Save className="w-4 h-4" />
-              {mode === "create" ? "Create Matchup" : "Save Changes"}
-            </>
-          )}
-        </button>
-      </form>
+            <Button type="submit" disabled={isPending || !data.enemyChampion} className="w-full">
+              {isPending ? <><Loader2 className="w-4 h-4 animate-spin mr-2" /> Saving...</> : mode === "create" ? "Create Matchup" : "Save Changes"}
+            </Button>
+          </form>
+        </CardContent>
+      </Card>
     </div>
   );
 }

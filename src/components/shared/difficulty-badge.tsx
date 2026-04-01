@@ -1,41 +1,20 @@
-import { cn } from "@/lib/utils";
+import { Badge } from "@/components/ui/badge";
 
-const difficultyConfig: Record<string, { label: string; className: string }> = {
-  EASY: {
-    label: "Easy",
-    className: "bg-difficulty-easy/20 text-difficulty-easy border-difficulty-easy/30",
-  },
-  SKILL: {
-    label: "Skill",
-    className: "bg-difficulty-skill/20 text-difficulty-skill border-difficulty-skill/30",
-  },
-  HARD: {
-    label: "Hard",
-    className: "bg-difficulty-hard/20 text-difficulty-hard border-difficulty-hard/30",
-  },
+const config: Record<string, { label: string; className: string }> = {
+  EASY: { label: "Easy", className: "bg-difficulty-easy/15 text-difficulty-easy border-difficulty-easy/25 hover:bg-difficulty-easy/15" },
+  SKILL: { label: "Skill", className: "bg-difficulty-skill/15 text-difficulty-skill border-difficulty-skill/25 hover:bg-difficulty-skill/15" },
+  HARD: { label: "Hard", className: "bg-difficulty-hard/15 text-difficulty-hard border-difficulty-hard/25 hover:bg-difficulty-hard/15" },
 };
 
-interface DifficultyBadgeProps {
-  difficulty: string;
-  className?: string;
-}
-
-export function DifficultyBadge({ difficulty, className }: DifficultyBadgeProps) {
-  const normalized = difficulty.toUpperCase();
-  const config = difficultyConfig[normalized] ?? {
+export function DifficultyBadge({ difficulty, className }: { difficulty: string; className?: string }) {
+  const c = config[difficulty.toUpperCase()] ?? {
     label: difficulty,
-    className: "bg-difficulty-hard/20 text-difficulty-hard border-difficulty-hard/30",
+    className: "bg-difficulty-hard/15 text-difficulty-hard border-difficulty-hard/25 hover:bg-difficulty-hard/15",
   };
 
   return (
-    <span
-      className={cn(
-        "inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-semibold border uppercase tracking-wide",
-        config.className,
-        className
-      )}
-    >
-      {config.label}
-    </span>
+    <Badge variant="outline" className={`${c.className} text-[11px] font-semibold uppercase tracking-wide ${className ?? ""}`}>
+      {c.label}
+    </Badge>
   );
 }

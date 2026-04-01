@@ -2,7 +2,9 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Shield, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
 export default function AdminLoginPage() {
   const [apiKey, setApiKey] = useState("");
@@ -14,14 +16,12 @@ export default function AdminLoginPage() {
     e.preventDefault();
     setError("");
     setLoading(true);
-
     try {
       const res = await fetch("/api/admin/auth", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ apiKey }),
       });
-
       if (res.ok) {
         router.push("/admin");
         router.refresh();
@@ -30,7 +30,7 @@ export default function AdminLoginPage() {
         setError(data.error || "Authentication failed");
       }
     } catch {
-      setError("Network error. Please try again.");
+      setError("Network error.");
     } finally {
       setLoading(false);
     }
@@ -38,49 +38,28 @@ export default function AdminLoginPage() {
 
   return (
     <div className="flex items-center justify-center min-h-[60vh]">
-      <div className="w-full max-w-sm animate-in-up">
-        <div className="text-center mb-8">
-          <div className="w-12 h-12 rounded-xl bg-accent-purple/10 border border-accent-purple/20 flex items-center justify-center mx-auto mb-4">
-            <Shield className="w-6 h-6 text-accent-purple" />
-          </div>
-          <h1 className="text-xl font-display font-bold">Admin Access</h1>
-          <p className="text-sm text-foreground-muted mt-1">
-            Enter your API key to continue
-          </p>
-        </div>
-
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
+      <Card className="w-full max-w-sm">
+        <CardHeader>
+          <CardTitle>Admin Access</CardTitle>
+          <CardDescription>Enter your API key to continue</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={handleSubmit} className="space-y-4">
             <input
               type="password"
               value={apiKey}
               onChange={(e) => setApiKey(e.target.value)}
               placeholder="API Key"
               required
-              className="w-full px-4 py-3 rounded-lg bg-surface border border-border text-foreground placeholder:text-foreground-subtle focus:outline-none focus:border-accent-purple/50 focus:ring-1 focus:ring-accent-purple/20 transition-all text-sm"
+              className="w-full px-3 py-2 rounded-md bg-background text-foreground text-sm border border-border placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring"
             />
-          </div>
-
-          {error && (
-            <p className="text-sm text-difficulty-hard">{error}</p>
-          )}
-
-          <button
-            type="submit"
-            disabled={loading || !apiKey}
-            className="w-full py-3 rounded-lg bg-accent-purple text-white font-medium text-sm hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 glow-purple"
-          >
-            {loading ? (
-              <>
-                <Loader2 className="w-4 h-4 animate-spin" />
-                Authenticating...
-              </>
-            ) : (
-              "Sign In"
-            )}
-          </button>
-        </form>
-      </div>
+            {error && <p className="text-sm text-destructive">{error}</p>}
+            <Button type="submit" disabled={loading || !apiKey} className="w-full">
+              {loading ? <><Loader2 className="w-4 h-4 animate-spin mr-2" /> Signing in...</> : "Sign In"}
+            </Button>
+          </form>
+        </CardContent>
+      </Card>
     </div>
   );
 }

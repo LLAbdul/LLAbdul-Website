@@ -17,22 +17,20 @@ export function MatchupGrid({ matchups }: MatchupGridProps) {
   );
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-5">
       <SearchBar
         value={search}
         onChange={setSearch}
         placeholder="Search champions..."
-        className="max-w-md"
+        className="max-w-sm"
       />
 
       {filtered.length === 0 ? (
-        <p className="text-[var(--muted-foreground)] text-center py-12">
-          {search
-            ? `No matchups found for "${search}"`
-            : "No matchup guides yet. Check back soon!"}
+        <p className="text-muted-foreground text-center py-12 text-sm">
+          {search ? `No matchups found for "${search}"` : "No matchup guides yet."}
         </p>
       ) : (
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
           {filtered.map((matchup) => (
             <MatchupCard
               key={matchup.enemyChampion}

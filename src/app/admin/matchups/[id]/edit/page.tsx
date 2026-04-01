@@ -40,5 +40,5 @@ export default async function EditMatchupPage({ params }: PageProps) {
     notFound();
   }
 
-  return <MatchupForm mode="edit" initialData={matchup} matchupId={id} />;
+  return <MatchupForm mode="edit" initialData={matchup} />;
 }

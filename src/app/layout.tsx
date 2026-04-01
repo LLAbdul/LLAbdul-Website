@@ -1,15 +1,17 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import { cn } from "@/lib/utils";
-import { TooltipProvider } from "@/components/ui/tooltip";
 import { Sidebar, MobileHeader } from "@/components/layout/sidebar";
 
-const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
-const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-mono" });
+const jakarta = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  variable: "--font-sans",
+  weight: ["400", "500", "600", "700", "800"],
+});
 
 export const viewport: Viewport = {
-  themeColor: "#1a1533",
+  themeColor: "#1a1c23",
   width: "device-width",
   initialScale: 1,
 };
@@ -58,19 +60,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={cn(geist.variable, geistMono.variable)}>
-      <body className="min-h-screen bg-mesh">
-        <TooltipProvider>
-          <div className="flex min-h-screen">
-            <Sidebar />
-            <div className="flex-1 flex flex-col min-h-screen">
-              <MobileHeader />
-              <main className="flex-1 px-4 py-6 md:px-10 md:py-8 lg:px-16">
-                {children}
-              </main>
-            </div>
+    <html lang="en" className={jakarta.variable}>
+      <body className="min-h-screen">
+        <div className="flex min-h-screen">
+          <Sidebar />
+          <div className="flex-1 flex flex-col min-h-screen">
+            <MobileHeader />
+            <main className="flex-1 w-full max-w-6xl mx-auto px-4 py-6 md:px-8 md:py-8 lg:px-12">
+              {children}
+            </main>
           </div>
-        </TooltipProvider>
+        </div>
       </body>
     </html>
   );

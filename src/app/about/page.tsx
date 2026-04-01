@@ -1,88 +1,83 @@
-import { ExternalLink, Trophy, Gamepad2, MapPin, Crosshair } from "lucide-react";
+import { ExternalLink } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
 
 export const metadata = {
-  title: "About - LLAbdul",
+  title: "About",
   description: "About LLAbdul - Challenger Rank 16 Yasuo & Yone player.",
 };
 
 const socials = [
-  { name: "Discord", href: "#", icon: "discord", color: "oklch(0.62 0.18 275)" },
-  { name: "YouTube", href: "#", icon: "youtube", color: "oklch(0.62 0.22 25)" },
-  { name: "Twitch", href: "#", icon: "twitch", color: "oklch(0.58 0.24 290)" },
-  { name: "Twitter / X", href: "#", icon: "twitter", color: "oklch(0.75 0.12 200)" },
+  { name: "Discord", href: "#" },
+  { name: "YouTube", href: "#" },
+  { name: "Twitch", href: "#" },
+  { name: "Twitter / X", href: "#" },
 ];
 
 export default function AboutPage() {
   return (
-    <div className="max-w-3xl mx-auto space-y-10 py-4">
-      {/* Header */}
-      <section className="space-y-4 animate-in-up">
-        <h1 className="text-3xl font-display font-bold tracking-wide">
-          About <span className="gradient-text">LLAbdul</span>
-        </h1>
-        <p className="text-foreground-muted leading-relaxed">
-          Challenger Rank 16 Yasuo &amp; Yone player. I built this site to share
-          everything I&apos;ve learned across thousands of games at the highest
-          level of solo queue.
+    <div className="max-w-3xl space-y-8 py-6">
+      <div>
+        <h1 className="text-2xl font-bold tracking-tight">About</h1>
+        <p className="text-muted-foreground mt-1">
+          Challenger Rank 16 Yasuo &amp; Yone player.
         </p>
-      </section>
+      </div>
 
-      {/* Stats row */}
-      <section className="grid grid-cols-2 md:grid-cols-4 gap-3 animate-in-up" style={{ animationDelay: "0.1s" }}>
+      {/* Stats */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         {[
-          { icon: Trophy, label: "Peak Rank", value: "#16 Challenger", color: "text-accent-gold" },
-          { icon: Gamepad2, label: "Champions", value: "Yasuo & Yone", color: "text-accent-purple" },
-          { icon: MapPin, label: "Region", value: "NA", color: "text-accent-cyan" },
-          { icon: Crosshair, label: "Role", value: "Mid / Top", color: "text-foreground" },
+          { label: "Peak Rank", value: "#16 Challenger" },
+          { label: "Champions", value: "Yasuo & Yone" },
+          { label: "Region", value: "NA" },
+          { label: "Role", value: "Mid / Top" },
         ].map((stat) => (
-          <div key={stat.label} className="p-4 rounded-xl bg-surface border border-border text-center">
-            <stat.icon className={`w-4 h-4 ${stat.color} mx-auto mb-2`} />
-            <div className={`text-base font-display font-bold ${stat.color}`}>{stat.value}</div>
-            <div className="text-[11px] text-foreground-subtle mt-1 uppercase tracking-wider">{stat.label}</div>
-          </div>
+          <Card key={stat.label}>
+            <CardContent className="text-center py-2">
+              <div className="font-bold">{stat.value}</div>
+              <div className="text-[11px] text-muted-foreground mt-0.5">{stat.label}</div>
+            </CardContent>
+          </Card>
         ))}
-      </section>
+      </div>
 
       {/* Story */}
-      <section className="animate-in-up" style={{ animationDelay: "0.2s" }}>
-        <h2 className="section-heading text-sm text-foreground-muted tracking-widest mb-4">My Journey</h2>
-        <div className="p-6 rounded-xl bg-surface border border-border space-y-4 text-sm text-foreground leading-relaxed">
-          <p>
-            I&apos;ve been playing League for years, focusing almost exclusively on Yasuo and Yone.
-            I hit Challenger and peaked at Rank 16 — learning every matchup the hard way through
-            thousands of games, countless replays, and a lot of trial and error.
-          </p>
-          <p>
-            This website is my way of giving back. Every matchup guide, every build recommendation,
-            every tip comes from real experience at the highest level of solo queue.
-          </p>
-          <p>
-            In the future, I&apos;m planning to collaborate with other top Yasuo and Yone players
-            around the world to make this the most comprehensive resource for our champions.
-          </p>
-        </div>
-      </section>
+      <div className="space-y-3">
+        <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">My Journey</h2>
+        <Card>
+          <CardContent className="space-y-3 text-sm leading-relaxed">
+            <p>
+              I&apos;ve been playing League for years, focusing almost exclusively on Yasuo and Yone.
+              I hit Challenger and peaked at Rank 16 — learning every matchup the hard way through
+              thousands of games and replays.
+            </p>
+            <p>
+              This website is my way of giving back. Every guide comes from real experience
+              at the highest level of solo queue.
+            </p>
+            <p>
+              I&apos;m planning to collaborate with other top Yasuo and Yone players around
+              the world to make this the most comprehensive resource for our champions.
+            </p>
+          </CardContent>
+        </Card>
+      </div>
 
       {/* Socials */}
-      <section className="animate-in-up" style={{ animationDelay: "0.3s" }}>
-        <h2 className="section-heading text-sm text-foreground-muted tracking-widest mb-4">Connect</h2>
+      <div className="space-y-3">
+        <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">Connect</h2>
         <div className="grid sm:grid-cols-2 gap-3">
-          {socials.map((social) => (
-            <a
-              key={social.name}
-              href={social.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="game-card flex items-center justify-between p-4 group"
-            >
-              <span className="font-display font-semibold tracking-wide" style={{ color: social.color }}>
-                {social.name}
-              </span>
-              <ExternalLink className="w-4 h-4 text-foreground-subtle group-hover:text-foreground transition-colors" />
+          {socials.map((s) => (
+            <a key={s.name} href={s.href} target="_blank" rel="noopener noreferrer">
+              <Card className="transition-colors hover:bg-muted/30">
+                <CardContent className="flex items-center justify-between">
+                  <span className="font-medium text-sm">{s.name}</span>
+                  <ExternalLink className="w-4 h-4 text-muted-foreground" />
+                </CardContent>
+              </Card>
             </a>
           ))}
         </div>
-      </section>
+      </div>
     </div>
   );
 }
