@@ -2,28 +2,26 @@
 @import "tailwindcss";
 
 @theme {
-  /* Neutral darks — near-zero chroma for flat surfaces */
-  --color-background: oklch(0.14 0.005 250);
-  --color-surface: oklch(0.17 0.005 250);
-  --color-surface-hover: oklch(0.20 0.005 250);
-  --color-surface-elevated: oklch(0.22 0.005 250);
-  --color-border: oklch(0.25 0.005 250);
-  --color-border-subtle: oklch(0.21 0.004 250);
-  --color-foreground: oklch(0.93 0.003 250);
-  --color-foreground-muted: oklch(0.58 0.008 250);
-  --color-foreground-subtle: oklch(0.44 0.006 250);
+  /* Deep navy backgrounds */
+  --color-background:       #0A0E21;
+  --color-surface:          #111833;
+  --color-surface-hover:    #1A2340;
+  --color-surface-elevated: #1E2A4A;
+  --color-border:           #1E2A4A;
+  --color-border-subtle:    #162035;
 
-  /* Primary accent — purple */
-  --color-accent-purple: oklch(0.62 0.26 285);
+  /* Text */
+  --color-foreground:       #E8E8ED;
+  --color-foreground-muted: #7B7F9E;
 
-  /* Secondary accents */
-  --color-accent-gold: oklch(0.80 0.15 85);
-  --color-accent-cyan: oklch(0.75 0.12 195);
+  /* Accents */
+  --color-accent-gold:      #C8AA6E;
+  --color-accent-cyan:      #0AC8B9;
 
   /* Difficulty */
-  --color-difficulty-easy: oklch(0.70 0.17 155);
-  --color-difficulty-skill: oklch(0.80 0.15 85);
-  --color-difficulty-hard: oklch(0.63 0.21 25);
+  --color-difficulty-easy:  #27AE60;
+  --color-difficulty-skill: #C8AA6E;
+  --color-difficulty-hard:  #E74C3C;
 
   /* Fonts */
   --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
@@ -36,41 +34,42 @@
   --radius-xl: 1rem;
 }
 
-/* shadcn theme variables */
+/* shadcn/ui CSS variable tokens */
 :root {
   --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
-  --background: oklch(0.14 0.005 250);
-  --foreground: oklch(0.93 0.003 250);
-  --card: oklch(0.17 0.005 250);
-  --card-foreground: oklch(0.93 0.003 250);
-  --popover: oklch(0.17 0.005 250);
-  --popover-foreground: oklch(0.93 0.003 250);
-  --primary: oklch(0.62 0.26 285);
-  --primary-foreground: oklch(0.98 0 0);
-  --secondary: oklch(0.22 0.005 250);
-  --secondary-foreground: oklch(0.93 0.003 250);
-  --muted: oklch(0.22 0.005 250);
-  --muted-foreground: oklch(0.58 0.008 250);
-  --accent: oklch(0.22 0.005 250);
-  --accent-foreground: oklch(0.93 0.003 250);
-  --destructive: oklch(0.63 0.21 25);
-  --border: oklch(0.25 0.005 250);
-  --input: oklch(0.21 0.005 250);
-  --ring: oklch(0.62 0.26 285);
-  --radius: 0.5rem;
-  --sidebar: oklch(0.12 0.005 250);
-  --sidebar-foreground: oklch(0.93 0.003 250);
-  --sidebar-primary: oklch(0.62 0.26 285);
-  --sidebar-primary-foreground: oklch(0.98 0 0);
-  --sidebar-accent: oklch(0.20 0.005 250);
-  --sidebar-accent-foreground: oklch(0.93 0.003 250);
-  --sidebar-border: oklch(0.22 0.005 250);
-  --sidebar-ring: oklch(0.62 0.26 285);
-  --chart-1: oklch(0.62 0.26 285);
-  --chart-2: oklch(0.80 0.15 85);
-  --chart-3: oklch(0.75 0.12 195);
-  --chart-4: oklch(0.63 0.21 25);
-  --chart-5: oklch(0.70 0.17 155);
+
+  --background:          #0A0E21;
+  --foreground:          #E8E8ED;
+  --card:                #111833;
+  --card-foreground:     #E8E8ED;
+  --popover:             #111833;
+  --popover-foreground:  #E8E8ED;
+
+  /* Primary = LoL gold */
+  --primary:             #C8AA6E;
+  --primary-foreground:  #0A0E21;
+
+  --secondary:           #1A2340;
+  --secondary-foreground:#E8E8ED;
+  --muted:               #1A2340;
+  --muted-foreground:    #7B7F9E;
+  --accent:              #1A2340;
+  --accent-foreground:   #E8E8ED;
+
+  --destructive:         #E74C3C;
+  --border:              #1E2A4A;
+  --input:               #162035;
+  --ring:                #C8AA6E;
+  --radius:              0.5rem;
+
+  --sidebar:             #0D1429;
+  --sidebar-foreground:  #E8E8ED;
+  --sidebar-primary:     #C8AA6E;
+  --sidebar-primary-foreground: #0A0E21;
+  --sidebar-accent:      #1A2340;
+  --sidebar-accent-foreground: #E8E8ED;
+  --sidebar-border:      #1E2A4A;
+  --sidebar-ring:        #C8AA6E;
 }
 
 @layer base {
@@ -78,7 +77,8 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    background-color: var(--background);
+    color: var(--foreground);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -87,15 +87,16 @@
 
 /* Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 5px;
+  height: 5px;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--color-border);
+  background: var(--border);
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-foreground-muted);
+  background: var(--muted-foreground);
 }

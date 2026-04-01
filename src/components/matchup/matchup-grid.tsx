@@ -3,20 +3,21 @@
 import { useState, useMemo } from "react";
 import { SearchBar } from "@/components/shared/search-bar";
 import { MatchupCard } from "@/components/matchup/matchup-card";
+import { cn } from "@/lib/utils";
 import type { MatchupListItem } from "@/lib/data";
 
-type SortMode = "alpha" | "difficulty" | "guides-first";
+type SortMode = "alpha" | "guides-first" | "difficulty";
 
 const sortLabels: Record<SortMode, string> = {
-  "alpha": "A-Z",
+  alpha: "A–Z",
   "guides-first": "Guides First",
-  "difficulty": "Difficulty",
+  difficulty: "Difficulty",
 };
 
 const difficultyOrder: Record<string, number> = {
-  "EASY": 1,
-  "SKILL": 2,
-  "HARD": 3,
+  EASY: 1,
+  SKILL: 2,
+  HARD: 3,
 };
 
 export function MatchupGrid({ matchups }: { matchups: MatchupListItem[] }) {
@@ -39,8 +40,8 @@ export function MatchupGrid({ matchups }: { matchups: MatchupListItem[] }) {
         return a.enemyChampion.localeCompare(b.enemyChampion);
       }
       if (sort === "difficulty") {
-        const aD = difficultyOrder[a.difficulty.toUpperCase()] || 99;
-        const bD = difficultyOrder[b.difficulty.toUpperCase()] || 99;
+        const aD = difficultyOrder[a.difficulty.toUpperCase()] ?? 99;
+        const bD = difficultyOrder[b.difficulty.toUpperCase()] ?? 99;
         if (aD !== bD) return aD - bD;
         return a.enemyChampion.localeCompare(b.enemyChampion);
       }
@@ -54,23 +55,25 @@ export function MatchupGrid({ matchups }: { matchups: MatchupListItem[] }) {
 
   return (
     <div className="space-y-4">
+      {/* Controls */}
       <div className="flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between">
         <SearchBar
           value={search}
           onChange={setSearch}
-          placeholder="Search champions..."
-          className="max-w-sm"
+          placeholder="Search champions…"
+          className="max-w-xs"
         />
         <div className="flex gap-1.5">
           {(Object.keys(sortLabels) as SortMode[]).map((mode) => (
             <button
               key={mode}
               onClick={() => setSort(mode)}
-              className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
+              className={cn(
+                "px-3 py-1.5 rounded-md text-xs font-medium transition-colors",
                 sort === mode
-                  ? "bg-primary text-primary-foreground"
-                  : "bg-card border border-border text-muted-foreground hover:text-foreground"
-              }`}
+                  ? "text-[#0A0E21] bg-[#C8AA6E]"
+                  : "text-[#7B7F9E] bg-[#111833] border border-[#1E2A4A] hover:text-[#E8E8ED] hover:border-[#C8AA6E]/40"
+              )}
             >
               {sortLabels[mode]}
             </button>
@@ -78,16 +81,18 @@ export function MatchupGrid({ matchups }: { matchups: MatchupListItem[] }) {
         </div>
       </div>
 
-      <p className="text-xs text-muted-foreground">
+      {/* Count */}
+      <p className="text-[11px] uppercase tracking-widest font-semibold text-[#7B7F9E]">
         {filtered.length} champions &middot; {guideCount} guides
       </p>
 
+      {/* Grid */}
       {filtered.length === 0 ? (
-        <p className="text-muted-foreground text-center py-12 text-sm">
-          {search ? `No champions found for "${search}"` : "No champions loaded."}
+        <p className="text-[#7B7F9E] text-center py-16 text-sm">
+          {search ? `No champions match "${search}"` : "No champions loaded."}
         </p>
       ) : (
-        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7 xl:grid-cols-8 gap-2">
+        <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-8 gap-2">
           {filtered.map((matchup) => (
             <MatchupCard
               key={matchup.enemyChampion}

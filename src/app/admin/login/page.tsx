@@ -30,7 +30,7 @@ export default function AdminLoginPage() {
         setError(data.error || "Authentication failed");
       }
     } catch {
-      setError("Network error.");
+      setError("Network error — please try again.");
     } finally {
       setLoading(false);
     }
@@ -40,7 +40,7 @@ export default function AdminLoginPage() {
     <div className="flex items-center justify-center min-h-[60vh]">
       <Card className="w-full max-w-sm">
         <CardHeader>
-          <CardTitle>Admin Access</CardTitle>
+          <CardTitle className="text-[#E8E8ED]">Admin Access</CardTitle>
           <CardDescription>Enter your API key to continue</CardDescription>
         </CardHeader>
         <CardContent>
@@ -51,11 +51,24 @@ export default function AdminLoginPage() {
               onChange={(e) => setApiKey(e.target.value)}
               placeholder="API Key"
               required
-              className="w-full px-3 py-2 rounded-md bg-background text-foreground text-sm border border-border placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring"
+              className="w-full px-3 py-2 rounded-md text-sm text-[#E8E8ED] placeholder:text-[#7B7F9E] bg-[#0A0E21] border border-[#1E2A4A] focus:outline-none focus:ring-1 focus:ring-[#C8AA6E]/50 focus:border-[#C8AA6E]/50 transition-colors"
             />
-            {error && <p className="text-sm text-destructive">{error}</p>}
-            <Button type="submit" disabled={loading || !apiKey} className="w-full">
-              {loading ? <><Loader2 className="w-4 h-4 animate-spin mr-2" /> Signing in...</> : "Sign In"}
+            {error && (
+              <p className="text-sm text-[#E74C3C]">{error}</p>
+            )}
+            <Button
+              type="submit"
+              disabled={loading || !apiKey}
+              className="w-full"
+            >
+              {loading ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin mr-2" />
+                  Signing in…
+                </>
+              ) : (
+                "Sign In"
+              )}
             </Button>
           </form>
         </CardContent>

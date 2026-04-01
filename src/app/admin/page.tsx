@@ -1,8 +1,7 @@
 import Link from "next/link";
 import { getMongoClient } from "@/lib/mongo";
-import { Swords, BookOpen, Plus } from "lucide-react";
+import { Swords, BookOpen, Plus, BarChart3 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { AdminLogout } from "@/components/admin/admin-logout";
 
 async function getStats() {
@@ -21,58 +20,78 @@ export default async function AdminDashboard() {
 
   return (
     <div className="max-w-4xl space-y-8 py-6">
+      {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">Admin Dashboard</h1>
-          <p className="text-sm text-muted-foreground mt-0.5">Manage your content</p>
+          <p className="text-[11px] uppercase tracking-widest font-semibold text-[#7B7F9E] mb-1">
+            Admin
+          </p>
+          <h1 className="text-2xl font-bold text-[#E8E8ED]">Dashboard</h1>
         </div>
         <AdminLogout />
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-3 gap-4">
-        <Card>
-          <CardContent className="text-center py-2">
-            <div className="text-2xl font-bold text-primary">{stats.matchupCount}</div>
-            <div className="text-xs text-muted-foreground mt-0.5">Matchups</div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="text-center py-2">
-            <div className="text-2xl font-bold text-accent-gold">{stats.guideCount}</div>
-            <div className="text-xs text-muted-foreground mt-0.5">Guides</div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="text-center py-2">
-            <div className="text-2xl font-bold text-accent-cyan">{stats.mechanicsCount}</div>
-            <div className="text-xs text-muted-foreground mt-0.5">Mechanics</div>
-          </CardContent>
-        </Card>
+      <div className="space-y-2">
+        <p className="text-[11px] uppercase tracking-widest font-semibold text-[#7B7F9E]">
+          Content Stats
+        </p>
+        <div className="grid grid-cols-3 gap-4">
+          <Card>
+            <CardContent className="text-center py-4">
+              <div className="text-2xl font-bold text-[#C8AA6E]">{stats.matchupCount}</div>
+              <div className="text-[11px] uppercase tracking-widest font-semibold text-[#7B7F9E] mt-1">
+                Matchups
+              </div>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent className="text-center py-4">
+              <div className="text-2xl font-bold text-[#0AC8B9]">{stats.guideCount}</div>
+              <div className="text-[11px] uppercase tracking-widest font-semibold text-[#7B7F9E] mt-1">
+                Guides
+              </div>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent className="text-center py-4">
+              <div className="text-2xl font-bold text-[#E8E8ED]">{stats.mechanicsCount}</div>
+              <div className="text-[11px] uppercase tracking-widest font-semibold text-[#7B7F9E] mt-1">
+                Mechanics
+              </div>
+            </CardContent>
+          </Card>
+        </div>
       </div>
 
-      {/* Actions */}
-      <div className="space-y-3">
-        <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">Quick Actions</h2>
+      {/* Quick Actions */}
+      <div className="space-y-2">
+        <p className="text-[11px] uppercase tracking-widest font-semibold text-[#7B7F9E]">
+          Quick Actions
+        </p>
         <div className="grid sm:grid-cols-2 gap-3">
-          <Link href="/admin/matchups">
-            <Card className="transition-colors hover:bg-muted/30">
-              <CardContent className="flex items-center gap-3">
-                <Swords className="w-5 h-5 text-primary shrink-0" />
+          <Link href="/admin/matchups" className="group">
+            <Card className="transition-colors hover:bg-[#1A2340]">
+              <CardContent className="flex items-center gap-3 py-4">
+                <div className="w-9 h-9 rounded-md flex items-center justify-center shrink-0" style={{ background: "rgba(200,170,110,0.10)", color: "#C8AA6E" }}>
+                  <Swords className="w-4 h-4" />
+                </div>
                 <div>
-                  <div className="font-semibold text-sm">Manage Matchups</div>
-                  <div className="text-xs text-muted-foreground">View, edit, and create guides</div>
+                  <div className="font-semibold text-sm text-[#E8E8ED]">Manage Matchups</div>
+                  <div className="text-xs text-[#7B7F9E]">View, edit, and delete guides</div>
                 </div>
               </CardContent>
             </Card>
           </Link>
-          <Link href="/admin/matchups/new">
-            <Card className="transition-colors hover:bg-muted/30">
-              <CardContent className="flex items-center gap-3">
-                <Plus className="w-5 h-5 text-accent-gold shrink-0" />
+          <Link href="/admin/matchups/new" className="group">
+            <Card className="transition-colors hover:bg-[#1A2340]">
+              <CardContent className="flex items-center gap-3 py-4">
+                <div className="w-9 h-9 rounded-md flex items-center justify-center shrink-0" style={{ background: "rgba(10,200,185,0.10)", color: "#0AC8B9" }}>
+                  <Plus className="w-4 h-4" />
+                </div>
                 <div>
-                  <div className="font-semibold text-sm">New Matchup</div>
-                  <div className="text-xs text-muted-foreground">Create a new matchup guide</div>
+                  <div className="font-semibold text-sm text-[#E8E8ED]">New Matchup</div>
+                  <div className="text-xs text-[#7B7F9E]">Create a new matchup guide</div>
                 </div>
               </CardContent>
             </Card>

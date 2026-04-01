@@ -8,19 +8,14 @@ interface ChampionIconProps {
   className?: string;
 }
 
-export function ChampionIcon({
-  src,
-  name,
-  size = 48,
-  className,
-}: ChampionIconProps) {
+export function ChampionIcon({ src, name, size = 48, className }: ChampionIconProps) {
   return (
     <Image
       src={src}
       alt={name}
       width={size}
       height={size}
-      className={cn("rounded-lg", className)}
+      className={cn("rounded-md", className)}
     />
   );
 }

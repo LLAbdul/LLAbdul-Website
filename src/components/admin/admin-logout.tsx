@@ -15,7 +15,8 @@ export function AdminLogout() {
 
   return (
     <Button variant="ghost" size="sm" onClick={handleLogout}>
-      <LogOut className="w-4 h-4 mr-1.5" /> Sign Out
+      <LogOut className="w-4 h-4 mr-1.5" />
+      Sign Out
     </Button>
   );
 }

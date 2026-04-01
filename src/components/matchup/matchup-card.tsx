@@ -14,18 +14,26 @@ export function MatchupCard({ enemyChampion, enemyIcon, difficulty }: MatchupCar
 
   return (
     <Link href={`/matchups/${encodeURIComponent(enemyChampion)}`}>
-      <Card className={`h-full transition-colors hover:bg-muted/30 ${!hasGuide ? "opacity-60" : ""}`}>
-        <CardContent className="flex flex-col items-center gap-2 py-2">
+      <Card
+        className={`h-full transition-colors hover:bg-[#1A2340] cursor-pointer ${
+          !hasGuide ? "opacity-50" : ""
+        }`}
+      >
+        <CardContent className="flex flex-col items-center gap-1.5 py-2 px-1">
           {enemyIcon ? (
             <ChampionIcon src={enemyIcon} name={enemyChampion} size={48} />
           ) : (
-            <div className="w-12 h-12 rounded-lg bg-muted flex items-center justify-center text-muted-foreground text-xs">?</div>
+            <div className="w-12 h-12 rounded-md bg-[#1A2340] flex items-center justify-center text-[#7B7F9E] text-xs">
+              ?
+            </div>
           )}
-          <span className="font-medium text-xs text-center leading-tight">{enemyChampion}</span>
+          <span className="font-medium text-[11px] text-[#E8E8ED] text-center leading-tight line-clamp-2">
+            {enemyChampion}
+          </span>
           {hasGuide ? (
             <DifficultyBadge difficulty={difficulty} />
           ) : (
-            <span className="text-[10px] text-muted-foreground">No guide</span>
+            <span className="text-[10px] text-[#7B7F9E]">—</span>
           )}
         </CardContent>
       </Card>

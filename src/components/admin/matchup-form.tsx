@@ -3,7 +3,7 @@
 import { useState, useTransition } from "react";
 import { ArrowLeft, Loader2 } from "lucide-react";
 import Link from "next/link";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { createMatchup, updateMatchup } from "@/app/admin/actions";
 
@@ -18,13 +18,43 @@ interface MatchupFormData {
   summonerSpells: string;
 }
 
-const difficulties = ["EASY", "SKILL", "HARD"];
+const difficulties = ["EASY", "SKILL", "HARD"] as const;
 
-export function MatchupForm({ initialData, mode }: { initialData?: MatchupFormData; mode: "create" | "edit" }) {
+const difficultyColors: Record<string, { active: React.CSSProperties; idle: React.CSSProperties }> = {
+  EASY: {
+    active: { background: "rgba(39,174,96,0.15)", color: "#27AE60", borderColor: "rgba(39,174,96,0.40)" },
+    idle: { background: "transparent", color: "#7B7F9E", borderColor: "#1E2A4A" },
+  },
+  SKILL: {
+    active: { background: "rgba(200,170,110,0.15)", color: "#C8AA6E", borderColor: "rgba(200,170,110,0.40)" },
+    idle: { background: "transparent", color: "#7B7F9E", borderColor: "#1E2A4A" },
+  },
+  HARD: {
+    active: { background: "rgba(231,76,60,0.15)", color: "#E74C3C", borderColor: "rgba(231,76,60,0.40)" },
+    idle: { background: "transparent", color: "#7B7F9E", borderColor: "#1E2A4A" },
+  },
+};
+
+export function MatchupForm({
+  initialData,
+  mode,
+}: {
+  initialData?: MatchupFormData;
+  mode: "create" | "edit";
+}) {
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState("");
   const [data, setData] = useState<MatchupFormData>(
-    initialData || { enemyChampion: "", champion: "Yasuo", difficulty: "SKILL", early: "", mid: "", late: "", videos: "", summonerSpells: "Flash, Ignite" }
+    initialData || {
+      enemyChampion: "",
+      champion: "Yasuo",
+      difficulty: "SKILL",
+      early: "",
+      mid: "",
+      late: "",
+      videos: "",
+      summonerSpells: "Flash, Ignite",
+    }
   );
 
   function update(field: keyof MatchupFormData, value: string) {
@@ -34,14 +64,33 @@ export function MatchupForm({ initialData, mode }: { initialData?: MatchupFormDa
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError("");
-    const videos = data.videos.split("\n").map((v) => v.trim()).filter(Boolean);
-    const summonerSpells = data.summonerSpells.split(",").map((s) => s.trim()).filter(Boolean);
+    const videos = data.videos
+      .split("\n")
+      .map((v) => v.trim())
+      .filter(Boolean);
+    const summonerSpells = data.summonerSpells
+      .split(",")
+      .map((s) => s.trim())
+      .filter(Boolean);
 
     startTransition(async () => {
       try {
-        const result = mode === "create"
-          ? await createMatchup({ ...data, late: data.late || undefined, videos, summonerSpells })
-          : await updateMatchup(data.enemyChampion, { difficulty: data.difficulty, early: data.early, mid: data.mid, late: data.late || undefined, videos, summonerSpells });
+        const result =
+          mode === "create"
+            ? await createMatchup({
+                ...data,
+                late: data.late || undefined,
+                videos,
+                summonerSpells,
+              })
+            : await updateMatchup(data.enemyChampion, {
+                difficulty: data.difficulty,
+                early: data.early,
+                mid: data.mid,
+                late: data.late || undefined,
+                videos,
+                summonerSpells,
+              });
         if (result?.error) setError(result.error);
       } catch (err: any) {
         if (err?.message !== "NEXT_REDIRECT") setError("Something went wrong.");
@@ -49,68 +98,148 @@ export function MatchupForm({ initialData, mode }: { initialData?: MatchupFormDa
     });
   }
 
-  const inputClass = "w-full px-3 py-2 rounded-md bg-background text-foreground text-sm border border-border placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring";
+  const inputClass =
+    "w-full px-3 py-2 rounded-md text-sm text-[#E8E8ED] placeholder:text-[#7B7F9E] bg-[#0A0E21] border border-[#1E2A4A] focus:outline-none focus:ring-1 focus:ring-[#C8AA6E]/50 focus:border-[#C8AA6E]/50 transition-colors";
 
   return (
     <div className="max-w-2xl space-y-6 py-6">
       <div className="flex items-center gap-3">
-        <Link href="/admin/matchups" className="text-muted-foreground hover:text-foreground transition-colors">
-          <ArrowLeft className="w-5 h-5" />
+        <Link
+          href="/admin/matchups"
+          className="flex items-center justify-center w-8 h-8 rounded-md text-[#7B7F9E] hover:text-[#E8E8ED] hover:bg-[#1A2340] transition-colors"
+        >
+          <ArrowLeft className="w-4 h-4" />
         </Link>
-        <h1 className="text-xl font-bold">{mode === "create" ? "New Matchup" : "Edit Matchup"}</h1>
+        <div>
+          <p className="text-[11px] uppercase tracking-widest font-semibold text-[#7B7F9E]">
+            Admin
+          </p>
+          <h1 className="text-xl font-bold text-[#E8E8ED]">
+            {mode === "create" ? "New Matchup" : "Edit Matchup"}
+          </h1>
+        </div>
       </div>
 
       <Card>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-5">
+            {/* Champion + Enemy */}
             <div className="grid sm:grid-cols-2 gap-4">
               <div className="space-y-1.5">
-                <label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Champion</label>
-                <select value={data.champion} onChange={(e) => update("champion", e.target.value)} className={inputClass}>
+                <label className="text-[11px] uppercase tracking-widest font-semibold text-[#7B7F9E]">
+                  Champion
+                </label>
+                <select
+                  value={data.champion}
+                  onChange={(e) => update("champion", e.target.value)}
+                  className={inputClass}
+                >
                   <option value="Yasuo">Yasuo</option>
                   <option value="Yone">Yone</option>
                 </select>
               </div>
               <div className="space-y-1.5">
-                <label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Enemy</label>
-                <input type="text" value={data.enemyChampion} onChange={(e) => update("enemyChampion", e.target.value)} placeholder="e.g. Zed" required disabled={mode === "edit"} className={`${inputClass} disabled:opacity-50`} />
+                <label className="text-[11px] uppercase tracking-widest font-semibold text-[#7B7F9E]">
+                  Enemy Champion
+                </label>
+                <input
+                  type="text"
+                  value={data.enemyChampion}
+                  onChange={(e) => update("enemyChampion", e.target.value)}
+                  placeholder="e.g. Zed"
+                  required
+                  disabled={mode === "edit"}
+                  className={`${inputClass} disabled:opacity-50 disabled:cursor-not-allowed`}
+                />
               </div>
             </div>
 
+            {/* Difficulty */}
             <div className="space-y-1.5">
-              <label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Difficulty</label>
+              <label className="text-[11px] uppercase tracking-widest font-semibold text-[#7B7F9E]">
+                Difficulty
+              </label>
               <div className="flex gap-2">
                 {difficulties.map((d) => (
-                  <Button key={d} type="button" variant={data.difficulty === d ? "default" : "outline"} size="sm" onClick={() => update("difficulty", d)}>
+                  <button
+                    key={d}
+                    type="button"
+                    onClick={() => update("difficulty", d)}
+                    className="px-4 py-1.5 rounded-md text-xs font-semibold uppercase tracking-widest border transition-colors"
+                    style={
+                      data.difficulty === d
+                        ? difficultyColors[d].active
+                        : difficultyColors[d].idle
+                    }
+                  >
                     {d}
-                  </Button>
+                  </button>
                 ))}
               </div>
             </div>
 
+            {/* Phase strategy */}
             {(["early", "mid", "late"] as const).map((phase) => (
               <div key={phase} className="space-y-1.5">
-                <label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                  {phase.charAt(0).toUpperCase() + phase.slice(1)} Game{phase === "late" ? " (optional)" : ""}
+                <label className="text-[11px] uppercase tracking-widest font-semibold text-[#7B7F9E]">
+                  {phase === "early" ? "Early Game" : phase === "mid" ? "Mid Game" : "Late Game"}
+                  {phase === "late" ? " (optional)" : ""}
                 </label>
-                <textarea value={data[phase]} onChange={(e) => update(phase, e.target.value)} placeholder={`Strategy...`} rows={3} className={`${inputClass} resize-y`} />
+                <textarea
+                  value={data[phase]}
+                  onChange={(e) => update(phase, e.target.value)}
+                  placeholder="Strategy notes…"
+                  rows={3}
+                  className={`${inputClass} resize-y`}
+                />
               </div>
             ))}
 
+            {/* Summoner spells */}
             <div className="space-y-1.5">
-              <label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Summoner Spells</label>
-              <input type="text" value={data.summonerSpells} onChange={(e) => update("summonerSpells", e.target.value)} placeholder="Flash, Ignite" className={inputClass} />
+              <label className="text-[11px] uppercase tracking-widest font-semibold text-[#7B7F9E]">
+                Summoner Spells
+              </label>
+              <input
+                type="text"
+                value={data.summonerSpells}
+                onChange={(e) => update("summonerSpells", e.target.value)}
+                placeholder="Flash, Ignite"
+                className={inputClass}
+              />
             </div>
 
+            {/* Videos */}
             <div className="space-y-1.5">
-              <label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Video URLs (one per line)</label>
-              <textarea value={data.videos} onChange={(e) => update("videos", e.target.value)} placeholder="https://youtube.com/watch?v=..." rows={3} className={`${inputClass} resize-y`} />
+              <label className="text-[11px] uppercase tracking-widest font-semibold text-[#7B7F9E]">
+                Video URLs (one per line)
+              </label>
+              <textarea
+                value={data.videos}
+                onChange={(e) => update("videos", e.target.value)}
+                placeholder="https://youtube.com/watch?v=…"
+                rows={3}
+                className={`${inputClass} resize-y`}
+              />
             </div>
 
-            {error && <p className="text-sm text-destructive">{error}</p>}
+            {error && <p className="text-sm text-[#E74C3C]">{error}</p>}
 
-            <Button type="submit" disabled={isPending || !data.enemyChampion} className="w-full">
-              {isPending ? <><Loader2 className="w-4 h-4 animate-spin mr-2" /> Saving...</> : mode === "create" ? "Create Matchup" : "Save Changes"}
+            <Button
+              type="submit"
+              disabled={isPending || !data.enemyChampion}
+              className="w-full"
+            >
+              {isPending ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin mr-2" />
+                  Saving…
+                </>
+              ) : mode === "create" ? (
+                "Create Matchup"
+              ) : (
+                "Save Changes"
+              )}
             </Button>
           </form>
         </CardContent>
