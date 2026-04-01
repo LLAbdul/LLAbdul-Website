@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useState, useTransition } from "react";
 import { ArrowLeft, Loader2, Save } from "lucide-react";
 import Link from "next/link";
+import { createMatchup, updateMatchup } from "@/app/admin/actions";
 
 interface MatchupFormData {
   enemyChampion: string;
@@ -24,9 +24,8 @@ interface MatchupFormProps {
 
 const difficulties = ["EASY", "SKILL", "HARD"];
 
-export function MatchupForm({ initialData, mode, matchupId }: MatchupFormProps) {
-  const router = useRouter();
-  const [loading, setLoading] = useState(false);
+export function MatchupForm({ initialData, mode }: MatchupFormProps) {
+  const [isPending, startTransition] = useTransition();
   const [error, setError] = useState("");
   const [data, setData] = useState<MatchupFormData>(
     initialData || {
@@ -45,68 +44,56 @@ export function MatchupForm({ initialData, mode, matchupId }: MatchupFormProps) 
     setData((prev) => ({ ...prev, [field]: value }));
   }
 
-  async function handleSubmit(e: React.FormEvent) {
+  function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError("");
-    setLoading(true);
 
-    try {
-      const apiKey = document.cookie
-        .split("; ")
-        .find((c) => c.startsWith("llabdul_admin_session="));
+    const videos = data.videos
+      .split("\n")
+      .map((v) => v.trim())
+      .filter(Boolean);
+    const summonerSpells = data.summonerSpells
+      .split(",")
+      .map((s) => s.trim())
+      .filter(Boolean);
 
-      const body = {
-        enemyChampion: data.enemyChampion,
-        champion: data.champion,
-        difficulty: data.difficulty,
-        early: data.early,
-        mid: data.mid,
-        late: data.late || undefined,
-        videos: data.videos
-          .split("\n")
-          .map((v) => v.trim())
-          .filter(Boolean),
-        summonerSpells: data.summonerSpells
-          .split(",")
-          .map((s) => s.trim())
-          .filter(Boolean),
-      };
-
-      const url =
-        mode === "edit"
-          ? `/api/matchup?enemyChampion=${encodeURIComponent(data.enemyChampion)}`
-          : "/api/matchup";
-
-      const res = await fetch(url, {
-        method: mode === "edit" ? "PUT" : "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-API-Key": process.env.NEXT_PUBLIC_ADMIN_API_KEY || "",
-        },
-        body: JSON.stringify(body),
-      });
-
-      if (res.ok) {
-        router.push("/admin/matchups");
-        router.refresh();
-      } else {
-        const result = await res.json();
-        setError(result.message || "Failed to save matchup");
+    startTransition(async () => {
+      try {
+        if (mode === "create") {
+          const result = await createMatchup({
+            enemyChampion: data.enemyChampion,
+            champion: data.champion,
+            difficulty: data.difficulty,
+            early: data.early,
+            mid: data.mid,
+            late: data.late || undefined,
+            videos,
+            summonerSpells,
+          });
+          if (result?.error) setError(result.error);
+        } else {
+          const result = await updateMatchup(data.enemyChampion, {
+            difficulty: data.difficulty,
+            early: data.early,
+            mid: data.mid,
+            late: data.late || undefined,
+            videos,
+            summonerSpells,
+          });
+          if (result?.error) setError(result.error);
+        }
+      } catch (err: any) {
+        if (err?.message !== "NEXT_REDIRECT") {
+          setError("Something went wrong. Please try again.");
+        }
       }
-    } catch {
-      setError("Network error. Please try again.");
-    } finally {
-      setLoading(false);
-    }
+    });
   }
 
   return (
     <div className="max-w-2xl mx-auto space-y-6 py-4">
       <div className="flex items-center gap-3 animate-in-up">
-        <Link
-          href="/admin/matchups"
-          className="text-foreground-muted hover:text-foreground transition-colors"
-        >
+        <Link href="/admin/matchups" className="text-foreground-muted hover:text-foreground transition-colors">
           <ArrowLeft className="w-5 h-5" />
         </Link>
         <h1 className="text-xl font-display font-bold tracking-wide">
@@ -217,20 +204,18 @@ export function MatchupForm({ initialData, mode, matchupId }: MatchupFormProps) 
           />
         </div>
 
-        {/* Error */}
         {error && (
           <p className="text-sm text-difficulty-hard p-3 rounded-lg bg-difficulty-hard/10 border border-difficulty-hard/20">
             {error}
           </p>
         )}
 
-        {/* Submit */}
         <button
           type="submit"
-          disabled={loading || !data.enemyChampion}
+          disabled={isPending || !data.enemyChampion}
           className="w-full py-3 rounded-lg bg-accent-purple text-white font-medium text-sm hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 glow-purple"
         >
-          {loading ? (
+          {isPending ? (
             <>
               <Loader2 className="w-4 h-4 animate-spin" />
               Saving...
