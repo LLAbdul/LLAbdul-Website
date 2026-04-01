@@ -140,3 +140,67 @@ export async function getMatchupCount(): Promise<number> {
   const db = client.db(DB_NAME);
   return db.collection("matchups").countDocuments();
 }
+
+// ── Guide types and fetchers ─────────────────────────────────────
+
+export interface GuideDetail {
+  _id: string;
+  champion: string;
+  early: string;
+  mid: string;
+  late: string;
+  videos: string[];
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+export interface MechanicsGuide {
+  _id: string;
+  champion: string;
+  title: string;
+  description: string;
+  difficulty: "BASIC" | "ADVANCED" | "EXPERT";
+  videos: string[];
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+export async function getGuide(champion: string): Promise<GuideDetail | null> {
+  const client = await getMongoClient();
+  const db = client.db(DB_NAME);
+  const doc = await db.collection("guides").findOne({
+    champion: { $regex: new RegExp(`^${champion}$`, "i") },
+  });
+  if (!doc) return null;
+
+  return {
+    _id: doc._id.toString(),
+    champion: doc.champion as string,
+    early: (doc.early as string) || "",
+    mid: (doc.mid as string) || "",
+    late: (doc.late as string) || "",
+    videos: toArray(doc.videos),
+    createdAt: doc.createdAt?.toString(),
+    updatedAt: doc.updatedAt?.toString(),
+  };
+}
+
+export async function getMechanics(champion: string): Promise<MechanicsGuide[]> {
+  const client = await getMongoClient();
+  const db = client.db(DB_NAME);
+  const docs = await db
+    .collection("mechanics")
+    .find({ champion: { $regex: new RegExp(`^${champion}$`, "i") } })
+    .toArray();
+
+  return docs.map((doc) => ({
+    _id: doc._id.toString(),
+    champion: doc.champion as string,
+    title: (doc.title as string) || "",
+    description: (doc.description as string) || "",
+    difficulty: (doc.difficulty as "BASIC" | "ADVANCED" | "EXPERT") || "BASIC",
+    videos: toArray(doc.videos),
+    createdAt: doc.createdAt?.toString(),
+    updatedAt: doc.updatedAt?.toString(),
+  }));
+}
