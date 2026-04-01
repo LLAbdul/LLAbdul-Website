@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { Plus_Jakarta_Sans } from "next/font/google";
-import { Sidebar, MobileHeader } from "@/components/layout/sidebar";
+import { Navbar } from "@/components/layout/navbar";
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -42,15 +42,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={jakarta.variable}>
       <body className="min-h-screen bg-background text-foreground">
-        <div className="flex min-h-screen">
-          <Sidebar />
-          <div className="flex-1 flex flex-col min-h-screen">
-            <MobileHeader />
-            <main className="flex-1 w-full max-w-6xl mx-auto px-4 py-6 md:px-8 md:py-8 lg:px-12">
-              {children}
-            </main>
-          </div>
-        </div>
+        <Navbar />
+        <main className="w-full max-w-6xl mx-auto px-4 py-6 md:px-8 md:py-8 lg:px-12">
+          {children}
+        </main>
       </body>
     </html>
   );
