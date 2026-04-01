@@ -1,18 +1,19 @@
 {
-  "name": "vercel-api-project",
+  "name": "llabdul-website",
   "version": "1.0.0",
-  "main": "index.js",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
   "_comment": "Note: Warnings about deprecated packages (request, request-promise, uuid, har-validator) come from transitive dependencies of 'poro' package. These are warnings only and do not break the build.",
   "devDependencies": {
     "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^22.10.2",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
     "typescript": "^5.7.2"
   },
   "dependencies": {
@@ -20,7 +21,10 @@
     "jsonwebtoken": "^9.0.3",
     "jwks-rsa": "^3.2.0",
     "mongodb": "^7.0.0",
+    "next": "^16.2.2",
     "poro": "^2.3.0",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
     "winston": "^3.17.0"
   }
 }
