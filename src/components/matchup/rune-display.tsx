@@ -1,111 +1,90 @@
 import Image from "next/image";
-import type { RuneItem, RuneSetup } from "@/lib/data";
+import type { ResolvedRuneSetup } from "@/lib/data";
 
 interface RuneDisplayProps {
-  runes: RuneItem[] | RuneSetup | null;
+  runes: ResolvedRuneSetup | null;
 }
 
-function RuneSetupDisplay({ runes }: { runes: RuneSetup }) {
-  const hasData =
-    runes.primary.length > 0 || runes.secondary.length > 0 || runes.shards.length > 0;
-  if (!hasData) return null;
-
+function RuneIcon({ icon, name, size = 32 }: { icon: string; name: string; size?: number }) {
+  if (!icon) {
+    return (
+      <div
+        className="rounded-full bg-muted flex items-center justify-center text-[10px] text-muted-foreground"
+        style={{ width: size, height: size }}
+        title={name}
+      >
+        ?
+      </div>
+    );
+  }
   return (
-    <div className="space-y-4">
-      {runes.primary.length > 0 && (
-        <div>
-          <h4 className="text-xs font-semibold text-[var(--muted-foreground)] uppercase tracking-wide mb-2">
-            Primary
-          </h4>
-          <div className="flex flex-wrap gap-2">
-            {runes.primary.map((name) => (
-              <span
-                key={name}
-                className="px-3 py-1.5 rounded-lg bg-[var(--card)] border border-[var(--primary)]/20 text-sm"
-              >
-                {name}
-              </span>
-            ))}
-          </div>
-        </div>
-      )}
-      {runes.secondary.length > 0 && (
-        <div>
-          <h4 className="text-xs font-semibold text-[var(--muted-foreground)] uppercase tracking-wide mb-2">
-            Secondary
-          </h4>
-          <div className="flex flex-wrap gap-2">
-            {runes.secondary.map((name) => (
-              <span
-                key={name}
-                className="px-3 py-1.5 rounded-lg bg-[var(--card)] border border-[var(--border)] text-sm"
-              >
-                {name}
-              </span>
-            ))}
-          </div>
-        </div>
-      )}
-      {runes.shards.length > 0 && (
-        <div>
-          <h4 className="text-xs font-semibold text-[var(--muted-foreground)] uppercase tracking-wide mb-2">
-            Shards
-          </h4>
-          <div className="flex flex-wrap gap-2">
-            {runes.shards.map((name) => (
-              <span
-                key={name}
-                className="px-3 py-1.5 rounded-lg bg-[var(--card)] border border-[var(--border)] text-sm text-[var(--muted-foreground)]"
-              >
-                {name}
-              </span>
-            ))}
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
-
-function RuneArrayDisplay({ runes }: { runes: RuneItem[] }) {
-  if (runes.length === 0) return null;
-
-  return (
-    <div className="flex flex-wrap gap-2">
-      {runes.map((rune, i) => (
-        <div
-          key={`${rune.name}-${i}`}
-          className="flex items-center gap-2 px-3 py-2 rounded-lg bg-[var(--card)] border border-[var(--border)]"
-        >
-          {rune.icon && (
-            <Image
-              src={rune.icon}
-              alt={rune.name}
-              width={24}
-              height={24}
-              className="rounded"
-            />
-          )}
-          <div>
-            <span className="text-sm">{rune.name}</span>
-            {rune.tree && (
-              <span className="text-xs text-[var(--muted-foreground)] ml-1.5">
-                {rune.tree}
-              </span>
-            )}
-          </div>
-        </div>
-      ))}
-    </div>
+    <Image
+      src={icon}
+      alt={name}
+      width={size}
+      height={size}
+      className="rounded-full"
+      title={name}
+    />
   );
 }
 
 export function RuneDisplay({ runes }: RuneDisplayProps) {
   if (!runes) return null;
 
-  if (Array.isArray(runes)) {
-    return <RuneArrayDisplay runes={runes} />;
-  }
+  const hasPrimary = runes.primary.length > 0;
+  const hasSecondary = runes.secondary.length > 0;
+  const hasShards = runes.shards.length > 0;
 
-  return <RuneSetupDisplay runes={runes} />;
+  if (!hasPrimary && !hasSecondary) return null;
+
+  // Determine tree names from first rune in each group
+  const primaryTree = runes.primary[0]?.tree || "Primary";
+  const secondaryTree = runes.secondary[0]?.tree || "Secondary";
+
+  return (
+    <div className="flex gap-6 flex-wrap">
+      {/* Primary tree */}
+      {hasPrimary && (
+        <div className="space-y-2">
+          <div className="text-xs font-medium text-muted-foreground">{primaryTree}</div>
+          <div className="flex gap-1.5">
+            {runes.primary.map((r, i) => (
+              <RuneIcon key={`p-${i}`} icon={r.icon} name={r.name} size={i === 0 ? 36 : 28} />
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Secondary tree */}
+      {hasSecondary && (
+        <div className="space-y-2">
+          <div className="text-xs font-medium text-muted-foreground">{secondaryTree}</div>
+          <div className="flex gap-1.5">
+            {runes.secondary.map((r, i) => (
+              <RuneIcon key={`s-${i}`} icon={r.icon} name={r.name} size={28} />
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Shards */}
+      {hasShards && (
+        <div className="space-y-2">
+          <div className="text-xs font-medium text-muted-foreground">Shards</div>
+          <div className="flex gap-1.5">
+            {runes.shards.map((shard, i) => (
+              <div
+                key={`sh-${i}`}
+                className="px-2 py-1 rounded bg-muted text-[11px] text-muted-foreground"
+                title={shard}
+              >
+                {shard}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
 }

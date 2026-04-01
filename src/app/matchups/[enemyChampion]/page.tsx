@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowLeft } from "lucide-react";
 import { getMatchup } from "@/lib/data";
 import { getChampion } from "@/lib/riot-api";
@@ -91,7 +92,7 @@ export default async function MatchupDetailPage({ params }: PageProps) {
           <Card>
             <CardContent className="space-y-4">
               {matchup.startItems.length > 0 && <BuildDisplay items={matchup.startItems} label="Starting Items" />}
-              {matchup.build.length > 0 && <BuildDisplay items={matchup.build} label="Core Build" />}
+              {matchup.build.length > 0 && <BuildDisplay items={matchup.build} label="Core Build" showArrows />}
             </CardContent>
           </Card>
         </div>
@@ -101,11 +102,23 @@ export default async function MatchupDetailPage({ params }: PageProps) {
       {hasSpells && (
         <div className="space-y-3">
           <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">Summoner Spells</h2>
-          <div className="flex gap-2">
+          <div className="flex gap-1.5">
             {matchup.summonerSpells.map((spell) => (
-              <span key={spell} className="px-3 py-1.5 rounded-md bg-card text-sm font-medium border border-border">
-                {spell}
-              </span>
+              <div key={spell.name} title={spell.name}>
+                {spell.icon ? (
+                  <Image
+                    src={spell.icon}
+                    alt={spell.name}
+                    width={40}
+                    height={40}
+                    className="rounded border border-border"
+                  />
+                ) : (
+                  <div className="w-10 h-10 rounded bg-muted border border-border flex items-center justify-center text-[10px] text-muted-foreground">
+                    {spell.name.slice(0, 2)}
+                  </div>
+                )}
+              </div>
             ))}
           </div>
         </div>
