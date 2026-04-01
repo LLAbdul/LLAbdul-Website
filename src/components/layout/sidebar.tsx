@@ -13,11 +13,6 @@ import {
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import { useState } from "react";
 
 const navItems = [
@@ -36,34 +31,25 @@ function NavLink({
   label,
   icon: Icon,
   isActive,
-  onClick,
 }: {
   href: string;
   label: string;
   icon: typeof Home;
   isActive: boolean;
-  onClick?: () => void;
 }) {
   return (
-    <Tooltip>
-      <TooltipTrigger asChild>
-        <Link
-          href={href}
-          onClick={onClick}
-          className={cn(
-            "flex items-center justify-center w-10 h-10 rounded-lg transition-colors",
-            isActive
-              ? "bg-[var(--primary)] text-[var(--primary-foreground)]"
-              : "text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-[var(--accent)]"
-          )}
-        >
-          <Icon className="w-5 h-5" />
-        </Link>
-      </TooltipTrigger>
-      <TooltipContent side="right" sideOffset={8}>
-        {label}
-      </TooltipContent>
-    </Tooltip>
+    <Link
+      href={href}
+      title={label}
+      className={cn(
+        "flex items-center justify-center w-10 h-10 rounded-lg transition-colors",
+        isActive
+          ? "bg-[var(--primary)] text-[var(--primary-foreground)]"
+          : "text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-[var(--accent)]"
+      )}
+    >
+      <Icon className="w-5 h-5" />
+    </Link>
   );
 }
 
@@ -150,10 +136,10 @@ export function MobileHeader() {
       </Link>
 
       <Sheet open={open} onOpenChange={setOpen}>
-        <SheetTrigger asChild>
-          <Button variant="ghost" size="icon">
-            <Menu className="w-5 h-5" />
-          </Button>
+        <SheetTrigger
+          render={<Button variant="ghost" size="icon" />}
+        >
+          <Menu className="w-5 h-5" />
         </SheetTrigger>
         <SheetContent side="left" className="w-64 bg-[var(--sidebar)] border-[var(--sidebar-border)]">
           <div className="flex flex-col gap-1 mt-8">
