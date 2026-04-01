@@ -25,6 +25,7 @@
     "jwks-rsa": "^3.2.0",
     "lucide-react": "^1.7.0",
     "mongodb": "^7.0.0",
+    "motion": "^12.38.0",
     "next": "^16.2.2",
     "poro": "^2.3.0",
     "postcss": "^8.5.8",
