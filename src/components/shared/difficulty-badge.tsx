@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 
-const difficultyConfig = {
+const difficultyConfig: Record<string, { label: string; className: string }> = {
   EASY: {
     label: "Easy",
     className: "bg-difficulty-easy/20 text-difficulty-easy border-difficulty-easy/30",
@@ -13,7 +13,7 @@ const difficultyConfig = {
     label: "Hard",
     className: "bg-difficulty-hard/20 text-difficulty-hard border-difficulty-hard/30",
   },
-} as const;
+};
 
 interface DifficultyBadgeProps {
   difficulty: string;
@@ -21,9 +21,10 @@ interface DifficultyBadgeProps {
 }
 
 export function DifficultyBadge({ difficulty, className }: DifficultyBadgeProps) {
-  const config = difficultyConfig[difficulty as keyof typeof difficultyConfig] ?? {
+  const normalized = difficulty.toUpperCase();
+  const config = difficultyConfig[normalized] ?? {
     label: difficulty,
-    className: "bg-muted/20 text-muted-foreground border-muted/30",
+    className: "bg-difficulty-hard/20 text-difficulty-hard border-difficulty-hard/30",
   };
 
   return (

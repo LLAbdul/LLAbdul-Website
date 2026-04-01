@@ -1,11 +1,5 @@
 import Image from "next/image";
-
-interface BuildItem {
-  id?: number;
-  icon: string;
-  name: string;
-  price?: number;
-}
+import type { BuildItem } from "@/lib/data";
 
 interface BuildDisplayProps {
   items: BuildItem[];
