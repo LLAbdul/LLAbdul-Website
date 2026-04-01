@@ -1,5 +1,5 @@
 import { getMongoClient } from "./mongo";
-import { getChampion, getChampions, getSummonerSpells } from "./riot-api";
+import { getChampion, getChampions, getItems, getSummonerSpells } from "./riot-api";
 import { resolveRunePage, type ResolvedRunePage } from "./rune-trees";
 import type { Champion } from "./types";
 
@@ -46,6 +46,31 @@ function toArray(val: any): any[] {
   if (Array.isArray(val)) return val;
   if (!val || typeof val !== "object" || Object.keys(val).length === 0) return [];
   return [val];
+}
+
+async function resolveItemIcons(items: any[]): Promise<BuildItem[]> {
+  if (!items || items.length === 0) return [];
+  try {
+    const allItems = await getItems();
+    return items.map((item) => {
+      const name = typeof item === "string" ? item : item.name;
+      if (!name) return { name: "Unknown", icon: "" };
+      const match = allItems.find(
+        (i) => i.name.toLowerCase().replace(/[\s']/g, "") === name.toLowerCase().replace(/[\s']/g, "")
+      );
+      return {
+        id: match?.id || item.id,
+        icon: match?.icon || "",
+        name: match?.name || name,
+        price: match?.price || item.price,
+      };
+    });
+  } catch {
+    return items.map((item) => ({
+      name: typeof item === "string" ? item : item.name || "Unknown",
+      icon: "",
+    }));
+  }
 }
 
 async function resolveSpellIcons(names: string[]): Promise<ResolvedSpell[]> {
@@ -99,9 +124,14 @@ export async function getMatchup(enemyChampion: string): Promise<MatchupDetail |
 
   const spellNames = toArray(doc.summonerSpells);
 
-  const [runes, summonerSpells] = await Promise.all([
+  const rawStartItems = toArray(doc.startItems);
+  const rawBuild = toArray(doc.build);
+
+  const [runes, summonerSpells, startItems, build] = await Promise.all([
     resolveRunePage(doc.runes),
     resolveSpellIcons(spellNames),
+    resolveItemIcons(rawStartItems),
+    resolveItemIcons(rawBuild),
   ]);
 
   return {
@@ -114,8 +144,8 @@ export async function getMatchup(enemyChampion: string): Promise<MatchupDetail |
     late: doc.late ? (doc.late as string) : undefined,
     videos: toArray(doc.videos),
     runes,
-    startItems: toArray(doc.startItems),
-    build: toArray(doc.build),
+    startItems,
+    build,
     summonerSpells,
     createdAt: doc.createdAt?.toString(),
     updatedAt: doc.updatedAt?.toString(),
