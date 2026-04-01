@@ -1,4 +1,4 @@
-import { getAllMatchups } from "@/lib/data";
+import { getAllChampionsWithMatchups } from "@/lib/data";
 import { MatchupGrid } from "@/components/matchup/matchup-grid";
 
 export const metadata = {
@@ -7,19 +7,17 @@ export const metadata = {
 };
 
 export default async function MatchupsPage() {
-  const matchups = await getAllMatchups();
+  const champions = await getAllChampionsWithMatchups();
 
   return (
     <div className="space-y-6 py-6">
       <div>
         <h1 className="text-2xl font-bold tracking-tight">Matchup Guides</h1>
         <p className="text-muted-foreground text-sm mt-1">
-          {matchups.length > 0
-            ? `${matchups.length} guides available. Select a champion.`
-            : "No guides yet — check back soon."}
+          Select a champion to see the matchup guide. Champions with guides are marked with difficulty.
         </p>
       </div>
-      <MatchupGrid matchups={matchups} />
+      <MatchupGrid matchups={champions} />
     </div>
   );
 }

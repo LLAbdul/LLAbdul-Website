@@ -1,6 +1,7 @@
 import { getMongoClient } from "./mongo";
-import { getChampion, getRune, getSummonerSpells } from "./riot-api";
-import type { Champion, SummonerSpell } from "./types";
+import { getChampion, getChampions, getSummonerSpells } from "./riot-api";
+import { resolveRunePage, type ResolvedRunePage } from "./rune-trees";
+import type { Champion } from "./types";
 
 const DB_NAME = "league_coaching_website";
 
@@ -9,18 +10,6 @@ export interface MatchupListItem {
   champion: string;
   difficulty: string;
   enemyIcon: string;
-}
-
-export interface ResolvedRune {
-  icon: string;
-  name: string;
-  tree?: string;
-}
-
-export interface ResolvedRuneSetup {
-  primary: ResolvedRune[];
-  secondary: ResolvedRune[];
-  shards: string[];
 }
 
 export interface BuildItem {
@@ -45,7 +34,7 @@ export interface MatchupDetail {
   mid: string;
   late?: string;
   videos: string[];
-  runes: ResolvedRuneSetup | null;
+  runes: ResolvedRunePage | null;
   startItems: BuildItem[];
   build: BuildItem[];
   summonerSpells: ResolvedSpell[];
@@ -57,19 +46,6 @@ function toArray(val: any): any[] {
   if (Array.isArray(val)) return val;
   if (!val || typeof val !== "object" || Object.keys(val).length === 0) return [];
   return [val];
-}
-
-function isRuneSetup(val: any): boolean {
-  return val && !Array.isArray(val) && typeof val === "object" && ("primary" in val || "secondary" in val);
-}
-
-async function resolveRuneIcon(name: string): Promise<ResolvedRune> {
-  try {
-    const rune = await getRune(name);
-    return { icon: rune.icon, name: rune.name, tree: rune.tree };
-  } catch {
-    return { icon: "", name };
-  }
 }
 
 async function resolveSpellIcons(names: string[]): Promise<ResolvedSpell[]> {
@@ -84,44 +60,6 @@ async function resolveSpellIcons(names: string[]): Promise<ResolvedSpell[]> {
   } catch {
     return names.map((name) => ({ icon: "", name }));
   }
-}
-
-async function resolveRunes(raw: any): Promise<ResolvedRuneSetup | null> {
-  if (!raw) return null;
-
-  // Format 1: { primary: string[], secondary: string[], shards: string[] }
-  if (isRuneSetup(raw)) {
-    const primaryNames: string[] = raw.primary || [];
-    const secondaryNames: string[] = raw.secondary || [];
-    const shards: string[] = raw.shards || [];
-
-    const [primary, secondary] = await Promise.all([
-      Promise.all(primaryNames.map(resolveRuneIcon)),
-      Promise.all(secondaryNames.map(resolveRuneIcon)),
-    ]);
-
-    return { primary, secondary, shards };
-  }
-
-  // Format 2: RuneItem[] with icon already present
-  if (Array.isArray(raw) && raw.length > 0) {
-    const runes = raw as { icon?: string; name: string; tree?: string }[];
-    // Group by tree if possible
-    const trees = new Map<string, ResolvedRune[]>();
-    for (const r of runes) {
-      const tree = r.tree || "Primary";
-      if (!trees.has(tree)) trees.set(tree, []);
-      trees.get(tree)!.push({ icon: r.icon || "", name: r.name, tree: r.tree });
-    }
-    const groups = [...trees.values()];
-    return {
-      primary: groups[0] || [],
-      secondary: groups[1] || [],
-      shards: [],
-    };
-  }
-
-  return null;
 }
 
 export async function getAllMatchups(): Promise<MatchupListItem[]> {
@@ -162,7 +100,7 @@ export async function getMatchup(enemyChampion: string): Promise<MatchupDetail |
   const spellNames = toArray(doc.summonerSpells);
 
   const [runes, summonerSpells] = await Promise.all([
-    resolveRunes(doc.runes),
+    resolveRunePage(doc.runes),
     resolveSpellIcons(spellNames),
   ]);
 
@@ -182,6 +120,33 @@ export async function getMatchup(enemyChampion: string): Promise<MatchupDetail |
     createdAt: doc.createdAt?.toString(),
     updatedAt: doc.updatedAt?.toString(),
   };
+}
+
+/**
+ * Get all champions with matchup status for the grid view.
+ * Shows every champion, with difficulty info for ones that have guides.
+ */
+export async function getAllChampionsWithMatchups(): Promise<MatchupListItem[]> {
+  const client = await getMongoClient();
+  const db = client.db(DB_NAME);
+
+  const [allChamps, matchupDocs] = await Promise.all([
+    getChampions(),
+    db.collection("matchups").find({}).toArray(),
+  ]);
+
+  // Build lookup of matchups by enemy champion name
+  const matchupMap = new Map<string, string>();
+  for (const doc of matchupDocs) {
+    matchupMap.set((doc.enemyChampion as string).toLowerCase(), doc.difficulty as string);
+  }
+
+  return allChamps.map((champ) => ({
+    enemyChampion: champ.name,
+    champion: "Yasuo",
+    difficulty: matchupMap.get(champ.name.toLowerCase()) || "",
+    enemyIcon: champ.icon,
+  }));
 }
 
 export async function getMatchupCount(): Promise<number> {

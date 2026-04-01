@@ -1,88 +1,95 @@
 import Image from "next/image";
-import type { ResolvedRuneSetup } from "@/lib/data";
+import type { ResolvedRunePage } from "@/lib/rune-trees";
+import type { RuneTree, PerkInfo } from "@/lib/rune-trees";
 
-interface RuneDisplayProps {
-  runes: ResolvedRuneSetup | null;
-}
-
-function RuneIcon({ icon, name, size = 32 }: { icon: string; name: string; size?: number }) {
-  if (!icon) {
-    return (
-      <div
-        className="rounded-full bg-muted flex items-center justify-center text-[10px] text-muted-foreground"
-        style={{ width: size, height: size }}
-        title={name}
-      >
-        ?
-      </div>
-    );
-  }
+function PerkIcon({ perk, selected, size = 28 }: { perk: PerkInfo; selected: boolean; size?: number }) {
   return (
-    <Image
-      src={icon}
-      alt={name}
-      width={size}
-      height={size}
-      className="rounded-full"
-      title={name}
-    />
+    <div
+      className={`rounded-full ${selected ? "ring-1 ring-primary" : "opacity-30 grayscale"}`}
+      title={perk.name}
+    >
+      <Image
+        src={perk.icon}
+        alt={perk.name}
+        width={size}
+        height={size}
+        className="rounded-full"
+      />
+    </div>
   );
 }
 
-export function RuneDisplay({ runes }: RuneDisplayProps) {
+function TreeColumn({ tree, selectedNames, isSecondary }: {
+  tree: RuneTree;
+  selectedNames: Set<string>;
+  isSecondary?: boolean;
+}) {
+  return (
+    <div className="space-y-3">
+      {/* Tree header */}
+      <div className="flex items-center gap-2">
+        <Image src={tree.icon} alt={tree.name} width={20} height={20} />
+        <span className="text-xs font-semibold">{tree.name}</span>
+      </div>
+
+      {/* Keystones (only for primary) */}
+      {!isSecondary && (
+        <div className="flex gap-1.5">
+          {tree.keystones.map((k) => (
+            <PerkIcon key={k.id} perk={k} selected={selectedNames.has(k.name.toLowerCase())} size={32} />
+          ))}
+        </div>
+      )}
+
+      {/* Tier rows */}
+      {tree.tiers.map((tier, i) => (
+        <div key={i} className="flex gap-1.5 items-center">
+          <span className="w-1 h-1 rounded-full bg-muted-foreground/30 shrink-0" />
+          <div className="flex gap-1.5">
+            {tier.perks.map((p) => (
+              <PerkIcon key={p.id} perk={p} selected={selectedNames.has(p.name.toLowerCase())} />
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export function RuneDisplay({ runes }: { runes: ResolvedRunePage | null }) {
   if (!runes) return null;
 
-  const hasPrimary = runes.primary.length > 0;
-  const hasSecondary = runes.secondary.length > 0;
-  const hasShards = runes.shards.length > 0;
+  const { primaryTree, secondaryTree, selectedPerkNames, shardNames } = runes;
+  if (!primaryTree) return null;
 
-  if (!hasPrimary && !hasSecondary) return null;
-
-  // Determine tree names from first rune in each group
-  const primaryTree = runes.primary[0]?.tree || "Primary";
-  const secondaryTree = runes.secondary[0]?.tree || "Secondary";
+  // Build selected set including shard names
+  const allSelected = new Set(selectedPerkNames);
+  for (const s of shardNames) allSelected.add(s.toLowerCase());
 
   return (
-    <div className="flex gap-6 flex-wrap">
+    <div className="flex gap-8 flex-wrap">
       {/* Primary tree */}
-      {hasPrimary && (
-        <div className="space-y-2">
-          <div className="text-xs font-medium text-muted-foreground">{primaryTree}</div>
-          <div className="flex gap-1.5">
-            {runes.primary.map((r, i) => (
-              <RuneIcon key={`p-${i}`} icon={r.icon} name={r.name} size={i === 0 ? 36 : 28} />
-            ))}
-          </div>
-        </div>
-      )}
+      <TreeColumn tree={primaryTree} selectedNames={allSelected} />
 
       {/* Secondary tree */}
-      {hasSecondary && (
-        <div className="space-y-2">
-          <div className="text-xs font-medium text-muted-foreground">{secondaryTree}</div>
-          <div className="flex gap-1.5">
-            {runes.secondary.map((r, i) => (
-              <RuneIcon key={`s-${i}`} icon={r.icon} name={r.name} size={28} />
-            ))}
-          </div>
-        </div>
+      {secondaryTree && (
+        <TreeColumn tree={secondaryTree} selectedNames={allSelected} isSecondary />
       )}
 
-      {/* Shards */}
-      {hasShards && (
-        <div className="space-y-2">
-          <div className="text-xs font-medium text-muted-foreground">Shards</div>
-          <div className="flex gap-1.5">
-            {runes.shards.map((shard, i) => (
-              <div
-                key={`sh-${i}`}
-                className="px-2 py-1 rounded bg-muted text-[11px] text-muted-foreground"
-                title={shard}
-              >
-                {shard}
+      {/* Shards (from the primary tree's shard data) */}
+      {primaryTree.shards.length > 0 && (
+        <div className="space-y-3">
+          <div className="text-xs font-semibold text-muted-foreground">Shards</div>
+          {primaryTree.shards.map((tier, i) => (
+            <div key={i} className="flex gap-1.5 items-center">
+              <span className="w-1 h-1 rounded-full bg-muted-foreground/30 shrink-0" />
+              <div className="flex gap-1.5">
+                {tier.perks.map((p) => (
+                  <PerkIcon key={p.id} perk={p} selected={allSelected.has(p.name.toLowerCase())} size={20} />
+                ))}
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       )}
     </div>
