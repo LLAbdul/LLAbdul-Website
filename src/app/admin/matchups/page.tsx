@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { getMongoClient } from "@/lib/mongo";
 import { Plus, ArrowLeft, Pencil } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { DifficultyBadge } from "@/components/shared/difficulty-badge";
 
@@ -30,9 +29,12 @@ export default async function AdminMatchupsPage() {
           </Link>
           <h1 className="text-xl font-bold">Matchup Guides</h1>
         </div>
-        <Button size="sm" render={<Link href="/admin/matchups/new" />}>
-          <Plus className="w-4 h-4 mr-1.5" /> New
-        </Button>
+        <Link
+          href="/admin/matchups/new"
+          className="inline-flex items-center gap-1.5 rounded-lg bg-primary px-3 py-1.5 text-sm font-medium text-primary-foreground hover:bg-primary/80 transition-colors"
+        >
+          <Plus className="w-4 h-4" /> New
+        </Link>
       </div>
 
       {matchups.length === 0 ? (
@@ -53,9 +55,12 @@ export default async function AdminMatchupsPage() {
                   </div>
                   <DifficultyBadge difficulty={m.difficulty} />
                 </div>
-                <Button variant="ghost" size="icon" render={<Link href={`/admin/matchups/${m._id}/edit`} />}>
+                <Link
+                  href={`/admin/matchups/${m._id}/edit`}
+                  className="p-2 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors"
+                >
                   <Pencil className="w-4 h-4" />
-                </Button>
+                </Link>
               </CardContent>
             </Card>
           ))}
