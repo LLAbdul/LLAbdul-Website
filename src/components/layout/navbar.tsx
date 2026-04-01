@@ -28,7 +28,7 @@ export function Navbar() {
           <Link href="/" className="flex items-center gap-2.5">
             <span
               className="flex items-center justify-center w-8 h-8 rounded-md text-sm font-bold"
-              style={{ background: "#C8AA6E", color: "#0A0E21" }}
+              style={{ background: "#B87FD8", color: "#0A0E21" }}
             >
               LL
             </span>
@@ -44,7 +44,7 @@ export function Navbar() {
                 className={cn(
                   "px-3 py-1.5 rounded-md text-sm font-medium transition-colors",
                   isActive(item.href, pathname)
-                    ? "text-[#C8AA6E] bg-[#C8AA6E]/10"
+                    ? "text-[#B87FD8] bg-[#B87FD8]/10"
                     : "text-[#7B7F9E] hover:text-[#E8E8ED] hover:bg-[#1A2340]"
                 )}
               >
@@ -74,7 +74,7 @@ export function Navbar() {
               className={cn(
                 "block px-3 py-2.5 rounded-md text-sm font-medium transition-colors",
                 isActive(item.href, pathname)
-                  ? "text-[#C8AA6E] bg-[#C8AA6E]/10"
+                  ? "text-[#B87FD8] bg-[#B87FD8]/10"
                   : "text-[#7B7F9E] hover:text-[#E8E8ED] hover:bg-[#1A2340]"
               )}
             >

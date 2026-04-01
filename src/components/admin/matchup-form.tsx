@@ -99,7 +99,7 @@ export function MatchupForm({
   }
 
   const inputClass =
-    "w-full px-3 py-2 rounded-md text-sm text-[#E8E8ED] placeholder:text-[#7B7F9E] bg-[#0A0E21] border border-[#1E2A4A] focus:outline-none focus:ring-1 focus:ring-[#C8AA6E]/50 focus:border-[#C8AA6E]/50 transition-colors";
+    "w-full px-3 py-2 rounded-md text-sm text-[#E8E8ED] placeholder:text-[#7B7F9E] bg-[#0A0E21] border border-[#1E2A4A] focus:outline-none focus:ring-1 focus:ring-[#B87FD8]/50 focus:border-[#B87FD8]/50 transition-colors";
 
   return (
     <div className="max-w-2xl space-y-6 py-6">

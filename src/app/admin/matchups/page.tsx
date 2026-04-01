@@ -44,7 +44,7 @@ export default async function AdminMatchupsPage() {
         <Link
           href="/admin/matchups/new"
           className="inline-flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-semibold transition-colors"
-          style={{ background: "#C8AA6E", color: "#0A0E21" }}
+          style={{ background: "#B87FD8", color: "#0A0E21" }}
         >
           <Plus className="w-4 h-4" />
           New
@@ -57,7 +57,7 @@ export default async function AdminMatchupsPage() {
             <p className="text-[#7B7F9E] text-sm">No matchup guides yet.</p>
             <Link
               href="/admin/matchups/new"
-              className="text-sm text-[#C8AA6E] font-medium mt-3 inline-block hover:underline"
+              className="text-sm text-[#B87FD8] font-medium mt-3 inline-block hover:underline"
             >
               Create your first guide
             </Link>

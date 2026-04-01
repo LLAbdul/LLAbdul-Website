@@ -88,7 +88,7 @@ export default function AboutPage() {
               <Card className="transition-colors hover:bg-[#1A2340]">
                 <CardContent className="flex items-center justify-between py-3">
                   <span className="font-medium text-sm text-[#E8E8ED]">{s.name}</span>
-                  <ExternalLink className="w-4 h-4 text-[#7B7F9E] group-hover:text-[#C8AA6E] transition-colors" />
+                  <ExternalLink className="w-4 h-4 text-[#7B7F9E] group-hover:text-[#B87FD8] transition-colors" />
                 </CardContent>
               </Card>
             </a>

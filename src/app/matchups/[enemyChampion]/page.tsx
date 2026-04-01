@@ -45,7 +45,7 @@ export default async function MatchupDetailPage({ params }: PageProps) {
       {/* Back link */}
       <Link
         href="/matchups"
-        className="inline-flex items-center gap-1.5 text-xs text-[#7B7F9E] hover:text-[#C8AA6E] transition-colors"
+        className="inline-flex items-center gap-1.5 text-xs text-[#7B7F9E] hover:text-[#B87FD8] transition-colors"
       >
         <ArrowLeft className="w-3.5 h-3.5" />
         All Matchups

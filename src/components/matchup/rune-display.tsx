@@ -14,7 +14,7 @@ function PerkIcon({
     <div
       className={`rounded-full transition-all ${
         selected
-          ? "ring-1 ring-[#C8AA6E] ring-offset-1 ring-offset-[#111833]"
+          ? "ring-1 ring-[#B87FD8] ring-offset-1 ring-offset-[#111833]"
           : "opacity-25 grayscale"
       }`}
       title={perk.name}

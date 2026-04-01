@@ -39,7 +39,7 @@ export default async function AdminDashboard() {
         <div className="grid grid-cols-3 gap-4">
           <Card>
             <CardContent className="text-center py-4">
-              <div className="text-2xl font-bold text-[#C8AA6E]">{stats.matchupCount}</div>
+              <div className="text-2xl font-bold text-[#B87FD8]">{stats.matchupCount}</div>
               <div className="text-[11px] uppercase tracking-widest font-semibold text-[#7B7F9E] mt-1">
                 Matchups
               </div>

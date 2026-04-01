@@ -42,7 +42,7 @@ export default async function GuidesPage() {
                   {champ.title && (
                     <p className="text-xs text-[#7B7F9E] truncate mt-0.5 italic">{champ.title}</p>
                   )}
-                  <span className="inline-flex items-center gap-1 text-xs text-[#C8AA6E] font-medium mt-2 group-hover:gap-1.5 transition-all">
+                  <span className="inline-flex items-center gap-1 text-xs text-[#B87FD8] font-medium mt-2 group-hover:gap-1.5 transition-all">
                     View Guide <ArrowRight className="w-3 h-3" />
                   </span>
                 </div>

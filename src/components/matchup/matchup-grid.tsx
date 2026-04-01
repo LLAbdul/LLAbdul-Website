@@ -71,8 +71,8 @@ export function MatchupGrid({ matchups }: { matchups: MatchupListItem[] }) {
               className={cn(
                 "px-3 py-1.5 rounded-md text-xs font-medium transition-colors",
                 sort === mode
-                  ? "text-[#0A0E21] bg-[#C8AA6E]"
-                  : "text-[#7B7F9E] bg-[#111833] border border-[#1E2A4A] hover:text-[#E8E8ED] hover:border-[#C8AA6E]/40"
+                  ? "text-[#0A0E21] bg-[#B87FD8]"
+                  : "text-[#7B7F9E] bg-[#111833] border border-[#1E2A4A] hover:text-[#E8E8ED] hover:border-[#B87FD8]/40"
               )}
             >
               {sortLabels[mode]}

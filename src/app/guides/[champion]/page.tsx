@@ -49,7 +49,7 @@ export default async function ChampionGuidePage({ params }: PageProps) {
     <div className="max-w-3xl space-y-6 py-6">
       <Link
         href="/guides"
-        className="inline-flex items-center gap-1.5 text-xs text-[#7B7F9E] hover:text-[#C8AA6E] transition-colors"
+        className="inline-flex items-center gap-1.5 text-xs text-[#7B7F9E] hover:text-[#B87FD8] transition-colors"
       >
         <ArrowLeft className="w-3.5 h-3.5" />
         All Guides
@@ -144,7 +144,7 @@ export default async function ChampionGuidePage({ params }: PageProps) {
             </p>
             <Link
               href="/matchups"
-              className="text-sm text-[#C8AA6E] font-medium mt-4 inline-block hover:underline"
+              className="text-sm text-[#B87FD8] font-medium mt-4 inline-block hover:underline"
             >
               Browse Matchups
             </Link>
