@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import { Plus_Jakarta_Sans, Cinzel } from "next/font/google";
+import { Plus_Jakarta_Sans, Oswald } from "next/font/google";
 import { Navbar } from "@/components/layout/navbar";
 
 const jakarta = Plus_Jakarta_Sans({
@@ -9,10 +9,10 @@ const jakarta = Plus_Jakarta_Sans({
   weight: ["400", "500", "600", "700", "800"],
 });
 
-const cinzel = Cinzel({
+const oswald = Oswald({
   subsets: ["latin"],
   variable: "--font-serif",
-  weight: ["400", "600", "700", "800", "900"],
+  weight: ["400", "500", "600", "700"],
 });
 
 export const viewport: Viewport = {
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${jakarta.variable} ${cinzel.variable}`}>
+    <html lang="en" className={`${jakarta.variable} ${oswald.variable}`}>
       <body className="min-h-screen bg-background text-foreground selection:bg-accent-crimson/30 flex flex-col">
         <Navbar />
         {children}

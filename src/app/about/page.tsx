@@ -28,19 +28,19 @@ export default async function AboutPage() {
   } catch {}
 
   return (
-    <div className="space-y-6 py-6">
+    <div className="space-y-6 py-6 bg-[#030509] min-h-screen text-[#E8E8ED]">
       <p className="text-[11px] uppercase tracking-widest font-semibold text-[#7B7F9E]">Profile</p>
 
       {/* Two-column: Profile + Stats */}
       <div className="grid lg:grid-cols-[1fr_320px] gap-4">
-        <Card>
+        <Card className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl">
           <CardContent className="py-6">
             <div className="flex items-start gap-5">
-              <Image src={RANK_EMBLEMS.challenger} alt="Challenger" width={100} height={100} className="shrink-0" />
+              <Image src={RANK_EMBLEMS.challenger} alt="Challenger" width={100} height={100} className="shrink-0 drop-shadow-[0_0_15px_rgba(255,215,0,0.3)]" />
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2.5 flex-wrap">
-                  <h1 className="text-2xl font-extrabold text-[#E8E8ED]">LLAbdul</h1>
-                  <Badge variant="outline" className="text-[10px] font-semibold uppercase tracking-widest" style={{ background: "rgba(184,127,216,0.12)", color: "#B87FD8", borderColor: "rgba(184,127,216,0.30)" }}>
+                  <h1 className="text-2xl font-serif text-white">LLAbdul</h1>
+                  <Badge variant="outline" className="text-[10px] font-semibold uppercase tracking-widest shadow-[0_0_10px_rgba(255,215,0,0.5)]" style={{ background: "rgba(255,215,0,0.1)", color: "#FFD700", borderColor: "rgba(255,215,0,0.3)" }}>
                     Challenger #16
                   </Badge>
                 </div>
@@ -53,7 +53,7 @@ export default async function AboutPage() {
                     <Image src={POSITION_ICONS.top} alt="Top" width={16} height={16} className="opacity-70" />
                     <span>Top</span>
                   </div>
-                  <span className="text-[#1E2A4A]">|</span>
+                  <span className="text-white/20">|</span>
                   <span>NA</span>
                 </div>
                 <div className="flex items-center gap-2.5 mt-4">
@@ -68,20 +68,20 @@ export default async function AboutPage() {
 
         <div className="space-y-3">
           <div className="grid grid-cols-2 gap-3">
-            <Card>
+            <Card className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl">
               <CardContent className="text-center py-3">
-                <div className="text-lg font-bold text-[#C8AA6E]">#16</div>
+                <div className="text-lg font-bold text-[#FFD700]">#16</div>
                 <div className="text-[10px] uppercase tracking-widest font-semibold text-[#7B7F9E] mt-0.5">Peak Rank</div>
               </CardContent>
             </Card>
-            <Card>
+            <Card className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl">
               <CardContent className="text-center py-3">
-                <div className="text-lg font-bold text-[#B87FD8]">NA</div>
+                <div className="text-lg font-bold text-[#C9082A]">NA</div>
                 <div className="text-[10px] uppercase tracking-widest font-semibold text-[#7B7F9E] mt-0.5">Region</div>
               </CardContent>
             </Card>
           </div>
-          <Card>
+          <Card className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl">
             <CardContent className="py-4">
               <p className="text-[11px] uppercase tracking-widest font-semibold text-[#7B7F9E] mb-3">Roles</p>
               <div className="space-y-2.5">
@@ -109,7 +109,7 @@ export default async function AboutPage() {
       <div className="grid lg:grid-cols-[1fr_320px] gap-4">
         <div className="space-y-3">
           <p className="text-[11px] uppercase tracking-widest font-semibold text-[#7B7F9E]">My Journey</p>
-          <Card>
+          <Card className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl">
             <CardContent className="space-y-3 text-sm leading-relaxed text-[#E8E8ED]">
               <p>
                 I&apos;ve been playing League for years, focusing almost exclusively on Yasuo and Yone.
@@ -133,10 +133,10 @@ export default async function AboutPage() {
           <div className="space-y-2">
             {socials.map((s) => (
               <a key={s.name} href={s.href} target="_blank" rel="noopener noreferrer" className="group block">
-                <Card className="transition-colors hover:bg-[#1A2340]">
+                <Card className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl transition-colors hover:bg-white/10">
                   <CardContent className="flex items-center justify-between py-3">
                     <span className="font-medium text-sm text-[#E8E8ED]">{s.name}</span>
-                    <ExternalLink className="w-4 h-4 text-[#7B7F9E] group-hover:text-[#B87FD8] transition-colors" />
+                    <ExternalLink className="w-4 h-4 text-[#7B7F9E] group-hover:text-[#C9082A] transition-colors" />
                   </CardContent>
                 </Card>
               </a>

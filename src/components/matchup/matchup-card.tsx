@@ -15,7 +15,7 @@ export function MatchupCard({ enemyChampion, enemyIcon, difficulty }: MatchupCar
   return (
     <Link href={`/matchups/${encodeURIComponent(enemyChampion)}`}>
       <Card
-        className={`h-full transition-colors hover:bg-[#1A2340] cursor-pointer ${
+        className={`h-full transition-all bg-white/5 backdrop-blur-md border border-white/10 hover:bg-white/10 hover:border-[#C9082A]/50 cursor-pointer ${
           !hasGuide ? "opacity-50" : ""
         }`}
       >
@@ -23,17 +23,17 @@ export function MatchupCard({ enemyChampion, enemyIcon, difficulty }: MatchupCar
           {enemyIcon ? (
             <ChampionIcon src={enemyIcon} name={enemyChampion} size={48} />
           ) : (
-            <div className="w-12 h-12 rounded-md bg-[#1A2340] flex items-center justify-center text-[#7B7F9E] text-xs">
+            <div className="w-12 h-12 rounded-md bg-white/5 flex items-center justify-center text-[#7B7F9E] text-xs border border-white/10">
               ?
             </div>
           )}
-          <span className="font-medium text-[11px] text-[#E8E8ED] text-center leading-tight line-clamp-2">
+          <span className="text-white font-bold text-center leading-tight line-clamp-2">
             {enemyChampion}
           </span>
           {hasGuide ? (
             <DifficultyBadge difficulty={difficulty} />
           ) : (
-            <span className="text-[10px] text-[#7B7F9E]">—</span>
+            <span className="text-[#7B7F9E] text-xs uppercase tracking-wider">—</span>
           )}
         </CardContent>
       </Card>

@@ -15,7 +15,7 @@ export default async function MatchupsPage() {
         <p className="text-[11px] uppercase tracking-widest font-semibold text-[#7B7F9E] mb-1">
           Yasuo &amp; Yone
         </p>
-        <h1 className="text-2xl font-bold tracking-tight text-[#E8E8ED]">Matchup Guides</h1>
+        <h1 className="text-2xl font-bold tracking-tight font-serif text-white uppercase">Matchup Guides</h1>
         <p className="text-sm text-[#7B7F9E] mt-1">
           Every champion. Champions with a guide show difficulty.
         </p>

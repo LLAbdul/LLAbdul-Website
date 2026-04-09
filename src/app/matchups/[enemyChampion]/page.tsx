@@ -41,18 +41,18 @@ export default async function MatchupDetailPage({ params }: PageProps) {
   const hasSpells = matchup.summonerSpells.length > 0;
 
   return (
-    <div className="max-w-4xl space-y-6 py-6">
+    <div className="max-w-4xl space-y-6 py-6 text-[#E8E8ED]">
       {/* Back link */}
       <Link
         href="/matchups"
-        className="inline-flex items-center gap-1.5 text-xs text-[#7B7F9E] hover:text-[#B87FD8] transition-colors"
+        className="inline-flex items-center gap-1.5 text-xs text-[#7B7F9E] hover:text-[#C9082A] transition-colors"
       >
         <ArrowLeft className="w-3.5 h-3.5" />
         All Matchups
       </Link>
 
       {/* Header */}
-      <div className="flex items-start gap-4">
+      <div className="flex items-start gap-4 bg-[#030509] p-6 rounded-xl border border-white/10">
         {enemyChamp?.icon && (
           <ChampionIcon src={enemyChamp.icon} name={enemyChamp.name} size={64} className="rounded-lg shrink-0" />
         )}
@@ -61,7 +61,7 @@ export default async function MatchupDetailPage({ params }: PageProps) {
             Matchup Guide
           </p>
           <div className="flex items-center gap-2.5 flex-wrap">
-            <h1 className="text-xl font-bold text-[#E8E8ED]">
+            <h1 className="text-3xl font-serif font-black text-white">
               {matchup.champion.name} vs {decoded}
             </h1>
             <DifficultyBadge difficulty={matchup.difficulty} />
@@ -77,11 +77,11 @@ export default async function MatchupDetailPage({ params }: PageProps) {
         <div className="grid lg:grid-cols-[1fr_260px] gap-4">
           {/* Left: Runes */}
           {hasRunes && (
-            <Card>
-              <CardContent className="pt-1">
-                <p className="text-[11px] uppercase tracking-widest font-semibold text-[#7B7F9E] mb-3">
+            <Card className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl text-[#E8E8ED]">
+              <CardContent className="pt-6">
+                <h2 className="font-serif text-white text-xl mb-4">
                   Runes
-                </p>
+                </h2>
                 <RuneDisplay runes={matchup.runes} />
               </CardContent>
             </Card>
@@ -90,11 +90,11 @@ export default async function MatchupDetailPage({ params }: PageProps) {
           {/* Right: Spells + Build stacked */}
           <div className="space-y-4">
             {hasSpells && (
-              <Card>
-                <CardContent>
-                  <p className="text-[11px] uppercase tracking-widest font-semibold text-[#7B7F9E] mb-3">
+              <Card className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl text-[#E8E8ED]">
+                <CardContent className="pt-6">
+                  <h2 className="font-serif text-white text-xl mb-4">
                     Summoner Spells
-                  </p>
+                  </h2>
                   <div className="flex gap-2">
                     {matchup.summonerSpells.map((spell) => (
                       <div key={spell.name} title={spell.name}>
@@ -104,10 +104,10 @@ export default async function MatchupDetailPage({ params }: PageProps) {
                             alt={spell.name}
                             width={40}
                             height={40}
-                            className="rounded-md border border-[#1E2A4A]"
+                            className="rounded-md border border-white/10"
                           />
                         ) : (
-                          <div className="w-10 h-10 rounded-md bg-[#1A2340] border border-[#1E2A4A] flex items-center justify-center text-[10px] text-[#7B7F9E]">
+                          <div className="w-10 h-10 rounded-md bg-black/20 border border-white/10 flex items-center justify-center text-[10px] text-[#7B7F9E]">
                             {spell.name.slice(0, 2)}
                           </div>
                         )}
@@ -119,8 +119,8 @@ export default async function MatchupDetailPage({ params }: PageProps) {
             )}
 
             {hasBuild && (
-              <Card>
-                <CardContent className="space-y-4">
+              <Card className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl text-[#E8E8ED]">
+                <CardContent className="pt-6 space-y-4">
                   {matchup.startItems.length > 0 && (
                     <BuildDisplay items={matchup.startItems} label="Starting Items" />
                   )}
@@ -136,30 +136,34 @@ export default async function MatchupDetailPage({ params }: PageProps) {
 
       {/* Strategy */}
       {hasStrategy && (
-        <div className="space-y-3">
-          <p className="text-[11px] uppercase tracking-widest font-semibold text-[#7B7F9E]">
-            Game Plan
-          </p>
-          <div className="space-y-2">
-            {matchup.early && <PhaseStrategy phase="early" content={matchup.early} />}
-            {matchup.mid && <PhaseStrategy phase="mid" content={matchup.mid} />}
-            {matchup.late && <PhaseStrategy phase="late" content={matchup.late} />}
-          </div>
-        </div>
+        <Card className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl text-[#E8E8ED]">
+          <CardContent className="pt-6 space-y-4">
+            <h2 className="font-serif text-white text-xl">
+              Game Plan
+            </h2>
+            <div className="space-y-2">
+              {matchup.early && <PhaseStrategy phase="early" content={matchup.early} />}
+              {matchup.mid && <PhaseStrategy phase="mid" content={matchup.mid} />}
+              {matchup.late && <PhaseStrategy phase="late" content={matchup.late} />}
+            </div>
+          </CardContent>
+        </Card>
       )}
 
       {/* Videos */}
       {hasVideos && (
-        <div className="space-y-3">
-          <p className="text-[11px] uppercase tracking-widest font-semibold text-[#7B7F9E]">
-            Video Guides
-          </p>
-          <div className="grid gap-4 sm:grid-cols-2">
-            {matchup.videos.map((url, i) => (
-              <VideoEmbed key={i} url={url} />
-            ))}
-          </div>
-        </div>
+        <Card className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl text-[#E8E8ED]">
+          <CardContent className="pt-6 space-y-4">
+            <h2 className="font-serif text-white text-xl">
+              Video Guides
+            </h2>
+            <div className="grid gap-4 sm:grid-cols-2">
+              {matchup.videos.map((url, i) => (
+                <VideoEmbed key={i} url={url} />
+              ))}
+            </div>
+          </CardContent>
+        </Card>
       )}
     </div>
   );

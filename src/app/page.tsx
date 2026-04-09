@@ -25,7 +25,7 @@ export default async function Home() {
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_right_center,rgba(0,212,255,0.1),transparent_50%)]"></div>
           
           {/* Yasuo Background Image (Left) */}
-          <div className="absolute -left-[10%] top-0 h-[120%] w-1/2 opacity-20 mix-blend-screen mask-image-gradient-left pointer-events-none">
+          <div className="absolute -left-[2%] top-0 h-[120%] w-[55%] opacity-20 mix-blend-screen mask-image-gradient-left pointer-events-none">
             <Image 
               src="/resources/images/NightBringerYasuo.png"
               alt=""
@@ -36,7 +36,7 @@ export default async function Home() {
           </div>
 
           {/* Yone Background Image (Right) */}
-          <div className="absolute -right-[10%] top-0 h-[120%] w-1/2 opacity-20 mix-blend-screen mask-image-gradient-right pointer-events-none">
+          <div className="absolute -right-[2%] top-0 h-[120%] w-[55%] opacity-20 mix-blend-screen mask-image-gradient-right pointer-events-none">
             <Image 
               src="/resources/images/YoneDefault.png"
               alt=""
@@ -166,7 +166,7 @@ export default async function Home() {
       </section>
 
       {/* Mask utilities for the images */}
-      <style dangerouslySetInlineStyle={{__html: `
+      <style dangerouslySetInnerHTML={{__html: `
         .mask-image-gradient-left {
           mask-image: linear-gradient(to right, black, transparent);
           -webkit-mask-image: linear-gradient(to right, black, transparent);

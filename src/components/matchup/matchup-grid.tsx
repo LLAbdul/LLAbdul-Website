@@ -69,10 +69,10 @@ export function MatchupGrid({ matchups }: { matchups: MatchupListItem[] }) {
               key={mode}
               onClick={() => setSort(mode)}
               className={cn(
-                "px-3 py-1.5 rounded-md text-xs font-medium transition-colors",
+                "px-3 py-1.5 rounded-md text-xs font-medium transition-colors border",
                 sort === mode
-                  ? "text-[#0A0E21] bg-[#B87FD8]"
-                  : "text-[#7B7F9E] bg-[#111833] border border-[#1E2A4A] hover:text-[#E8E8ED] hover:border-[#B87FD8]/40"
+                  ? "text-[#0A0E21] bg-[#C9082A] border-[#C9082A]"
+                  : "text-[#7B7F9E] bg-white/5 border-white/10 hover:text-white hover:border-[#C9082A]/50"
               )}
             >
               {sortLabels[mode]}
