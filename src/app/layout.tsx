@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import { Plus_Jakarta_Sans } from "next/font/google";
+import { Plus_Jakarta_Sans, Cinzel } from "next/font/google";
 import { Navbar } from "@/components/layout/navbar";
 
 const jakarta = Plus_Jakarta_Sans({
@@ -9,8 +9,14 @@ const jakarta = Plus_Jakarta_Sans({
   weight: ["400", "500", "600", "700", "800"],
 });
 
+const cinzel = Cinzel({
+  subsets: ["latin"],
+  variable: "--font-serif",
+  weight: ["400", "600", "700", "800", "900"],
+});
+
 export const viewport: Viewport = {
-  themeColor: "#0A0E21",
+  themeColor: "#030509",
   width: "device-width",
   initialScale: 1,
 };
@@ -40,12 +46,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={jakarta.variable}>
-      <body className="min-h-screen bg-background text-foreground">
+    <html lang="en" className={`${jakarta.variable} ${cinzel.variable}`}>
+      <body className="min-h-screen bg-background text-foreground selection:bg-accent-crimson/30 flex flex-col">
         <Navbar />
-        <main className="w-full max-w-6xl mx-auto px-4 py-6 md:px-8 md:py-8 lg:px-12">
-          {children}
-        </main>
+        {children}
       </body>
     </html>
   );
