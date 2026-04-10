@@ -36,11 +36,14 @@ function PerkIcon({
         </TooltipTrigger>
         <TooltipContent 
           side="top" 
-          className="max-w-xs bg-[#030509]/95 backdrop-blur-xl border border-white/10 text-[#E8E8ED] p-3 rounded-xl shadow-2xl z-50"
+          className="max-w-[360px] bg-[#030509]/95 backdrop-blur-xl border border-white/10 text-[#E8E8ED] p-4 rounded-xl shadow-2xl z-50"
         >
-          <p className="font-bold text-white mb-1.5">{perk.name}</p>
+          <div className="flex items-center gap-3 mb-3 pb-3 border-b border-white/10">
+            <Image src={perk.icon} alt={perk.name} width={24} height={24} className="rounded-full" />
+            <p className="font-bold text-white text-sm tracking-wide">{perk.name}</p>
+          </div>
           <div 
-            className="text-xs text-[#7B7F9E] leading-relaxed [&_scaleLevel]:text-white [&_gold]:text-[#FFD700] [&_truedamage]:text-white [&_hr]:border-white/10 [&_hr]:my-2" 
+            className="text-[13px] text-[#7B7F9E] leading-relaxed [&_scaleLevel]:text-white [&_gold]:text-[#FFD700] [&_truedamage]:text-white [&_hr]:border-white/10 [&_hr]:my-2" 
             dangerouslySetInnerHTML={{ __html: (perk.shortDesc || perk.longDesc || "").replace(/<br>\s*<hr>\s*<br>/g, '<hr>') }} 
           />
         </TooltipContent>

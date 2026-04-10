@@ -29,19 +29,19 @@ export default function MatchupDetailLoading() {
           {/* Left Column: Details & Strategy */}
           <div className="space-y-8">
             
-            <div className="flex flex-col xl:flex-row gap-8 items-start">
+            <div className="flex flex-col xl:flex-row gap-8 items-stretch">
               {/* Runes */}
-              <section className="space-y-3 w-fit shrink-0">
+              <section className="space-y-3 w-fit shrink-0 flex flex-col">
                 <div className="flex items-center gap-2 px-1">
                   <div className="w-1 h-5 bg-white/10 rounded-full animate-pulse" />
                   <Skeleton className="bg-white/10 h-7 w-36" />
                 </div>
-                <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-4 h-64 animate-pulse" />
+                <div className="flex-1 bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-4 min-h-[340px] animate-pulse" />
               </section>
 
-              <div className="flex flex-col gap-8 flex-1 min-w-0">
+              <div className="flex flex-col justify-between flex-1 min-w-0 gap-8">
                 {/* Summoner Spells */}
-                <section className="space-y-3 w-fit">
+                <section className="space-y-3 w-full">
                   <div className="flex items-center gap-2 px-1">
                     <div className="w-1 h-5 bg-white/10 rounded-full animate-pulse" />
                     <Skeleton className="bg-white/10 h-7 w-48" />
@@ -53,7 +53,7 @@ export default function MatchupDetailLoading() {
                 </section>
 
                 {/* Build Path */}
-                <section className="space-y-3 w-fit">
+                <section className="space-y-3 w-full">
                   <div className="flex items-center gap-2 px-1">
                     <div className="w-1 h-5 bg-white/10 rounded-full animate-pulse" />
                     <Skeleton className="bg-white/10 h-7 w-32" />

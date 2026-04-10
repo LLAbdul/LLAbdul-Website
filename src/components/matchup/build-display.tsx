@@ -16,9 +16,9 @@ export function BuildDisplay({ items, label, showArrows = false }: BuildDisplayP
       <p className="text-[11px] uppercase tracking-widest font-semibold text-[#7B7F9E]">
         {label}
       </p>
-      <div className="flex items-center gap-1.5 flex-wrap">
+      <div className="flex items-center gap-1 flex-wrap">
         {items.map((item, i) => (
-          <div key={`${item.name}-${i}`} className="flex items-center gap-1.5">
+          <div key={`${item.name}-${i}`} className="flex items-center gap-1">
             {showArrows && i > 0 && (
               <ArrowRight className="w-3 h-3 text-[#7B7F9E] shrink-0" />
             )}
@@ -27,12 +27,12 @@ export function BuildDisplay({ items, label, showArrows = false }: BuildDisplayP
                 <Image
                   src={item.icon}
                   alt={item.name}
-                  width={40}
-                  height={40}
+                  width={34}
+                  height={34}
                   className="rounded-md border border-[#1E2A4A]"
                 />
               ) : (
-                <div className="w-10 h-10 rounded-md bg-[#1A2340] border border-[#1E2A4A] flex items-center justify-center text-[10px] text-[#7B7F9E]">
+                <div className="w-[34px] h-[34px] rounded-md bg-[#1A2340] border border-[#1E2A4A] flex items-center justify-center text-[10px] text-[#7B7F9E]">
                   {item.name.slice(0, 2)}
                 </div>
               )}
