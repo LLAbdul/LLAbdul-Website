@@ -158,13 +158,13 @@ export default async function MatchupDetailPage({ params }: PageProps) {
                                             <Image
                                               src={spell.icon}
                                               alt={spell.name}
-                                              width={30}
-                                              height={30}
+                                              width={38}
+                                              height={38}
                                               className="relative rounded-xl border border-white/10 shadow-md group-hover:border-[#FFD700]/50 transition-colors z-10"
                                             />
                                           </div>
                                         ) : (
-                                          <div className="w-[30px] h-[30px] rounded-xl bg-black/40 border border-white/10 flex items-center justify-center text-[10px] font-bold text-[#7B7F9E] shadow-md hover:border-white/20 transition-colors">
+                                          <div className="w-[38px] h-[38px] rounded-xl bg-black/40 border border-white/10 flex items-center justify-center text-[10px] font-bold text-[#7B7F9E] shadow-md hover:border-white/20 transition-colors">
                                           {spell.name.slice(0, 3)}
                                         </div>
                                       )}
