@@ -175,7 +175,7 @@ export default async function MatchupDetailPage({ params }: PageProps) {
                       </h2>
                     </div>
                     <Card className="w-full bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden shadow-lg hover:bg-white/[0.06] transition-colors">
-                      <CardContent className="p-4 space-y-4">
+                      <CardContent className="p-4 space-y-3">
                         {matchup.startItems.length > 0 && (
                           <BuildDisplay items={matchup.startItems} label="Starting Items" />
                         )}
