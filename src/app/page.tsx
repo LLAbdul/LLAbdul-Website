@@ -64,7 +64,7 @@ export default async function Home() {
             Premium Yasuo & Yone guides crafted by NA's finest.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+          <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto relative z-30 pointer-events-auto">
             <Link href="/matchups" className="group relative">
               <div className="absolute -inset-1 rounded-lg bg-gradient-to-r from-[#C9082A] to-[#ff4500] opacity-50 blur transition duration-500 group-hover:opacity-100"></div>
               <button className="relative w-full sm:w-auto px-8 py-4 bg-[#030509] border border-white/10 rounded-lg flex items-center justify-center gap-3 text-white font-medium hover:bg-white/5 transition-all">
@@ -83,86 +83,165 @@ export default async function Home() {
         </div>
         
         {/* Bottom Fade out */}
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#030509] to-transparent z-10"></div>
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#030509] to-transparent z-0 pointer-events-none"></div>
       </section>
 
       {/* Main Content Area */}
-      <section className="relative z-20 max-w-6xl mx-auto px-4 md:px-8 lg:px-12 py-16 -mt-8 w-full">
-        <div className="grid lg:grid-cols-[1fr_340px] gap-8 items-start">
+      <section className="relative z-10 max-w-6xl mx-auto px-4 md:px-8 lg:px-12 py-16 -mt-8 w-full pointer-events-none">
+        <div className="grid lg:grid-cols-[1.5fr_1fr] gap-10 lg:gap-16 items-start pointer-events-auto">
           {/* Left: Nav Cards */}
-          <div className="space-y-4">
-            <h2 className="font-serif text-2xl font-bold text-white mb-6">Explore the Path</h2>
+          <div className="space-y-6">
+            <div className="flex items-center gap-4 mb-8">
+              <div className="h-px w-8 bg-gradient-to-r from-transparent to-[#C9082A]"></div>
+              <h2 className="font-serif text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-white/70 tracking-wide uppercase">Explore the Path</h2>
+              <div className="h-px flex-1 bg-gradient-to-l from-transparent via-white/10 to-[#C9082A]"></div>
+            </div>
             
-            <Link href="/matchups" className="group block">
-              <Card className="bg-white/5 backdrop-blur-xl border-white/10 transition-all duration-300 hover:bg-white/10 hover:border-[#C9082A]/50 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgb(201,8,42,0.15)]">
-                <CardContent className="flex items-center justify-between p-6">
-                  <div className="flex items-center gap-5">
-                    <div className="w-14 h-14 rounded-xl flex items-center justify-center shrink-0 bg-gradient-to-br from-[#C9082A]/20 to-transparent border border-[#C9082A]/30 text-[#C9082A]">
-                      <Swords className="w-6 h-6" />
-                    </div>
-                    <div>
-                      <div className="font-serif font-bold text-xl text-white group-hover:text-[#C9082A] transition-colors">Matchup Guides</div>
-                      <div className="text-sm text-[#7B7F9E] mt-1">{matchups.length > 0 ? `${matchups.length} guides · ` : ""}Dominate every lane phase</div>
+            <Link href="/matchups" className="group block relative">
+              {/* Glow Behind */}
+              <div className="absolute -inset-1 bg-gradient-to-r from-[#C9082A]/30 to-[#C9082A]/0 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition duration-700"></div>
+              
+              <div className="relative overflow-hidden rounded-2xl bg-[#030509]/80 backdrop-blur-xl border border-white/5 transition-all duration-500 group-hover:border-[#C9082A]/50 group-hover:-translate-y-1 group-hover:shadow-2xl group-hover:shadow-[#C9082A]/10">
+                {/* Background Accents */}
+                <div className="absolute top-0 right-0 w-64 h-64 bg-[radial-gradient(circle_at_top_right,rgba(201,8,42,0.1),transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
+                <div className="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-black/60 to-transparent pointer-events-none"></div>
+                
+                <div className="relative p-6 sm:p-10 flex flex-col sm:flex-row items-start sm:items-center gap-6 sm:gap-8">
+                  {/* Icon Container */}
+                  <div className="relative shrink-0">
+                    <div className="absolute inset-0 bg-[#C9082A] blur-lg opacity-20 group-hover:opacity-40 transition duration-500"></div>
+                    <div className="relative w-20 h-20 rounded-2xl flex items-center justify-center bg-gradient-to-b from-white/10 to-transparent border border-white/10 shadow-inner overflow-hidden">
+                      <div className="absolute inset-0 bg-gradient-to-br from-[#C9082A]/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-500"></div>
+                      <Swords className="w-10 h-10 text-white group-hover:text-[#C9082A] transition-colors duration-500 drop-shadow-[0_0_15px_rgba(201,8,42,0.5)]" />
                     </div>
                   </div>
-                  <ChevronRight className="w-5 h-5 text-[#7B7F9E] group-hover:text-[#C9082A] group-hover:translate-x-1 transition-all" />
-                </CardContent>
-              </Card>
+                  
+                  {/* Content */}
+                  <div className="flex-1">
+                    <h3 className="font-serif font-black text-3xl text-white tracking-tight mb-2 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-[#C9082A]/70 transition-all duration-500">
+                      Matchup Library
+                    </h3>
+                    <p className="text-lg text-[#7B7F9E] font-light group-hover:text-white/80 transition-colors duration-500 leading-relaxed">
+                      Dominate every lane phase with deep-dive strategies against {matchups.length > 0 ? <span className="text-white font-medium">{matchups.length}</span> : "all"} champions.
+                    </p>
+                  </div>
+                  
+                  {/* Arrow */}
+                  <div className="shrink-0 w-12 h-12 rounded-full border border-white/10 flex items-center justify-center bg-white/5 group-hover:bg-[#C9082A] group-hover:border-[#C9082A] transition-all duration-500 group-hover:shadow-[0_0_20px_rgba(201,8,42,0.4)]">
+                    <ChevronRight className="w-6 h-6 text-white/50 group-hover:text-white group-hover:translate-x-0.5 transition-all duration-500" />
+                  </div>
+                </div>
+              </div>
             </Link>
 
-            <Link href="/guides" className="group block">
-              <Card className="bg-white/5 backdrop-blur-xl border-white/10 transition-all duration-300 hover:bg-white/10 hover:border-[#FFD700]/50 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgb(255,215,0,0.1)]">
-                <CardContent className="flex items-center justify-between p-6">
-                  <div className="flex items-center gap-5">
-                    <div className="w-14 h-14 rounded-xl flex items-center justify-center shrink-0 bg-gradient-to-br from-[#FFD700]/20 to-transparent border border-[#FFD700]/30 text-[#FFD700]">
-                      <BookOpen className="w-6 h-6" />
-                    </div>
-                    <div>
-                      <div className="font-serif font-bold text-xl text-white group-hover:text-[#FFD700] transition-colors">Champion Masterclass</div>
-                      <div className="text-sm text-[#7B7F9E] mt-1">Combos, animation cancels, macro</div>
+            <Link href="/guides" className="group block relative">
+              {/* Glow Behind */}
+              <div className="absolute -inset-1 bg-gradient-to-r from-[#FFD700]/20 to-[#FFD700]/0 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition duration-700"></div>
+              
+              <div className="relative overflow-hidden rounded-2xl bg-[#030509]/80 backdrop-blur-xl border border-white/5 transition-all duration-500 group-hover:border-[#FFD700]/40 group-hover:-translate-y-1 group-hover:shadow-2xl group-hover:shadow-[#FFD700]/10">
+                {/* Background Accents */}
+                <div className="absolute top-0 right-0 w-64 h-64 bg-[radial-gradient(circle_at_top_right,rgba(255,215,0,0.08),transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
+                <div className="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-black/60 to-transparent pointer-events-none"></div>
+                
+                <div className="relative p-6 sm:p-10 flex flex-col sm:flex-row items-start sm:items-center gap-6 sm:gap-8">
+                  {/* Icon Container */}
+                  <div className="relative shrink-0">
+                    <div className="absolute inset-0 bg-[#FFD700] blur-lg opacity-10 group-hover:opacity-30 transition duration-500"></div>
+                    <div className="relative w-20 h-20 rounded-2xl flex items-center justify-center bg-gradient-to-b from-white/10 to-transparent border border-white/10 shadow-inner overflow-hidden">
+                      <div className="absolute inset-0 bg-gradient-to-br from-[#FFD700]/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-500"></div>
+                      <BookOpen className="w-10 h-10 text-white group-hover:text-[#FFD700] transition-colors duration-500 drop-shadow-[0_0_15px_rgba(255,215,0,0.4)]" />
                     </div>
                   </div>
-                  <ChevronRight className="w-5 h-5 text-[#7B7F9E] group-hover:text-[#FFD700] group-hover:translate-x-1 transition-all" />
-                </CardContent>
-              </Card>
+                  
+                  {/* Content */}
+                  <div className="flex-1">
+                    <h3 className="font-serif font-black text-3xl text-white tracking-tight mb-2 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-[#FFD700]/70 transition-all duration-500">
+                      Champion Masterclass
+                    </h3>
+                    <p className="text-lg text-[#7B7F9E] font-light group-hover:text-white/80 transition-colors duration-500 leading-relaxed">
+                      Frame-perfect combos, animation cancels, and Challenger macro concepts.
+                    </p>
+                  </div>
+                  
+                  {/* Arrow */}
+                  <div className="shrink-0 w-12 h-12 rounded-full border border-white/10 flex items-center justify-center bg-white/5 group-hover:bg-[#FFD700] group-hover:border-[#FFD700] transition-all duration-500 group-hover:shadow-[0_0_20px_rgba(255,215,0,0.3)]">
+                    <ChevronRight className="w-6 h-6 text-white/50 group-hover:text-black group-hover:translate-x-0.5 transition-all duration-500" />
+                  </div>
+                </div>
+              </div>
             </Link>
           </div>
 
-          {/* Right: Featured Matchups */}
-          <div className="space-y-4">
-            <div className="flex items-center justify-between mb-2">
-              <h3 className="font-serif text-xl font-bold text-white">Recent Matchups</h3>
+          {/* Right: Recent Matchups List */}
+          <div className="space-y-6">
+            <div className="flex items-center gap-3 mb-8">
+              <h2 className="font-serif text-2xl font-black text-white uppercase tracking-wide">Recent Intel</h2>
+              <div className="h-px flex-1 bg-gradient-to-r from-white/10 to-transparent"></div>
             </div>
             
-            {matchups.length > 0 ? (
-              <div className="space-y-3">
-                {matchups.slice(0, 6).map((m) => (
-                  <Link key={m.enemyChampion} href={`/matchups/${encodeURIComponent(m.enemyChampion)}`} className="group block">
-                    <Card className="bg-white/5 backdrop-blur-md border-white/5 transition-all duration-200 hover:bg-white/10 hover:border-white/20">
-                      <CardContent className="flex items-center gap-4 p-3">
-                        {m.enemyIcon && <ChampionIcon src={m.enemyIcon} name={m.enemyChampion} size={40} />}
-                        <div className="flex-1 min-w-0">
-                          <div className="text-sm font-bold text-white group-hover:text-[#C9082A] transition-colors">vs {m.enemyChampion}</div>
-                          <div className="text-[11px] text-[#7B7F9E] uppercase tracking-wider mt-0.5">{m.champion}</div>
+            <div className="relative rounded-2xl border border-white/10 bg-[#030509]/60 backdrop-blur-xl overflow-hidden shadow-2xl">
+              {/* Header Row */}
+              <div className="flex items-center px-6 py-4 border-b border-white/5 bg-white/[0.02]">
+                <div className="text-[10px] font-bold text-[#7B7F9E] uppercase tracking-widest w-12 text-center">Hero</div>
+                <div className="text-[10px] font-bold text-[#7B7F9E] uppercase tracking-widest flex-1 px-4">Matchup</div>
+                <div className="text-[10px] font-bold text-[#7B7F9E] uppercase tracking-widest text-right">Threat</div>
+              </div>
+
+              {/* List */}
+              <div className="divide-y divide-white/5">
+                {matchups.length > 0 ? (
+                  matchups.slice(0, 6).map((m) => (
+                    <Link 
+                      key={m.enemyChampion} 
+                      href={`/matchups/${encodeURIComponent(m.enemyChampion)}`} 
+                      className="group flex items-center px-6 py-4 hover:bg-white/[0.04] transition-colors relative overflow-hidden"
+                    >
+                      {/* Hover Highlight line */}
+                      <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#C9082A] opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                      
+                      {/* Hero Icon */}
+                      <div className="w-12 h-12 rounded-full border-2 border-transparent group-hover:border-[#C9082A]/30 transition-all overflow-hidden shrink-0 flex items-center justify-center bg-[#030509]">
+                        {m.enemyIcon ? (
+                          <div className="w-[120%] h-[120%] flex items-center justify-center">
+                            <ChampionIcon src={m.enemyIcon} name={m.enemyChampion} size={48} />
+                          </div>
+                        ) : (
+                          <div className="w-full h-full bg-white/10" />
+                        )}
+                      </div>
+                      
+                      {/* Matchup Info */}
+                      <div className="flex-1 px-4 min-w-0">
+                        <div className="flex items-baseline gap-2">
+                          <span className="font-serif font-bold text-lg text-white group-hover:text-[#C9082A] transition-colors truncate">
+                            vs {m.enemyChampion}
+                          </span>
                         </div>
+                        <div className="flex items-center gap-2 mt-0.5">
+                          <span className="text-xs text-[#7B7F9E] font-medium uppercase tracking-wider">{m.champion}</span>
+                        </div>
+                      </div>
+                      
+                      {/* Difficulty */}
+                      <div className="shrink-0 flex justify-end">
                         <DifficultyBadge difficulty={m.difficulty} />
-                      </CardContent>
-                    </Card>
-                  </Link>
-                ))}
-                {matchups.length > 6 && (
-                  <Link href="/matchups" className="block text-center text-sm text-[#7B7F9E] font-medium hover:text-white transition-colors py-3 mt-2 border border-white/5 rounded-lg bg-white/[0.02] hover:bg-white/5">
-                    View all {matchups.length} matchups
-                  </Link>
+                      </div>
+                    </Link>
+                  ))
+                ) : (
+                  <div className="px-6 py-12 text-center">
+                    <p className="text-sm text-[#7B7F9E]">Awaiting intel...</p>
+                  </div>
                 )}
               </div>
-            ) : (
-              <Card className="bg-white/5 border-white/10">
-                <CardContent className="py-10 text-center">
-                  <p className="text-sm text-[#7B7F9E]">No matchups yet</p>
-                </CardContent>
-              </Card>
-            )}
+
+              {/* Footer Link */}
+              {matchups.length > 6 && (
+                <Link href="/matchups" className="block w-full px-6 py-4 text-center text-xs font-bold text-[#7B7F9E] uppercase tracking-widest hover:text-white bg-black/40 hover:bg-black/60 transition-colors border-t border-white/5">
+                  View Database ({matchups.length})
+                </Link>
+              )}
+            </div>
           </div>
         </div>
       </section>

@@ -45,13 +45,13 @@ export default function About() {
             </h2>
             <div className="prose prose-invert max-w-none text-[#E8E8ED] leading-relaxed">
               <p className="text-lg font-light text-[#E8E8ED]/90 mb-4">
-                I am LLAbdul, a top-tier League of Legends player specializing in the wind brothers: <strong className="text-white font-medium">Yasuo</strong> and <strong className="text-white font-medium">Yone</strong>.
+                I'm LLAbdul. I play Yasuo and Yone, and I peaked Rank 16 Challenger in NA. 
               </p>
               <p className="mb-4">
-                Achieving <strong className="text-[#FFD700]">Challenger Rank 16</strong> in North America wasn't just about mechanics—it was about relentless optimization, perfect wave management, and deep matchup knowledge.
+                Everyone thinks climbing that high is all mechanics and flashy outplays, but it's really not. It's mostly knowing exactly when a wave is doomed and how to squeeze out one extra auto in a trade without dying for it.
               </p>
               <p>
-                This platform is my dedicated dossier. It exists to document every micro-interaction, every optimal trade pattern, and every build path I've developed over thousands of high-ELO games. Master the knowledge here, and you master the rift.
+                I built this site to just dump everything I've learned from grinding thousands of games in high elo. The exact trade patterns, the weird micro-interactions, the builds that actually work—I put it all here so you don't have to figure it out the hard way. The blueprint is right in front of you. Use it, or stay hardstuck.
               </p>
             </div>
           </div>
