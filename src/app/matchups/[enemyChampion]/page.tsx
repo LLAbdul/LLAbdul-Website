@@ -145,41 +145,43 @@ export default async function MatchupDetailPage({ params }: PageProps) {
                       </h2>
                     </div>
                     <Card className="w-full bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden shadow-lg hover:bg-white/[0.06] transition-colors">
-                      <CardContent className="p-4 flex flex-wrap gap-2.5">
-                        {matchup.summonerSpells.map((spell) => (
-                          <div key={spell.name} className="relative group">
-                                <TooltipProvider delayDuration={0}>
-                                  <Tooltip>
-                                    <TooltipTrigger asChild>
-                                      <div>
-                                        {spell.icon ? (
-                                          <div className="relative">
-                                            <div className="absolute inset-0 bg-[#FFD700] rounded-xl blur-md opacity-0 group-hover:opacity-30 transition-opacity" />
-                                            <Image
-                                              src={spell.icon}
-                                              alt={spell.name}
-                                              width={34}
-                                              height={34}
-                                              className="relative rounded-xl border border-white/10 shadow-md group-hover:border-[#FFD700]/50 transition-colors z-10"
-                                            />
-                                          </div>
-                                        ) : (
-                                          <div className="w-9 h-9 rounded-xl bg-black/40 border border-white/10 flex items-center justify-center text-[10px] font-bold text-[#7B7F9E] shadow-md hover:border-white/20 transition-colors">
-                                            {spell.name.slice(0, 3)}
-                                          </div>
-                                        )}
-                                      </div>
-                                    </TooltipTrigger>
-                                    <TooltipContent 
-                                      side="top" 
-                                      className="bg-[#030509]/95 backdrop-blur-xl border border-white/10 text-white px-3 py-2 rounded-lg shadow-xl z-50 font-medium text-sm tracking-wide"
-                                    >
-                                      {spell.name}
-                                    </TooltipContent>
-                                  </Tooltip>
-                                </TooltipProvider>
+                      <CardContent className="p-4">
+                        <TooltipProvider delayDuration={0}>
+                          <div className="flex flex-wrap gap-2.5">
+                            {matchup.summonerSpells.map((spell) => (
+                              <div key={spell.name} className="relative group">
+                                <Tooltip>
+                                  <TooltipTrigger asChild>
+                                    <div>
+                                      {spell.icon ? (
+                                        <div className="relative">
+                                          <div className="absolute inset-0 bg-[#FFD700] rounded-xl blur-md opacity-0 group-hover:opacity-30 transition-opacity" />
+                                          <Image
+                                            src={spell.icon}
+                                            alt={spell.name}
+                                            width={34}
+                                            height={34}
+                                            className="relative rounded-xl border border-white/10 shadow-md group-hover:border-[#FFD700]/50 transition-colors z-10"
+                                          />
+                                        </div>
+                                      ) : (
+                                        <div className="w-[34px] h-[34px] rounded-xl bg-black/40 border border-white/10 flex items-center justify-center text-[10px] font-bold text-[#7B7F9E] shadow-md hover:border-white/20 transition-colors">
+                                          {spell.name.slice(0, 3)}
+                                        </div>
+                                      )}
+                                    </div>
+                                  </TooltipTrigger>
+                                  <TooltipContent 
+                                    side="top" 
+                                    className="bg-[#030509]/95 backdrop-blur-xl border border-white/10 text-white px-3 py-2 rounded-lg shadow-xl z-50 font-medium text-sm tracking-wide"
+                                  >
+                                    {spell.name}
+                                  </TooltipContent>
+                                </Tooltip>
+                              </div>
+                            ))}
                           </div>
-                        ))}
+                        </TooltipProvider>
                       </CardContent>
                     </Card>
                   </section>
