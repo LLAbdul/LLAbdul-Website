@@ -121,7 +121,6 @@ export default async function MatchupDetailPage({ params }: PageProps) {
               {hasRunes && (
                 <section className="space-y-3 shrink-0 flex flex-col">
                   <div className="flex items-center gap-2 px-1">
-                    <div className="w-1 h-5 bg-[#C9082A] rounded-full shadow-[0_0_8px_rgba(201,8,42,0.5)]" />
                     <h2 className="font-serif text-xl font-bold text-white tracking-wide">
                       Optimal Runes
                     </h2>
@@ -139,7 +138,6 @@ export default async function MatchupDetailPage({ params }: PageProps) {
                 {hasSpells && (
                   <section className="space-y-3 shrink-0">
                     <div className="flex items-center gap-2 px-1 shrink-0">
-                      <div className="w-1 h-5 bg-[#FFD700] rounded-full shadow-[0_0_8px_rgba(255,215,0,0.5)]" />
                       <h2 className="font-serif text-xl font-bold text-white tracking-wide">
                         Summoner Spells
                       </h2>
@@ -200,7 +198,6 @@ export default async function MatchupDetailPage({ params }: PageProps) {
                 {hasBuild && (
                   <section className="space-y-3 flex-1 flex flex-col min-h-0">
                     <div className="flex items-center gap-2 px-1 shrink-0">
-                      <div className="w-1 h-5 bg-[#E8E8ED] rounded-full shadow-[0_0_8px_rgba(232,232,237,0.5)]" />
                       <h2 className="font-serif text-xl font-bold text-white tracking-wide">
                         Build Path
                       </h2>
@@ -227,7 +224,6 @@ export default async function MatchupDetailPage({ params }: PageProps) {
             {hasStrategy && (
               <section className="space-y-3">
                 <div className="flex items-center gap-2 px-1">
-                  <div className="w-1 h-5 bg-[#C9082A] rounded-full shadow-[0_0_8px_rgba(201,8,42,0.5)]" />
                   <h2 className="font-serif text-xl font-bold text-white tracking-wide">
                     Game Plan Strategy
                   </h2>

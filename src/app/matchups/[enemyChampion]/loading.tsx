@@ -33,7 +33,6 @@ export default function MatchupDetailLoading() {
               {/* Runes */}
               <section className="space-y-3 w-fit shrink-0 flex flex-col">
                 <div className="flex items-center gap-2 px-1">
-                  <div className="w-1 h-5 bg-white/10 rounded-full animate-pulse" />
                   <Skeleton className="bg-white/10 h-7 w-36" />
                 </div>
                 <div className="flex-1 bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-4 min-h-[300px] animate-pulse" />
@@ -43,7 +42,6 @@ export default function MatchupDetailLoading() {
                 {/* Summoner Spells */}
                 <section className="space-y-3 shrink-0">
                   <div className="flex items-center gap-2 px-1 shrink-0">
-                    <div className="w-1 h-5 bg-white/10 rounded-full animate-pulse" />
                     <Skeleton className="bg-white/10 h-7 w-48" />
                   </div>
                   <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-4 flex gap-3 animate-pulse">
@@ -55,7 +53,6 @@ export default function MatchupDetailLoading() {
                 {/* Build Path */}
                 <section className="space-y-3 flex-1 flex flex-col min-h-0">
                   <div className="flex items-center gap-2 px-1 shrink-0">
-                    <div className="w-1 h-5 bg-white/10 rounded-full animate-pulse" />
                     <Skeleton className="bg-white/10 h-7 w-32" />
                   </div>
                   <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-3.5 space-y-3 animate-pulse flex-1 flex flex-col justify-center min-h-0">
@@ -83,7 +80,6 @@ export default function MatchupDetailLoading() {
             {/* Game Plan Strategy */}
             <section className="space-y-3">
               <div className="flex items-center gap-2 px-1">
-                <div className="w-1 h-5 bg-white/10 rounded-full animate-pulse" />
                 <Skeleton className="bg-white/10 h-7 w-56" />
               </div>
               <div className="flex flex-col">
