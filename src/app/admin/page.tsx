@@ -26,7 +26,7 @@ export default async function AdminDashboard() {
           <p className="text-[11px] uppercase tracking-widest font-semibold text-[#7B7F9E] mb-1">
             Admin
           </p>
-          <h1 className="text-2xl font-bold text-[#E8E8ED]">Dashboard</h1>
+          <h1 className="font-serif text-2xl font-bold text-white">Dashboard</h1>
         </div>
         <AdminLogout />
       </div>
@@ -37,7 +37,7 @@ export default async function AdminDashboard() {
           Content Stats
         </p>
         <div className="grid grid-cols-3 gap-4">
-          <Card>
+          <Card className="bg-white/5 backdrop-blur-xl border-white/10">
             <CardContent className="text-center py-4">
               <div className="text-2xl font-bold text-[#B87FD8]">{stats.matchupCount}</div>
               <div className="text-[11px] uppercase tracking-widest font-semibold text-[#7B7F9E] mt-1">
@@ -45,7 +45,7 @@ export default async function AdminDashboard() {
               </div>
             </CardContent>
           </Card>
-          <Card>
+          <Card className="bg-white/5 backdrop-blur-xl border-white/10">
             <CardContent className="text-center py-4">
               <div className="text-2xl font-bold text-[#0AC8B9]">{stats.guideCount}</div>
               <div className="text-[11px] uppercase tracking-widest font-semibold text-[#7B7F9E] mt-1">
@@ -53,7 +53,7 @@ export default async function AdminDashboard() {
               </div>
             </CardContent>
           </Card>
-          <Card>
+          <Card className="bg-white/5 backdrop-blur-xl border-white/10">
             <CardContent className="text-center py-4">
               <div className="text-2xl font-bold text-[#E8E8ED]">{stats.mechanicsCount}</div>
               <div className="text-[11px] uppercase tracking-widest font-semibold text-[#7B7F9E] mt-1">
@@ -71,26 +71,26 @@ export default async function AdminDashboard() {
         </p>
         <div className="grid sm:grid-cols-2 gap-3">
           <Link href="/admin/matchups" className="group">
-            <Card className="transition-colors hover:bg-[#1A2340]">
+            <Card className="bg-white/5 backdrop-blur-xl border-white/10 transition-colors hover:bg-white/10">
               <CardContent className="flex items-center gap-3 py-4">
                 <div className="w-9 h-9 rounded-md flex items-center justify-center shrink-0" style={{ background: "rgba(200,170,110,0.10)", color: "#C8AA6E" }}>
                   <Swords className="w-4 h-4" />
                 </div>
                 <div>
-                  <div className="font-semibold text-sm text-[#E8E8ED]">Manage Matchups</div>
+                  <div className="font-semibold text-sm text-white">Manage Matchups</div>
                   <div className="text-xs text-[#7B7F9E]">View, edit, and delete guides</div>
                 </div>
               </CardContent>
             </Card>
           </Link>
           <Link href="/admin/matchups/new" className="group">
-            <Card className="transition-colors hover:bg-[#1A2340]">
+            <Card className="bg-white/5 backdrop-blur-xl border-white/10 transition-colors hover:bg-white/10">
               <CardContent className="flex items-center gap-3 py-4">
                 <div className="w-9 h-9 rounded-md flex items-center justify-center shrink-0" style={{ background: "rgba(10,200,185,0.10)", color: "#0AC8B9" }}>
                   <Plus className="w-4 h-4" />
                 </div>
                 <div>
-                  <div className="font-semibold text-sm text-[#E8E8ED]">New Matchup</div>
+                  <div className="font-semibold text-sm text-white">New Matchup</div>
                   <div className="text-xs text-[#7B7F9E]">Create a new matchup guide</div>
                 </div>
               </CardContent>

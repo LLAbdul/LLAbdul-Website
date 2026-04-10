@@ -38,10 +38,10 @@ export default function AdminLoginPage() {
 
   return (
     <div className="flex items-center justify-center min-h-[60vh]">
-      <Card className="w-full max-w-sm">
+      <Card className="w-full max-w-sm bg-white/5 backdrop-blur-xl border-white/10">
         <CardHeader>
-          <CardTitle className="text-[#E8E8ED]">Admin Access</CardTitle>
-          <CardDescription>Enter your API key to continue</CardDescription>
+          <CardTitle className="font-serif text-white">Admin Access</CardTitle>
+          <CardDescription className="text-[#7B7F9E]">Enter your API key to continue</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -51,7 +51,7 @@ export default function AdminLoginPage() {
               onChange={(e) => setApiKey(e.target.value)}
               placeholder="API Key"
               required
-              className="w-full px-3 py-2 rounded-md text-sm text-[#E8E8ED] placeholder:text-[#7B7F9E] bg-[#0A0E21] border border-[#1E2A4A] focus:outline-none focus:ring-1 focus:ring-[#B87FD8]/50 focus:border-[#B87FD8]/50 transition-colors"
+              className="w-full px-3 py-2 rounded-md text-sm text-white placeholder:text-[#7B7F9E] bg-white/5 border border-white/10 focus:outline-none focus:ring-1 focus:ring-[#C9082A] focus:border-[#C9082A] transition-colors"
             />
             {error && (
               <p className="text-sm text-[#E74C3C]">{error}</p>
@@ -59,7 +59,7 @@ export default function AdminLoginPage() {
             <Button
               type="submit"
               disabled={loading || !apiKey}
-              className="w-full"
+              className="w-full bg-[#C9082A] hover:bg-[#C9082A]/90 text-white border-0"
             >
               {loading ? (
                 <>
