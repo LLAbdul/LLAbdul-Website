@@ -26,6 +26,13 @@ export interface ResolvedSpell {
   description?: string;
 }
 
+export type AbilityKey = "Q" | "W" | "E" | "R";
+
+export interface SkillOrder {
+  priority: AbilityKey[];
+  levels: AbilityKey[];
+}
+
 export interface MatchupDetail {
   _id: string;
   enemyChampion: string;
@@ -36,6 +43,7 @@ export interface MatchupDetail {
   late?: string;
   videos: string[];
   runes: ResolvedRunePage | null;
+  skillOrder: SkillOrder | null;
   startItems: BuildItem[];
   build: BuildItem[];
   summonerSpells: ResolvedSpell[];
@@ -47,6 +55,23 @@ function toArray(val: any): any[] {
   if (Array.isArray(val)) return val;
   if (!val || typeof val !== "object" || Object.keys(val).length === 0) return [];
   return [val];
+}
+
+function normalizeSkillOrder(value: any): SkillOrder | null {
+  if (!value || typeof value !== "object") return null;
+  if (!Array.isArray(value.priority) || !Array.isArray(value.levels)) return null;
+
+  const validKeys = new Set<AbilityKey>(["Q", "W", "E", "R"]);
+  const priority = value.priority
+    .map((key: unknown) => String(key).toUpperCase())
+    .filter((key: string): key is AbilityKey => validKeys.has(key as AbilityKey));
+  const levels = value.levels
+    .map((key: unknown) => String(key).toUpperCase())
+    .filter((key: string): key is AbilityKey => validKeys.has(key as AbilityKey));
+
+  if (priority.length === 0 || levels.length !== 18) return null;
+
+  return { priority, levels };
 }
 
 async function resolveItemIcons(items: any[]): Promise<BuildItem[]> {
@@ -150,6 +175,7 @@ export async function getMatchup(enemyChampion: string): Promise<MatchupDetail |
     late: doc.late ? (doc.late as string) : undefined,
     videos: toArray(doc.videos),
     runes,
+    skillOrder: normalizeSkillOrder(doc.skillOrder),
     startItems,
     build,
     summonerSpells,
