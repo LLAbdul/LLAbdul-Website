@@ -44,8 +44,8 @@ export default async function ChampionGuidePage({ params }: PageProps) {
   const hasGuide = guide && (guide.early || guide.mid || guide.late);
   const hasMechanics = mechanics.length > 0;
   
-  // Specific premium skins: Truth Dragon Yasuo (54) & Dawnbringer Yone (19)
-  const skinNum = decoded.toLowerCase() === "yasuo" ? 54 : 19; 
+  // Specific premium skins: Truth Dragon Yasuo (54) & Prestige HEARTSTEEL Yone (46)
+  const skinNum = decoded.toLowerCase() === "yasuo" ? 54 : 46; 
   const splashUrl = `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${champ.alias}_${skinNum}.jpg`;
 
   return (
