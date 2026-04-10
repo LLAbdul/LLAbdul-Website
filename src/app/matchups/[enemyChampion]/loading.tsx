@@ -123,6 +123,49 @@ export default function MatchupDetailLoading() {
                 ))}
               </div>
             </section>
+
+            <section className="space-y-3">
+              <div className="flex items-center gap-2 px-1">
+                <Skeleton className="bg-white/10 h-7 w-44" />
+              </div>
+              <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-4 sm:p-5 space-y-5">
+                <div className="space-y-2">
+                  <Skeleton className="bg-white/10 h-3 w-20" />
+                  <div className="flex items-center gap-2.5">
+                    {[...Array(3)].map((_, i) => (
+                      <div key={i} className="flex items-center gap-2.5">
+                        <Skeleton className="bg-white/10 w-8 h-8 rounded-md" />
+                        {i < 2 && <Skeleton className="bg-white/10 w-4 h-3 rounded-sm" />}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="space-y-3">
+                  <Skeleton className="bg-white/10 h-3 w-24" />
+                  <div className="space-y-2">
+                    <div className="grid grid-cols-[70px_repeat(18,minmax(0,1fr))] gap-1.5">
+                      <div />
+                      {Array.from({ length: 18 }).map((_, i) => (
+                        <Skeleton key={`skill-level-${i}`} className="bg-white/10 h-3 rounded-sm" />
+                      ))}
+                    </div>
+
+                    {Array.from({ length: 4 }).map((_, rowIdx) => (
+                      <div key={`skill-row-${rowIdx}`} className="grid grid-cols-[70px_repeat(18,minmax(0,1fr))] gap-1.5">
+                        <div className="flex items-center gap-2">
+                          <Skeleton className="bg-white/10 w-7 h-7 rounded-md" />
+                          <Skeleton className="bg-white/10 w-3 h-3 rounded-sm" />
+                        </div>
+                        {Array.from({ length: 18 }).map((_, colIdx) => (
+                          <Skeleton key={`skill-cell-${rowIdx}-${colIdx}`} className="bg-white/10 h-8 rounded-md" />
+                        ))}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </section>
           </div>
 
         </div>
