@@ -62,7 +62,7 @@ function RuneRow({ perks, selectedNames, size }: { perks: PerkInfo[], selectedNa
       </div>
       
       {/* Icons container */}
-      <div className="flex gap-4">
+          <div className="flex gap-3.5">
         {perks.map((p) => (
           <div key={p.id} className="w-9 sm:w-10 flex justify-center items-center">
             <PerkIcon
