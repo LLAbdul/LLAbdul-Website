@@ -101,7 +101,7 @@ export async function getChampion(championAlias: string): Promise<Champion> {
   }
 
   // Fetch detailed champion data for abilities
-  let abilities: Record<string, { name: string; icon: string }> = {};
+  let abilities: Record<string, { name: string; icon: string; description?: string }> = {};
   try {
     const detailsRes = await fetch(`${BASE_URL}/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/${raw.id}.json`);
     const detailsData = await detailsRes.json();
@@ -110,7 +110,8 @@ export async function getChampion(championAlias: string): Promise<Champion> {
     if (detailsData.passive) {
       abilities["P"] = {
         name: detailsData.passive.name,
-        icon: BASE_URL + detailsData.passive.abilityIconPath.replace("/lol-game-data/assets", "/latest/plugins/rcp-be-lol-game-data/global/default").toLowerCase()
+        icon: BASE_URL + detailsData.passive.abilityIconPath.replace("/lol-game-data/assets", "/latest/plugins/rcp-be-lol-game-data/global/default").toLowerCase(),
+        description: detailsData.passive.description || detailsData.passive.longDescription || "",
       };
     }
     
@@ -119,7 +120,8 @@ export async function getChampion(championAlias: string): Promise<Champion> {
       detailsData.spells.forEach((spell: any) => {
         abilities[spell.spellKey.toUpperCase()] = {
           name: spell.name,
-          icon: BASE_URL + spell.abilityIconPath.replace("/lol-game-data/assets", "/latest/plugins/rcp-be-lol-game-data/global/default").toLowerCase()
+          icon: BASE_URL + spell.abilityIconPath.replace("/lol-game-data/assets", "/latest/plugins/rcp-be-lol-game-data/global/default").toLowerCase(),
+          description: spell.description || spell.dynamicDescription || spell.tooltip || "",
         };
       });
     }
