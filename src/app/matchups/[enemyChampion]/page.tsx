@@ -11,6 +11,7 @@ import { PhaseStrategy } from "@/components/matchup/phase-strategy";
 import { BuildDisplay } from "@/components/matchup/build-display";
 import { RuneDisplay } from "@/components/matchup/rune-display";
 import { VideoEmbed } from "@/components/matchup/video-embed";
+import { SkillPath } from "@/components/matchup/skill-path";
 import {
   Tooltip,
   TooltipContent,
@@ -45,6 +46,7 @@ export default async function MatchupDetailPage({ params }: PageProps) {
   const hasRunes = matchup.runes !== null;
   const hasVideos = matchup.videos.length > 0;
   const hasSpells = matchup.summonerSpells.length > 0;
+  const hasSkillOrder = matchup.skillOrder !== null;
   
   const splashUrl = `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${enemyChamp?.alias || decoded}_0.jpg`;
 
@@ -235,6 +237,13 @@ export default async function MatchupDetailPage({ params }: PageProps) {
                 </div>
               </section>
             )}
+
+            {!hasVideos && hasSkillOrder && (
+              <SkillPath
+                skillOrder={matchup.skillOrder}
+                abilities={matchup.champion.abilities}
+              />
+            )}
           </div>
 
           {/* Right Column: VODs (Only renders if hasVideos is true) */}
@@ -254,6 +263,13 @@ export default async function MatchupDetailPage({ params }: PageProps) {
                   ))}
                 </div>
               </section>
+
+              {hasSkillOrder && (
+                <SkillPath
+                  skillOrder={matchup.skillOrder}
+                  abilities={matchup.champion.abilities}
+                />
+              )}
             </div>
           )}
 
