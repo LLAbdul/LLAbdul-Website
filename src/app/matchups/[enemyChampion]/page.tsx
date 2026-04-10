@@ -146,7 +146,7 @@ export default async function MatchupDetailPage({ params }: PageProps) {
                     </div>
                     <Card className="w-full bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden shadow-lg hover:bg-white/[0.06] transition-colors">
                       <CardContent className="p-4 flex flex-wrap gap-2.5">
-                        <TooltipProvider delayDuration={0}>
+                        <TooltipProvider delay={0}>
                           <div className="flex flex-wrap gap-2.5">
                             {matchup.summonerSpells.map((spell) => (
                               <div key={spell.name} className="relative group">

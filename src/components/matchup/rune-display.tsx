@@ -17,7 +17,7 @@ function PerkIcon({
   size?: number;
 }) {
   return (
-    <TooltipProvider delayDuration={0}>
+    <TooltipProvider delay={0}>
       <Tooltip>
         <TooltipTrigger
           className={`rounded-full flex items-center justify-center transition-all ${

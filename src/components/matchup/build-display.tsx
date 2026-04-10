@@ -23,7 +23,7 @@ export function BuildDisplay({ items, label, showArrows = false }: BuildDisplayP
         {label}
       </p>
       <div className="flex flex-wrap items-center">
-        <TooltipProvider delayDuration={0}>
+        <TooltipProvider delay={0}>
           <div className="flex flex-wrap gap-1">
             {items.map((item, i) => (
               <div key={`${item.name}-${i}`} className="flex items-center gap-0.5 sm:gap-1">
