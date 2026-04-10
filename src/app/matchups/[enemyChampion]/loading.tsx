@@ -115,7 +115,6 @@ export default function MatchupDetailLoading() {
           <div className="space-y-6">
             <section className="space-y-3">
               <div className="flex items-center gap-2 px-1">
-                <div className="w-1 h-6 bg-white/10 rounded-full animate-pulse" />
                 <Skeleton className="bg-white/10 h-8 w-64" />
               </div>
               <div className="flex flex-col gap-8">

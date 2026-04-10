@@ -61,6 +61,7 @@ export interface Champion {
   title: string;
   name: string;
   alias: string;
+  abilities?: Record<string, { name: string; icon: string }>;
 }
 
 export interface Item {

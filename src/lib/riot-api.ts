@@ -99,11 +99,40 @@ export async function getChampion(championAlias: string): Promise<Champion> {
   if (!raw) {
     throw new Error(`Champion with alias "${championAlias}" not found`);
   }
+
+  // Fetch detailed champion data for abilities
+  let abilities: Record<string, { name: string; icon: string }> = {};
+  try {
+    const detailsRes = await fetch(`${BASE_URL}/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/${raw.id}.json`);
+    const detailsData = await detailsRes.json();
+    
+    // Add passive
+    if (detailsData.passive) {
+      abilities["P"] = {
+        name: detailsData.passive.name,
+        icon: BASE_URL + detailsData.passive.abilityIconPath.replace("/lol-game-data/assets", "/latest/plugins/rcp-be-lol-game-data/global/default").toLowerCase()
+      };
+    }
+    
+    // Add spells
+    if (detailsData.spells) {
+      detailsData.spells.forEach((spell: any) => {
+        abilities[spell.spellKey.toUpperCase()] = {
+          name: spell.name,
+          icon: BASE_URL + spell.abilityIconPath.replace("/lol-game-data/assets", "/latest/plugins/rcp-be-lol-game-data/global/default").toLowerCase()
+        };
+      });
+    }
+  } catch (error) {
+    console.error(`Failed to fetch abilities for ${championAlias}:`, error);
+  }
+
   return {
     icon: await getChampionIcon(raw.alias),
     title: raw.description,
     name: raw.name,
     alias: raw.alias,
+    abilities: Object.keys(abilities).length > 0 ? abilities : undefined,
   };
 }
 

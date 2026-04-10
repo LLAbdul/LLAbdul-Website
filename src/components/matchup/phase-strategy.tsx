@@ -1,3 +1,5 @@
+import { StrategyText } from "./strategy-text";
+
 export type Phase = "early" | "mid" | "late";
 
 const phaseConfig: Record<Phase, { label: string; dotColor: string; labelColor: string }> = {
@@ -18,7 +20,7 @@ const phaseConfig: Record<Phase, { label: string; dotColor: string; labelColor: 
   },
 };
 
-export function PhaseStrategy({ phase, content, isLast = false }: { phase: Phase; content: string; isLast?: boolean }) {
+export function PhaseStrategy({ phase, content, isLast = false, abilities }: { phase: Phase; content: string; isLast?: boolean; abilities?: Record<string, { name: string; icon: string }> }) {
   if (!content) return null;
   const { label, dotColor, labelColor } = phaseConfig[phase];
 
@@ -45,7 +47,7 @@ export function PhaseStrategy({ phase, content, isLast = false }: { phase: Phase
           {label}
         </h3>
         <p className="text-[14px] sm:text-[15px] leading-relaxed whitespace-pre-wrap text-[#E8E8ED]/90 font-light">
-          {content}
+          <StrategyText content={content} abilities={abilities} />
         </p>
       </div>
     </div>

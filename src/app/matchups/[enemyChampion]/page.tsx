@@ -242,7 +242,6 @@ export default async function MatchupDetailPage({ params }: PageProps) {
             <div className="space-y-6">
               <section className="space-y-3">
                 <div className="flex items-center gap-2 px-1">
-                  <div className="w-1 h-6 bg-[#FFD700] rounded-full shadow-[0_0_8px_rgba(255,215,0,0.5)]" />
                   <h2 className="font-serif text-2xl font-bold text-white tracking-wide">
                     VOD Reviews & Examples
                   </h2>
