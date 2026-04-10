@@ -37,7 +37,7 @@ function PerkIcon({
         <TooltipContent 
           side="top" 
           sideOffset={8}
-          className="max-w-[340px] bg-[#09090B] border border-white/10 p-4 rounded-md shadow-2xl z-50 font-sans"
+          className="max-w-[340px] flex-col items-start bg-[#09090B] border border-white/10 p-4 rounded-md shadow-2xl z-50 font-sans"
         >
           <div className="mb-2">
             <p className="text-[#3b82f6] text-[15px] font-medium">{perk.name}</p>
