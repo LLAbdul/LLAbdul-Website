@@ -119,7 +119,7 @@ export default async function MatchupDetailPage({ params }: PageProps) {
                     Optimal Runes
                   </h2>
                 </div>
-                <Card className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden shadow-lg hover:bg-white/[0.06] transition-colors">
+                <Card className="w-fit bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden shadow-lg hover:bg-white/[0.06] transition-colors">
                   <CardContent className="p-5">
                     <RuneDisplay runes={matchup.runes} />
                   </CardContent>
@@ -136,7 +136,7 @@ export default async function MatchupDetailPage({ params }: PageProps) {
                     Summoner Spells
                   </h2>
                 </div>
-                <Card className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden shadow-lg hover:bg-white/[0.06] transition-colors">
+                <Card className="w-fit bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden shadow-lg hover:bg-white/[0.06] transition-colors">
                   <CardContent className="p-5 flex flex-wrap gap-3">
                     {matchup.summonerSpells.map((spell) => (
                       <div key={spell.name} title={spell.name} className="relative group">
@@ -172,7 +172,7 @@ export default async function MatchupDetailPage({ params }: PageProps) {
                     Build Path
                   </h2>
                 </div>
-                <Card className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden shadow-lg hover:bg-white/[0.06] transition-colors">
+                <Card className="w-fit bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden shadow-lg hover:bg-white/[0.06] transition-colors">
                   <CardContent className="p-5 space-y-6">
                     {matchup.startItems.length > 0 && (
                       <BuildDisplay items={matchup.startItems} label="Starting Items" />

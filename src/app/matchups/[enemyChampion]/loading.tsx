@@ -30,7 +30,7 @@ export default function MatchupDetailLoading() {
           <div className="space-y-8">
             
             {/* Runes */}
-            <section className="space-y-3">
+            <section className="space-y-3 w-fit">
               <div className="flex items-center gap-2 px-1">
                 <div className="w-1 h-5 bg-white/10 rounded-full animate-pulse" />
                 <Skeleton className="bg-white/10 h-7 w-36" />
@@ -39,7 +39,7 @@ export default function MatchupDetailLoading() {
             </section>
 
             {/* Summoner Spells */}
-            <section className="space-y-3">
+            <section className="space-y-3 w-fit">
               <div className="flex items-center gap-2 px-1">
                 <div className="w-1 h-5 bg-white/10 rounded-full animate-pulse" />
                 <Skeleton className="bg-white/10 h-7 w-48" />
@@ -51,7 +51,7 @@ export default function MatchupDetailLoading() {
             </section>
 
             {/* Build Path */}
-            <section className="space-y-3">
+            <section className="space-y-3 w-fit">
               <div className="flex items-center gap-2 px-1">
                 <div className="w-1 h-5 bg-white/10 rounded-full animate-pulse" />
                 <Skeleton className="bg-white/10 h-7 w-32" />
