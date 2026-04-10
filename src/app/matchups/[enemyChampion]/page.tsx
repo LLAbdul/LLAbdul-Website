@@ -172,9 +172,19 @@ export default async function MatchupDetailPage({ params }: PageProps) {
                                   <TooltipContent 
                                     side="top" 
                                     sideOffset={8}
-                                    className="bg-[#09090B] border border-white/10 px-3 py-2 rounded-md shadow-2xl z-50"
+                                    className="max-w-[300px] bg-[#09090B] border border-white/10 p-3 rounded-md shadow-2xl z-50 font-sans"
                                   >
-                                    <p className="text-[#3b82f6] text-[13px] font-medium leading-none">{spell.name}</p>
+                                    <div className="flex flex-col items-start">
+                                      <div className="mb-2">
+                                        <p className="text-[#3b82f6] text-[14px] font-medium leading-none">{spell.name}</p>
+                                      </div>
+                                      {spell.description && (
+                                        <div 
+                                          className="text-[12.5px] text-white font-medium leading-relaxed" 
+                                          dangerouslySetInnerHTML={{ __html: spell.description }} 
+                                        />
+                                      )}
+                                    </div>
                                   </TooltipContent>
                                 </Tooltip>
                               </div>

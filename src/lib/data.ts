@@ -23,6 +23,7 @@ export interface BuildItem {
 export interface ResolvedSpell {
   icon: string;
   name: string;
+  description?: string;
 }
 
 export interface MatchupDetail {
@@ -62,6 +63,7 @@ async function resolveItemIcons(items: any[]): Promise<BuildItem[]> {
         id: match?.id || item.id,
         icon: match?.icon || "",
         name: match?.name || name,
+        description: match?.description || item.description,
         price: match?.price || item.price,
       };
     });
@@ -80,7 +82,11 @@ async function resolveSpellIcons(names: string[]): Promise<ResolvedSpell[]> {
       const match = allSpells.find(
         (s) => s.name.toLowerCase() === name.toLowerCase()
       );
-      return { icon: match?.icon || "", name };
+      return { 
+        icon: match?.icon || "", 
+        name,
+        description: match?.description || "",
+      };
     });
   } catch {
     return names.map((name) => ({ icon: "", name }));
