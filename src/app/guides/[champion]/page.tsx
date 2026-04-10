@@ -109,9 +109,9 @@ export default async function ChampionGuidePage({ params }: PageProps) {
               <div className="h-px flex-1 bg-gradient-to-r from-white/10 to-transparent" />
             </div>
             <div className="grid gap-4">
-              {guide.early && <PhaseStrategy phase="early" content={guide.early} />}
-              {guide.mid && <PhaseStrategy phase="mid" content={guide.mid} />}
-              {guide.late && <PhaseStrategy phase="late" content={guide.late} />}
+              {guide.early && <PhaseStrategy phase="early" content={guide.early} abilities={champ.abilities} />}
+              {guide.mid && <PhaseStrategy phase="mid" content={guide.mid} abilities={champ.abilities} />}
+              {guide.late && <PhaseStrategy phase="late" content={guide.late} abilities={champ.abilities} />}
             </div>
           </section>
         )}
