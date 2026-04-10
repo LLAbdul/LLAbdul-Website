@@ -30,7 +30,7 @@ export default async function AdminMatchupsPage() {
         <div className="flex items-center gap-3">
           <Link
             href="/admin"
-            className="flex items-center justify-center w-8 h-8 rounded-md text-[#7B7F9E] hover:text-[#E8E8ED] hover:bg-[#1A2340] transition-colors"
+            className="flex items-center justify-center w-8 h-8 rounded-md text-[#7B7F9E] hover:text-white hover:bg-white/10 transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
           </Link>
@@ -38,13 +38,12 @@ export default async function AdminMatchupsPage() {
             <p className="text-[11px] uppercase tracking-widest font-semibold text-[#7B7F9E]">
               Admin
             </p>
-            <h1 className="text-xl font-bold text-[#E8E8ED]">Matchup Guides</h1>
+            <h1 className="font-serif text-2xl font-bold text-white">Matchup Guides</h1>
           </div>
         </div>
         <Link
           href="/admin/matchups/new"
-          className="inline-flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-semibold transition-colors"
-          style={{ background: "#B87FD8", color: "#0A0E21" }}
+          className="inline-flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-semibold transition-colors bg-[#C9082A] text-white hover:bg-[#C9082A]/90"
         >
           <Plus className="w-4 h-4" />
           New
@@ -52,7 +51,7 @@ export default async function AdminMatchupsPage() {
       </div>
 
       {matchups.length === 0 ? (
-        <Card>
+        <Card className="bg-white/5 border-white/10">
           <CardContent className="text-center py-10">
             <p className="text-[#7B7F9E] text-sm">No matchup guides yet.</p>
             <Link
@@ -66,11 +65,11 @@ export default async function AdminMatchupsPage() {
       ) : (
         <div className="space-y-1.5">
           {matchups.map((m) => (
-            <Card key={m._id}>
+            <Card key={m._id} className="bg-white/5 border-white/10">
               <CardContent className="flex items-center justify-between py-2">
                 <div className="flex items-center gap-3 min-w-0">
                   <div className="min-w-0">
-                    <div className="font-medium text-sm text-[#E8E8ED]">
+                    <div className="font-medium text-sm text-white">
                       {m.champion} vs {m.enemyChampion}
                     </div>
                     <div className="text-xs text-[#7B7F9E]">Updated {m.updatedAt}</div>
@@ -79,7 +78,7 @@ export default async function AdminMatchupsPage() {
                 </div>
                 <Link
                   href={`/admin/matchups/${m._id}/edit`}
-                  className="flex items-center justify-center w-8 h-8 rounded-md text-[#7B7F9E] hover:text-[#E8E8ED] hover:bg-[#1A2340] transition-colors shrink-0 ml-2"
+                  className="flex items-center justify-center w-8 h-8 rounded-md text-[#7B7F9E] hover:text-white hover:bg-white/10 transition-colors shrink-0 ml-2"
                 >
                   <Pencil className="w-3.5 h-3.5" />
                 </Link>

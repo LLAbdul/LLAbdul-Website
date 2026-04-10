@@ -99,14 +99,14 @@ export function MatchupForm({
   }
 
   const inputClass =
-    "w-full px-3 py-2 rounded-md text-sm text-[#E8E8ED] placeholder:text-[#7B7F9E] bg-[#0A0E21] border border-[#1E2A4A] focus:outline-none focus:ring-1 focus:ring-[#B87FD8]/50 focus:border-[#B87FD8]/50 transition-colors";
+    "w-full px-3 py-2 rounded-md text-sm text-white placeholder:text-[#7B7F9E] bg-white/5 border border-white/10 focus:outline-none focus:ring-1 focus:ring-[#C9082A] focus:border-[#C9082A] transition-colors";
 
   return (
     <div className="max-w-2xl space-y-6 py-6">
       <div className="flex items-center gap-3">
         <Link
           href="/admin/matchups"
-          className="flex items-center justify-center w-8 h-8 rounded-md text-[#7B7F9E] hover:text-[#E8E8ED] hover:bg-[#1A2340] transition-colors"
+          className="flex items-center justify-center w-8 h-8 rounded-md text-[#7B7F9E] hover:text-white hover:bg-white/10 transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
         </Link>
@@ -114,13 +114,13 @@ export function MatchupForm({
           <p className="text-[11px] uppercase tracking-widest font-semibold text-[#7B7F9E]">
             Admin
           </p>
-          <h1 className="text-xl font-bold text-[#E8E8ED]">
+          <h1 className="font-serif text-2xl font-bold text-white">
             {mode === "create" ? "New Matchup" : "Edit Matchup"}
           </h1>
         </div>
       </div>
 
-      <Card>
+      <Card className="bg-white/5 border-white/10">
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-5">
             {/* Champion + Enemy */}
@@ -228,7 +228,7 @@ export function MatchupForm({
             <Button
               type="submit"
               disabled={isPending || !data.enemyChampion}
-              className="w-full"
+              className="w-full bg-[#C9082A] text-white hover:bg-[#C9082A]/90"
             >
               {isPending ? (
                 <>
