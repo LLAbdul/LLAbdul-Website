@@ -10,17 +10,19 @@ export default async function MatchupsPage() {
   const champions = await getAllChampionsWithMatchups();
 
   return (
-    <div className="space-y-5 py-6">
-      <div>
-        <p className="text-[11px] uppercase tracking-widest font-semibold text-[#7B7F9E] mb-1">
-          Yasuo &amp; Yone
-        </p>
-        <h1 className="text-2xl font-bold tracking-tight font-serif text-white uppercase">Matchup Guides</h1>
-        <p className="text-sm text-[#7B7F9E] mt-1">
-          Every champion. Champions with a guide show difficulty.
-        </p>
+    <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="space-y-5 py-6">
+        <div>
+          <p className="text-[11px] uppercase tracking-widest font-semibold text-[#7B7F9E] mb-1">
+            Yasuo &amp; Yone
+          </p>
+          <h1 className="text-2xl font-bold tracking-tight font-serif text-white uppercase">Matchup Guides</h1>
+          <p className="text-sm text-[#7B7F9E] mt-1">
+            Every champion. Champions with a guide show difficulty.
+          </p>
+        </div>
+        <MatchupGrid matchups={champions} />
       </div>
-      <MatchupGrid matchups={champions} />
     </div>
   );
 }
