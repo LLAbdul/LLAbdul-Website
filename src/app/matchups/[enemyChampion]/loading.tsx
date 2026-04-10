@@ -3,7 +3,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 export default function MatchupDetailLoading() {
   return (
     <div className="relative min-h-screen bg-[#030509]">
-      <div className="relative z-10 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12 space-y-10 text-[#E8E8ED]">
+      <div className="relative z-10 max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-10 space-y-8 text-[#E8E8ED]">
         
         {/* Navigation & Header Section */}
         <div className="space-y-6">

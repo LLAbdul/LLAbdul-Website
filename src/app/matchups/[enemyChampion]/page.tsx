@@ -60,7 +60,7 @@ export default async function MatchupDetailPage({ params }: PageProps) {
       {/* Additional gradient overlay to make sure text is super readable */}
       <div className="absolute inset-x-0 top-0 h-[800px] z-0 pointer-events-none bg-gradient-to-b from-transparent via-[#030509]/80 to-[#030509]" />
 
-      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-10 space-y-8 text-[#E8E8ED]">
+      <div className="relative z-10 max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-10 space-y-8 text-[#E8E8ED]">
         
         {/* Navigation & Header Section */}
         <div className="space-y-4">
