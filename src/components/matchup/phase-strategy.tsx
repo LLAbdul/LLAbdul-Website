@@ -20,7 +20,21 @@ const phaseConfig: Record<Phase, { label: string; dotColor: string; labelColor: 
   },
 };
 
-export function PhaseStrategy({ phase, content, isLast = false, abilities }: { phase: Phase; content: string; isLast?: boolean; abilities?: Record<string, { name: string; icon: string }> }) {
+export function PhaseStrategy({ 
+  phase, 
+  content, 
+  isLast = false, 
+  abilities,
+  enemyAbilities,
+  enemyName
+}: { 
+  phase: Phase; 
+  content: string; 
+  isLast?: boolean; 
+  abilities?: Record<string, { name: string; icon: string }>;
+  enemyAbilities?: Record<string, { name: string; icon: string }>;
+  enemyName?: string;
+}) {
   if (!content) return null;
   const { label, dotColor, labelColor } = phaseConfig[phase];
 
@@ -47,7 +61,7 @@ export function PhaseStrategy({ phase, content, isLast = false, abilities }: { p
           {label}
         </h3>
         <p className="text-[14px] sm:text-[15px] leading-relaxed whitespace-pre-wrap text-[#E8E8ED]/90 font-light">
-          <StrategyText content={content} abilities={abilities} />
+          <StrategyText content={content} abilities={abilities} enemyAbilities={enemyAbilities} enemyName={enemyName} />
         </p>
       </div>
     </div>

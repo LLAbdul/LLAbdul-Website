@@ -229,9 +229,9 @@ export default async function MatchupDetailPage({ params }: PageProps) {
                   </h2>
                 </div>
                 <div className="flex flex-col">
-                  {matchup.early && <PhaseStrategy phase="early" content={matchup.early} isLast={!matchup.mid && !matchup.late} abilities={matchup.champion.abilities} />}
-                  {matchup.mid && <PhaseStrategy phase="mid" content={matchup.mid} isLast={!matchup.late} abilities={matchup.champion.abilities} />}
-                  {matchup.late && <PhaseStrategy phase="late" content={matchup.late} isLast={true} abilities={matchup.champion.abilities} />}
+                  {matchup.early && <PhaseStrategy phase="early" content={matchup.early} isLast={!matchup.mid && !matchup.late} abilities={matchup.champion.abilities} enemyAbilities={enemyChamp?.abilities} enemyName={enemyChamp?.name} />}
+                  {matchup.mid && <PhaseStrategy phase="mid" content={matchup.mid} isLast={!matchup.late} abilities={matchup.champion.abilities} enemyAbilities={enemyChamp?.abilities} enemyName={enemyChamp?.name} />}
+                  {matchup.late && <PhaseStrategy phase="late" content={matchup.late} isLast={true} abilities={matchup.champion.abilities} enemyAbilities={enemyChamp?.abilities} enemyName={enemyChamp?.name} />}
                 </div>
               </section>
             )}
