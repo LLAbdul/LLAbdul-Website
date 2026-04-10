@@ -42,8 +42,8 @@ function PerkIcon({
             <p className="font-serif text-lg font-bold text-white tracking-wide">{perk.name}</p>
           </div>
           <div 
-            className="text-[13px] text-[#7B7F9E] leading-relaxed [&_scaleLevel]:text-white [&_gold]:text-[#FFD700] [&_truedamage]:text-white [&_hr]:border-white/10 [&_hr]:my-3" 
-            dangerouslySetInnerHTML={{ __html: (perk.shortDesc || perk.longDesc || "").replace(/<br>\s*<hr>\s*<br>/g, '<hr>') }} 
+            className="text-[13px] text-[#7B7F9E] leading-relaxed [&_scaleLevel]:text-white [&_gold]:text-[#FFD700] [&_truedamage]:text-white [&_hr]:hidden" 
+            dangerouslySetInnerHTML={{ __html: (perk.shortDesc || perk.longDesc || "") }} 
           />
         </TooltipContent>
       </Tooltip>
@@ -89,7 +89,7 @@ export function RuneDisplay({ runes }: { runes: ResolvedRunePage | null }) {
   return (
     <div className="flex flex-col xl:flex-row gap-8 xl:gap-12 pt-1 pb-2 items-stretch">
       {/* Left Column: Primary Tree */}
-      <div className="flex flex-col justify-between h-full min-h-[300px]">
+      <div className="flex flex-col justify-between h-full min-h-[300px] gap-2">
         {/* Header */}
         <div className="flex items-center">
           <div className="w-8 sm:w-12 shrink-0" />
@@ -110,7 +110,7 @@ export function RuneDisplay({ runes }: { runes: ResolvedRunePage | null }) {
       </div>
 
       {/* Right Column: Secondary Tree & Shards */}
-      <div className="flex flex-col justify-between h-full min-h-[300px]">
+      <div className="flex flex-col justify-between h-full min-h-[300px] gap-2">
         {secondaryTree && (
           <>
             {/* Header */}
