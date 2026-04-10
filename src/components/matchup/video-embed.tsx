@@ -14,7 +14,7 @@ export function VideoEmbed({ url }: VideoEmbedProps) {
 
   if (youtubeId) {
     return (
-      <div className="aspect-video rounded-lg overflow-hidden border border-[#1E2A4A]">
+      <div className="aspect-video w-full h-full bg-black/40">
         <iframe
           src={`https://www.youtube.com/embed/${youtubeId}`}
           title="Video guide"
@@ -31,7 +31,7 @@ export function VideoEmbed({ url }: VideoEmbedProps) {
       href={url}
       target="_blank"
       rel="noopener noreferrer"
-      className="block p-4 rounded-lg bg-[#111833] border border-[#1E2A4A] hover:border-[#C8AA6E]/40 transition-colors text-sm text-[#C8AA6E] underline"
+      className="block p-4 bg-white/5 backdrop-blur-xl border border-white/10 hover:bg-white/[0.06] transition-colors text-sm text-[#E8E8ED] hover:text-white underline break-all"
     >
       {url}
     </a>

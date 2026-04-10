@@ -24,94 +24,96 @@ export default function MatchupDetailLoading() {
         </div>
 
         {/* Dashboard Grid */}
-        <div className="grid xl:grid-cols-[440px_1fr] gap-10 xl:gap-16 items-start pb-24">
+        <div className="grid lg:grid-cols-[400px_1fr] xl:grid-cols-[450px_1fr] gap-8 xl:gap-12 items-start pb-16">
           
-          {/* Left Column: Optimal Setup (Runes, Spells, Build) */}
+          {/* Left Column: Details & Strategy */}
           <div className="space-y-8">
+            
             {/* Runes */}
-            <section className="space-y-5">
-              <div className="flex items-center gap-3 px-1">
-                <div className="w-1.5 h-6 bg-white/10 rounded-full animate-pulse" />
-                <Skeleton className="bg-white/10 h-8 w-48" />
+            <section className="space-y-3">
+              <div className="flex items-center gap-2 px-1">
+                <div className="w-1 h-5 bg-white/10 rounded-full animate-pulse" />
+                <Skeleton className="bg-white/10 h-7 w-36" />
               </div>
-              <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-6 h-64 animate-pulse" />
+              <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-5 h-64 animate-pulse" />
             </section>
 
             {/* Summoner Spells */}
-            <section className="space-y-5">
-              <div className="flex items-center gap-3 px-1">
-                <div className="w-1.5 h-6 bg-white/10 rounded-full animate-pulse" />
-                <Skeleton className="bg-white/10 h-8 w-56" />
+            <section className="space-y-3">
+              <div className="flex items-center gap-2 px-1">
+                <div className="w-1 h-5 bg-white/10 rounded-full animate-pulse" />
+                <Skeleton className="bg-white/10 h-7 w-48" />
               </div>
-              <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-6 flex gap-4 animate-pulse">
-                <Skeleton className="bg-white/10 rounded-2xl w-16 h-16" />
-                <Skeleton className="bg-white/10 rounded-2xl w-16 h-16" />
+              <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-5 flex gap-3 animate-pulse">
+                <Skeleton className="bg-white/10 rounded-xl w-12 h-12" />
+                <Skeleton className="bg-white/10 rounded-xl w-12 h-12" />
               </div>
             </section>
 
             {/* Build Path */}
-            <section className="space-y-5">
-              <div className="flex items-center gap-3 px-1">
-                <div className="w-1.5 h-6 bg-white/10 rounded-full animate-pulse" />
-                <Skeleton className="bg-white/10 h-8 w-36" />
+            <section className="space-y-3">
+              <div className="flex items-center gap-2 px-1">
+                <div className="w-1 h-5 bg-white/10 rounded-full animate-pulse" />
+                <Skeleton className="bg-white/10 h-7 w-32" />
               </div>
-              <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-6 sm:p-8 space-y-8 animate-pulse">
+              <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-5 space-y-6 animate-pulse">
                 <div className="space-y-4">
-                  <Skeleton className="bg-white/10 h-6 w-32" />
-                  <div className="flex gap-4">
-                    <Skeleton className="bg-white/10 rounded-2xl w-12 h-12" />
-                    <Skeleton className="bg-white/10 rounded-2xl w-12 h-12" />
+                  <Skeleton className="bg-white/10 h-5 w-24" />
+                  <div className="flex gap-3">
+                    <Skeleton className="bg-white/10 rounded-xl w-12 h-12" />
+                    <Skeleton className="bg-white/10 rounded-xl w-12 h-12" />
                   </div>
                 </div>
                 <div className="h-px w-full bg-white/10" />
                 <div className="space-y-4">
-                  <Skeleton className="bg-white/10 h-6 w-32" />
-                  <div className="flex gap-4">
-                    <Skeleton className="bg-white/10 rounded-2xl w-12 h-12" />
-                    <Skeleton className="bg-white/10 rounded-2xl w-12 h-12" />
-                    <Skeleton className="bg-white/10 rounded-2xl w-12 h-12" />
+                  <Skeleton className="bg-white/10 h-5 w-24" />
+                  <div className="flex gap-3">
+                    <Skeleton className="bg-white/10 rounded-xl w-12 h-12" />
+                    <Skeleton className="bg-white/10 rounded-xl w-12 h-12" />
+                    <Skeleton className="bg-white/10 rounded-xl w-12 h-12" />
                   </div>
                 </div>
               </div>
             </section>
-          </div>
 
-          {/* Right Column: Game Plan Strategy & Videos */}
-          <div className="space-y-8">
-            {/* Strategy */}
-            <section className="space-y-5">
-              <div className="flex items-center gap-3 px-1">
-                <div className="w-1.5 h-6 bg-white/10 rounded-full animate-pulse" />
-                <Skeleton className="bg-white/10 h-8 w-64" />
+            {/* Game Plan Strategy */}
+            <section className="space-y-3">
+              <div className="flex items-center gap-2 px-1">
+                <div className="w-1 h-5 bg-white/10 rounded-full animate-pulse" />
+                <Skeleton className="bg-white/10 h-7 w-56" />
               </div>
-              <div className="flex flex-col gap-6">
+              <div className="flex flex-col gap-4">
                 {[...Array(3)].map((_, i) => (
-                  <div key={i} className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-6 space-y-4 animate-pulse">
-                    <Skeleton className="bg-white/10 h-6 w-32" />
+                  <div key={i} className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-5 space-y-3 animate-pulse">
+                    <Skeleton className="bg-white/10 h-5 w-24" />
                     <div className="space-y-2">
-                      <Skeleton className="bg-white/10 h-4 w-full" />
-                      <Skeleton className="bg-white/10 h-4 w-[90%]" />
-                      <Skeleton className="bg-white/10 h-4 w-[95%]" />
-                      <Skeleton className="bg-white/10 h-4 w-[80%]" />
+                      <Skeleton className="bg-white/10 h-3 w-full" />
+                      <Skeleton className="bg-white/10 h-3 w-[90%]" />
+                      <Skeleton className="bg-white/10 h-3 w-[95%]" />
+                      <Skeleton className="bg-white/10 h-3 w-[80%]" />
                     </div>
                   </div>
                 ))}
               </div>
             </section>
 
-            {/* Videos */}
-            <section className="space-y-5 pt-4">
-              <div className="flex items-center gap-3 px-1">
-                <div className="w-1.5 h-6 bg-white/10 rounded-full animate-pulse" />
+          </div>
+
+          {/* Right Column: VODs */}
+          <div className="space-y-6">
+            <section className="space-y-3">
+              <div className="flex items-center gap-2 px-1">
+                <div className="w-1 h-6 bg-white/10 rounded-full animate-pulse" />
                 <Skeleton className="bg-white/10 h-8 w-64" />
               </div>
-              <div className="grid gap-6 sm:grid-cols-2">
+              <div className="flex flex-col gap-8">
                 {[...Array(2)].map((_, i) => (
-                  <div key={i} className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl h-64 animate-pulse" />
+                  <div key={i} className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl aspect-video w-full animate-pulse" />
                 ))}
               </div>
             </section>
           </div>
+
         </div>
       </div>
     </div>
