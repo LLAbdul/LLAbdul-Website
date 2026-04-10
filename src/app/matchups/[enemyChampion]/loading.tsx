@@ -58,7 +58,7 @@ export default function MatchupDetailLoading() {
                     <div className="w-1 h-5 bg-white/10 rounded-full animate-pulse" />
                     <Skeleton className="bg-white/10 h-7 w-32" />
                   </div>
-                    <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-4 space-y-3 animate-pulse flex-1 flex flex-col justify-center">
+                  <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-3.5 space-y-3 animate-pulse flex-1 flex flex-col justify-center">
                     <div className="space-y-4">
                       <Skeleton className="bg-white/10 h-5 w-24" />
                       <div className="flex gap-3">
