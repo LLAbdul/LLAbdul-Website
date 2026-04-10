@@ -172,9 +172,9 @@ export default async function MatchupDetailPage({ params }: PageProps) {
                                   <TooltipContent 
                                     side="top" 
                                     sideOffset={8}
-                                    className="bg-[#030509]/95 backdrop-blur-xl border border-white/10 text-white px-4 py-2.5 rounded-xl shadow-2xl z-50 font-serif text-[15px] font-bold tracking-wide"
+                                    className="bg-[#09090B] border border-white/10 px-3 py-2 rounded-md shadow-2xl z-50"
                                   >
-                                    {spell.name}
+                                    <p className="text-[#3b82f6] text-[13px] font-medium leading-none">{spell.name}</p>
                                   </TooltipContent>
                                 </Tooltip>
                               </div>
