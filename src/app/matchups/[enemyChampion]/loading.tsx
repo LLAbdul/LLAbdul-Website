@@ -39,10 +39,10 @@ export default function MatchupDetailLoading() {
                 <div className="flex-1 bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-4 min-h-[300px] animate-pulse" />
               </section>
 
-              <div className="flex flex-col justify-between flex-1 min-w-0 gap-8">
+              <div className="flex flex-col justify-between flex-1 min-w-0 gap-6">
                 {/* Summoner Spells */}
-                <section className="space-y-3 w-full">
-                  <div className="flex items-center gap-2 px-1">
+                <section className="space-y-3 shrink-0">
+                  <div className="flex items-center gap-2 px-1 shrink-0">
                     <div className="w-1 h-5 bg-white/10 rounded-full animate-pulse" />
                     <Skeleton className="bg-white/10 h-7 w-48" />
                   </div>
@@ -53,12 +53,12 @@ export default function MatchupDetailLoading() {
                 </section>
 
                 {/* Build Path */}
-                <section className="space-y-3 flex-1 flex flex-col">
-                  <div className="flex items-center gap-2 px-1">
+                <section className="space-y-3 flex-1 flex flex-col min-h-0">
+                  <div className="flex items-center gap-2 px-1 shrink-0">
                     <div className="w-1 h-5 bg-white/10 rounded-full animate-pulse" />
                     <Skeleton className="bg-white/10 h-7 w-32" />
                   </div>
-                  <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-3.5 space-y-3 animate-pulse flex-1 flex flex-col justify-center">
+                  <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-3.5 space-y-3 animate-pulse flex-1 flex flex-col justify-center min-h-0">
                     <div className="space-y-4">
                       <Skeleton className="bg-white/10 h-5 w-24" />
                       <div className="flex gap-3">
