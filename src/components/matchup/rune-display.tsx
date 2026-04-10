@@ -40,8 +40,8 @@ function PerkIcon({
         >
           <p className="font-bold text-white mb-1.5">{perk.name}</p>
           <div 
-            className="text-xs text-[#7B7F9E] leading-relaxed [&>scaleLevel]:text-white [&>gold]:text-[#FFD700] [&>truedamage]:text-white" 
-            dangerouslySetInnerHTML={{ __html: perk.shortDesc || perk.longDesc || "" }} 
+            className="text-xs text-[#7B7F9E] leading-relaxed [&_scaleLevel]:text-white [&_gold]:text-[#FFD700] [&_truedamage]:text-white [&_hr]:border-white/10 [&_hr]:my-2" 
+            dangerouslySetInnerHTML={{ __html: (perk.shortDesc || perk.longDesc || "").replace(/<br>\s*<hr>\s*<br>/g, '<hr>') }} 
           />
         </TooltipContent>
       </Tooltip>
@@ -100,10 +100,6 @@ export function RuneDisplay({ runes }: { runes: ResolvedRunePage | null }) {
         {/* Keystones */}
         <RuneRow perks={primaryTree.keystones} selectedNames={allSelected} size={40} />
         
-        <div className="flex">
-          <div className="w-8 sm:w-12 shrink-0" />
-          <div className="h-px w-full max-w-[240px] bg-white/10" />
-        </div>
         
         {/* Primary Tiers */}
         {primaryTree.tiers.map((tier, i) => (
@@ -129,10 +125,6 @@ export function RuneDisplay({ runes }: { runes: ResolvedRunePage | null }) {
               <RuneRow key={i} perks={tier.perks} selectedNames={allSelected} size={32} />
             ))}
             
-            <div className="flex">
-              <div className="w-8 sm:w-12 shrink-0" />
-              <div className="h-px w-full max-w-[240px] bg-white/10" />
-            </div>
           </>
         )}
 

@@ -35,7 +35,7 @@ export default function MatchupDetailLoading() {
                 <div className="w-1 h-5 bg-white/10 rounded-full animate-pulse" />
                 <Skeleton className="bg-white/10 h-7 w-36" />
               </div>
-              <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-5 h-64 animate-pulse" />
+              <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-4 h-64 animate-pulse" />
             </section>
 
             {/* Summoner Spells */}
@@ -44,7 +44,7 @@ export default function MatchupDetailLoading() {
                 <div className="w-1 h-5 bg-white/10 rounded-full animate-pulse" />
                 <Skeleton className="bg-white/10 h-7 w-48" />
               </div>
-              <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-5 flex gap-3 animate-pulse">
+              <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-4 flex gap-3 animate-pulse">
                 <Skeleton className="bg-white/10 rounded-xl w-12 h-12" />
                 <Skeleton className="bg-white/10 rounded-xl w-12 h-12" />
               </div>
@@ -56,7 +56,7 @@ export default function MatchupDetailLoading() {
                 <div className="w-1 h-5 bg-white/10 rounded-full animate-pulse" />
                 <Skeleton className="bg-white/10 h-7 w-32" />
               </div>
-              <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-5 space-y-6 animate-pulse">
+              <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-4 space-y-4 animate-pulse">
                 <div className="space-y-4">
                   <Skeleton className="bg-white/10 h-5 w-24" />
                   <div className="flex gap-3">

@@ -120,7 +120,7 @@ export default async function MatchupDetailPage({ params }: PageProps) {
                   </h2>
                 </div>
                 <Card className="w-fit bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden shadow-lg hover:bg-white/[0.06] transition-colors">
-                  <CardContent className="p-5">
+                  <CardContent className="p-4">
                     <RuneDisplay runes={matchup.runes} />
                   </CardContent>
                 </Card>
@@ -137,7 +137,7 @@ export default async function MatchupDetailPage({ params }: PageProps) {
                   </h2>
                 </div>
                 <Card className="w-fit bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden shadow-lg hover:bg-white/[0.06] transition-colors">
-                  <CardContent className="p-5 flex flex-wrap gap-3">
+                  <CardContent className="p-4 flex flex-wrap gap-3">
                     {matchup.summonerSpells.map((spell) => (
                       <div key={spell.name} title={spell.name} className="relative group">
                         {spell.icon ? (
@@ -173,7 +173,7 @@ export default async function MatchupDetailPage({ params }: PageProps) {
                   </h2>
                 </div>
                 <Card className="w-fit bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden shadow-lg hover:bg-white/[0.06] transition-colors">
-                  <CardContent className="p-5 space-y-6">
+                  <CardContent className="p-4 space-y-4">
                     {matchup.startItems.length > 0 && (
                       <BuildDisplay items={matchup.startItems} label="Starting Items" />
                     )}
