@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Youtube, Twitch, Twitter, Trophy, Swords, Medal } from "lucide-react";
+import { Video, Tv, MessageCircle, Trophy, Swords, Medal } from "lucide-react";
 import { RANK_EMBLEMS, POSITION_ICONS } from "@/lib/constants";
 
 export default function About() {
@@ -98,15 +98,15 @@ export default function About() {
               <h3 className="font-serif text-xl font-bold text-white mb-5">Connect</h3>
               <div className="space-y-3">
                 <a href="#" className="flex items-center gap-3 p-3 rounded-lg bg-white/5 border border-white/5 hover:bg-white/10 hover:border-[#C9082A]/50 transition-all group">
-                  <Youtube className="w-5 h-5 text-[#7B7F9E] group-hover:text-[#C9082A]" />
+                  <Video className="w-5 h-5 text-[#7B7F9E] group-hover:text-[#C9082A]" />
                   <span className="font-medium text-[#E8E8ED] group-hover:text-white">YouTube</span>
                 </a>
                 <a href="#" className="flex items-center gap-3 p-3 rounded-lg bg-white/5 border border-white/5 hover:bg-white/10 hover:border-[#C9082A]/50 transition-all group">
-                  <Twitch className="w-5 h-5 text-[#7B7F9E] group-hover:text-[#C9082A]" />
+                  <Tv className="w-5 h-5 text-[#7B7F9E] group-hover:text-[#C9082A]" />
                   <span className="font-medium text-[#E8E8ED] group-hover:text-white">Twitch</span>
                 </a>
                 <a href="#" className="flex items-center gap-3 p-3 rounded-lg bg-white/5 border border-white/5 hover:bg-white/10 hover:border-[#C9082A]/50 transition-all group">
-                  <Twitter className="w-5 h-5 text-[#7B7F9E] group-hover:text-[#C9082A]" />
+                  <MessageCircle className="w-5 h-5 text-[#7B7F9E] group-hover:text-[#C9082A]" />
                   <span className="font-medium text-[#E8E8ED] group-hover:text-white">Twitter / X</span>
                 </a>
               </div>
