@@ -55,7 +55,16 @@ function PerkIcon({
 }
 
 function RuneRow({ perks, selectedNames, size }: { perks: PerkInfo[], selectedNames: Set<string>, size: number }) {
-  const hasSelection = perks.some((p) => selectedNames.has(p.name.toLowerCase()));
+  const isSelected = (p: PerkInfo) => {
+    const name = p.name.toLowerCase();
+    if (selectedNames.has(name)) return true;
+    // Handle alias for Health Scaling which is sometimes saved as "Scaling Health" in DB
+    if (name === "health scaling" && selectedNames.has("scaling health")) return true;
+    if (name === "scaling health" && selectedNames.has("health scaling")) return true;
+    return false;
+  };
+
+  const hasSelection = perks.some(isSelected);
   
   return (
     <div className="flex items-center py-1">
@@ -70,7 +79,7 @@ function RuneRow({ perks, selectedNames, size }: { perks: PerkInfo[], selectedNa
           <div key={p.id} className="w-8 sm:w-9 flex justify-center items-center">
             <PerkIcon
               perk={p}
-              selected={selectedNames.has(p.name.toLowerCase())}
+              selected={isSelected(p)}
               size={size}
             />
           </div>
