@@ -29,52 +29,56 @@ export default function MatchupDetailLoading() {
           {/* Left Column: Details & Strategy */}
           <div className="space-y-8">
             
-            {/* Runes */}
-            <section className="space-y-3 w-fit">
-              <div className="flex items-center gap-2 px-1">
-                <div className="w-1 h-5 bg-white/10 rounded-full animate-pulse" />
-                <Skeleton className="bg-white/10 h-7 w-36" />
-              </div>
-              <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-4 h-64 animate-pulse" />
-            </section>
+            <div className="flex flex-col xl:flex-row gap-8 items-start">
+              {/* Runes */}
+              <section className="space-y-3 w-fit shrink-0">
+                <div className="flex items-center gap-2 px-1">
+                  <div className="w-1 h-5 bg-white/10 rounded-full animate-pulse" />
+                  <Skeleton className="bg-white/10 h-7 w-36" />
+                </div>
+                <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-4 h-64 animate-pulse" />
+              </section>
 
-            {/* Summoner Spells */}
-            <section className="space-y-3 w-fit">
-              <div className="flex items-center gap-2 px-1">
-                <div className="w-1 h-5 bg-white/10 rounded-full animate-pulse" />
-                <Skeleton className="bg-white/10 h-7 w-48" />
-              </div>
-              <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-4 flex gap-3 animate-pulse">
-                <Skeleton className="bg-white/10 rounded-xl w-12 h-12" />
-                <Skeleton className="bg-white/10 rounded-xl w-12 h-12" />
-              </div>
-            </section>
-
-            {/* Build Path */}
-            <section className="space-y-3 w-fit">
-              <div className="flex items-center gap-2 px-1">
-                <div className="w-1 h-5 bg-white/10 rounded-full animate-pulse" />
-                <Skeleton className="bg-white/10 h-7 w-32" />
-              </div>
-              <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-4 space-y-4 animate-pulse">
-                <div className="space-y-4">
-                  <Skeleton className="bg-white/10 h-5 w-24" />
-                  <div className="flex gap-3">
+              <div className="flex flex-col gap-8 flex-1 min-w-0">
+                {/* Summoner Spells */}
+                <section className="space-y-3 w-fit">
+                  <div className="flex items-center gap-2 px-1">
+                    <div className="w-1 h-5 bg-white/10 rounded-full animate-pulse" />
+                    <Skeleton className="bg-white/10 h-7 w-48" />
+                  </div>
+                  <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-4 flex gap-3 animate-pulse">
                     <Skeleton className="bg-white/10 rounded-xl w-12 h-12" />
                     <Skeleton className="bg-white/10 rounded-xl w-12 h-12" />
                   </div>
-                </div>
-                <div className="h-px w-full bg-white/10" />
-                <div className="space-y-4">
-                  <Skeleton className="bg-white/10 h-5 w-24" />
-                  <div className="flex gap-3">
-                    <Skeleton className="bg-white/10 rounded-xl w-12 h-12" />
-                    <Skeleton className="bg-white/10 rounded-xl w-12 h-12" />
-                    <Skeleton className="bg-white/10 rounded-xl w-12 h-12" />
+                </section>
+
+                {/* Build Path */}
+                <section className="space-y-3 w-fit">
+                  <div className="flex items-center gap-2 px-1">
+                    <div className="w-1 h-5 bg-white/10 rounded-full animate-pulse" />
+                    <Skeleton className="bg-white/10 h-7 w-32" />
                   </div>
-                </div>
+                  <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-4 space-y-4 animate-pulse">
+                    <div className="space-y-4">
+                      <Skeleton className="bg-white/10 h-5 w-24" />
+                      <div className="flex gap-3">
+                        <Skeleton className="bg-white/10 rounded-xl w-12 h-12" />
+                        <Skeleton className="bg-white/10 rounded-xl w-12 h-12" />
+                      </div>
+                    </div>
+                    <div className="h-px w-full bg-white/10" />
+                    <div className="space-y-4">
+                      <Skeleton className="bg-white/10 h-5 w-24" />
+                      <div className="flex gap-3">
+                        <Skeleton className="bg-white/10 rounded-xl w-12 h-12" />
+                        <Skeleton className="bg-white/10 rounded-xl w-12 h-12" />
+                        <Skeleton className="bg-white/10 rounded-xl w-12 h-12" />
+                      </div>
+                    </div>
+                  </div>
+                </section>
               </div>
-            </section>
+            </div>
 
             {/* Game Plan Strategy */}
             <section className="space-y-3">

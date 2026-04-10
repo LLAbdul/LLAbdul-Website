@@ -110,83 +110,87 @@ export default async function MatchupDetailPage({ params }: PageProps) {
           {/* Left Column: Details & Strategy */}
           <div className="space-y-8">
             
-            {/* Runes */}
-            {hasRunes && (
-              <section className="space-y-3">
-                <div className="flex items-center gap-2 px-1">
-                  <div className="w-1 h-5 bg-[#C9082A] rounded-full shadow-[0_0_8px_rgba(201,8,42,0.5)]" />
-                  <h2 className="font-serif text-xl font-bold text-white tracking-wide">
-                    Optimal Runes
-                  </h2>
-                </div>
-                <Card className="w-fit bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden shadow-lg hover:bg-white/[0.06] transition-colors">
-                  <CardContent className="p-4">
-                    <RuneDisplay runes={matchup.runes} />
-                  </CardContent>
-                </Card>
-              </section>
-            )}
+            <div className="flex flex-col xl:flex-row gap-8 items-start">
+              {/* Runes */}
+              {hasRunes && (
+                <section className="space-y-3 shrink-0">
+                  <div className="flex items-center gap-2 px-1">
+                    <div className="w-1 h-5 bg-[#C9082A] rounded-full shadow-[0_0_8px_rgba(201,8,42,0.5)]" />
+                    <h2 className="font-serif text-xl font-bold text-white tracking-wide">
+                      Optimal Runes
+                    </h2>
+                  </div>
+                  <Card className="w-fit bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden shadow-lg hover:bg-white/[0.06] transition-colors">
+                    <CardContent className="p-4">
+                      <RuneDisplay runes={matchup.runes} />
+                    </CardContent>
+                  </Card>
+                </section>
+              )}
 
-            {/* Summoner Spells */}
-            {hasSpells && (
-              <section className="space-y-3">
-                <div className="flex items-center gap-2 px-1">
-                  <div className="w-1 h-5 bg-[#FFD700] rounded-full shadow-[0_0_8px_rgba(255,215,0,0.5)]" />
-                  <h2 className="font-serif text-xl font-bold text-white tracking-wide">
-                    Summoner Spells
-                  </h2>
-                </div>
-                <Card className="w-fit bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden shadow-lg hover:bg-white/[0.06] transition-colors">
-                  <CardContent className="p-4 flex flex-wrap gap-3">
-                    {matchup.summonerSpells.map((spell) => (
-                      <div key={spell.name} title={spell.name} className="relative group">
-                        {spell.icon ? (
-                          <div className="relative">
-                            <div className="absolute inset-0 bg-[#FFD700] rounded-xl blur-md opacity-0 group-hover:opacity-30 transition-opacity" />
-                            <Image
-                              src={spell.icon}
-                              alt={spell.name}
-                              width={48}
-                              height={48}
-                              className="relative rounded-xl border border-white/10 shadow-md group-hover:border-[#FFD700]/50 transition-colors z-10"
-                            />
+              <div className="flex flex-col gap-8 flex-1 min-w-0">
+                {/* Summoner Spells */}
+                {hasSpells && (
+                  <section className="space-y-3">
+                    <div className="flex items-center gap-2 px-1">
+                      <div className="w-1 h-5 bg-[#FFD700] rounded-full shadow-[0_0_8px_rgba(255,215,0,0.5)]" />
+                      <h2 className="font-serif text-xl font-bold text-white tracking-wide">
+                        Summoner Spells
+                      </h2>
+                    </div>
+                    <Card className="w-fit bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden shadow-lg hover:bg-white/[0.06] transition-colors">
+                      <CardContent className="p-4 flex flex-wrap gap-3">
+                        {matchup.summonerSpells.map((spell) => (
+                          <div key={spell.name} title={spell.name} className="relative group">
+                            {spell.icon ? (
+                              <div className="relative">
+                                <div className="absolute inset-0 bg-[#FFD700] rounded-xl blur-md opacity-0 group-hover:opacity-30 transition-opacity" />
+                                <Image
+                                  src={spell.icon}
+                                  alt={spell.name}
+                                  width={48}
+                                  height={48}
+                                  className="relative rounded-xl border border-white/10 shadow-md group-hover:border-[#FFD700]/50 transition-colors z-10"
+                                />
+                              </div>
+                            ) : (
+                              <div className="w-12 h-12 rounded-xl bg-black/40 border border-white/10 flex items-center justify-center text-[10px] font-bold text-[#7B7F9E] shadow-md">
+                                {spell.name.slice(0, 3)}
+                              </div>
+                            )}
                           </div>
-                        ) : (
-                          <div className="w-12 h-12 rounded-xl bg-black/40 border border-white/10 flex items-center justify-center text-[10px] font-bold text-[#7B7F9E] shadow-md">
-                            {spell.name.slice(0, 3)}
-                          </div>
+                        ))}
+                      </CardContent>
+                    </Card>
+                  </section>
+                )}
+
+                {/* Build Path */}
+                {hasBuild && (
+                  <section className="space-y-3">
+                    <div className="flex items-center gap-2 px-1">
+                      <div className="w-1 h-5 bg-[#E8E8ED] rounded-full shadow-[0_0_8px_rgba(232,232,237,0.5)]" />
+                      <h2 className="font-serif text-xl font-bold text-white tracking-wide">
+                        Build Path
+                      </h2>
+                    </div>
+                    <Card className="w-fit bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden shadow-lg hover:bg-white/[0.06] transition-colors">
+                      <CardContent className="p-4 space-y-4">
+                        {matchup.startItems.length > 0 && (
+                          <BuildDisplay items={matchup.startItems} label="Starting Items" />
                         )}
-                      </div>
-                    ))}
-                  </CardContent>
-                </Card>
-              </section>
-            )}
-
-            {/* Build Path */}
-            {hasBuild && (
-              <section className="space-y-3">
-                <div className="flex items-center gap-2 px-1">
-                  <div className="w-1 h-5 bg-[#E8E8ED] rounded-full shadow-[0_0_8px_rgba(232,232,237,0.5)]" />
-                  <h2 className="font-serif text-xl font-bold text-white tracking-wide">
-                    Build Path
-                  </h2>
-                </div>
-                <Card className="w-fit bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden shadow-lg hover:bg-white/[0.06] transition-colors">
-                  <CardContent className="p-4 space-y-4">
-                    {matchup.startItems.length > 0 && (
-                      <BuildDisplay items={matchup.startItems} label="Starting Items" />
-                    )}
-                    {matchup.startItems.length > 0 && matchup.build.length > 0 && (
-                      <div className="h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-                    )}
-                    {matchup.build.length > 0 && (
-                      <BuildDisplay items={matchup.build} label="Core Build" showArrows />
-                    )}
-                  </CardContent>
-                </Card>
-              </section>
-            )}
+                        {matchup.startItems.length > 0 && matchup.build.length > 0 && (
+                          <div className="h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+                        )}
+                        {matchup.build.length > 0 && (
+                          <BuildDisplay items={matchup.build} label="Core Build" showArrows />
+                        )}
+                      </CardContent>
+                    </Card>
+                  </section>
+                )}
+              </div>
+            </div>
 
             {/* Game Plan Strategy */}
             {hasStrategy && (
