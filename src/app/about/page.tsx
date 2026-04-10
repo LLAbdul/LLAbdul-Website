@@ -1,149 +1,120 @@
 import Image from "next/image";
-import { ExternalLink } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Youtube, Twitch, Twitter, Trophy, Swords, Medal } from "lucide-react";
 import { RANK_EMBLEMS, POSITION_ICONS } from "@/lib/constants";
-import { getChampion } from "@/lib/riot-api";
-import { ChampionIcon } from "@/components/shared/champion-icon";
 
-export const metadata = {
-  title: "About",
-  description: "About LLAbdul — Challenger Rank 16 Yasuo & Yone player.",
-};
-
-const socials = [
-  { name: "Discord", href: "#" },
-  { name: "YouTube", href: "#" },
-  { name: "Twitch", href: "#" },
-  { name: "Twitter / X", href: "#" },
-];
-
-export default async function AboutPage() {
-  let yasuoIcon = "";
-  let yoneIcon = "";
-  try {
-    const [yasuo, yone] = await Promise.all([getChampion("Yasuo"), getChampion("Yone")]);
-    yasuoIcon = yasuo.icon;
-    yoneIcon = yone.icon;
-  } catch {}
-
+export default function About() {
   return (
-    <div className="space-y-6 py-6 bg-[#030509] min-h-screen text-[#E8E8ED]">
-      <p className="text-[11px] uppercase tracking-widest font-semibold text-[#7B7F9E]">Profile</p>
+    <main className="min-h-screen w-full flex flex-col py-12 px-4 md:px-8 lg:px-12 max-w-5xl mx-auto">
+      {/* Header Section */}
+      <div className="flex flex-col items-center text-center mb-16 relative">
+        {/* Glow effect */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-[#FFD700]/10 blur-[100px] rounded-full pointer-events-none"></div>
+        
+        <Image 
+          src={RANK_EMBLEMS.challenger} 
+          alt="Challenger" 
+          width={140} 
+          height={140} 
+          className="mb-6 drop-shadow-[0_0_25px_rgba(255,215,0,0.3)] animate-pulse" 
+        />
+        
+        <h1 className="font-serif text-5xl md:text-7xl font-black text-white mb-4 tracking-tight drop-shadow-xl">
+          LLABDUL
+        </h1>
+        
+        <div className="flex items-center gap-3 justify-center mb-8 flex-wrap">
+          <Badge className="bg-white/5 border-[#FFD700]/50 text-[#FFD700] backdrop-blur-md px-4 py-1.5 text-sm font-bold tracking-[0.1em] uppercase">
+            Peak Rank: Challenger #16
+          </Badge>
+          <Badge className="bg-white/5 border-[#C9082A]/50 text-[#C9082A] backdrop-blur-md px-4 py-1.5 text-sm font-bold tracking-[0.1em] uppercase">
+            Region: NA
+          </Badge>
+        </div>
+      </div>
 
-      {/* Two-column: Profile + Stats */}
-      <div className="grid lg:grid-cols-[1fr_320px] gap-4">
-        <Card className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl">
-          <CardContent className="py-6">
-            <div className="flex items-start gap-5">
-              <Image src={RANK_EMBLEMS.challenger} alt="Challenger" width={100} height={100} className="shrink-0 drop-shadow-[0_0_15px_rgba(255,215,0,0.3)]" />
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2.5 flex-wrap">
-                  <h1 className="text-2xl font-serif text-white">LLAbdul</h1>
-                  <Badge variant="outline" className="text-[10px] font-semibold uppercase tracking-widest shadow-[0_0_10px_rgba(255,215,0,0.5)]" style={{ background: "rgba(255,215,0,0.1)", color: "#FFD700", borderColor: "rgba(255,215,0,0.3)" }}>
-                    Challenger #16
-                  </Badge>
-                </div>
-                <div className="flex items-center gap-4 mt-3 text-sm text-[#7B7F9E]">
-                  <div className="flex items-center gap-1.5">
-                    <Image src={POSITION_ICONS.mid} alt="Mid" width={16} height={16} className="opacity-70" />
-                    <span>Mid</span>
-                  </div>
-                  <div className="flex items-center gap-1.5">
-                    <Image src={POSITION_ICONS.top} alt="Top" width={16} height={16} className="opacity-70" />
-                    <span>Top</span>
-                  </div>
-                  <span className="text-white/20">|</span>
-                  <span>NA</span>
-                </div>
-                <div className="flex items-center gap-2.5 mt-4">
-                  {yasuoIcon && <ChampionIcon src={yasuoIcon} name="Yasuo" size={36} />}
-                  {yoneIcon && <ChampionIcon src={yoneIcon} name="Yone" size={36} />}
-                  <span className="text-xs text-[#7B7F9E]">Yasuo & Yone One Trick</span>
-                </div>
-              </div>
+      {/* Main Content Grid */}
+      <div className="grid md:grid-cols-[1.5fr_1fr] gap-8">
+        
+        {/* Left Column: The Story */}
+        <div className="space-y-8">
+          <div>
+            <h2 className="font-serif text-3xl font-bold text-white mb-6 border-b border-white/10 pb-4">
+              The Journey
+            </h2>
+            <div className="prose prose-invert max-w-none text-[#E8E8ED] leading-relaxed">
+              <p className="text-lg font-light text-[#E8E8ED]/90 mb-4">
+                I am LLAbdul, a top-tier League of Legends player specializing in the wind brothers: <strong className="text-white font-medium">Yasuo</strong> and <strong className="text-white font-medium">Yone</strong>.
+              </p>
+              <p className="mb-4">
+                Achieving <strong className="text-[#FFD700]">Challenger Rank 16</strong> in North America wasn't just about mechanics—it was about relentless optimization, perfect wave management, and deep matchup knowledge.
+              </p>
+              <p>
+                This platform is my dedicated dossier. It exists to document every micro-interaction, every optimal trade pattern, and every build path I've developed over thousands of high-ELO games. Master the knowledge here, and you master the rift.
+              </p>
             </div>
-          </CardContent>
-        </Card>
-
-        <div className="space-y-3">
-          <div className="grid grid-cols-2 gap-3">
-            <Card className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl">
-              <CardContent className="text-center py-3">
-                <div className="text-lg font-bold text-[#FFD700]">#16</div>
-                <div className="text-[10px] uppercase tracking-widest font-semibold text-[#7B7F9E] mt-0.5">Peak Rank</div>
-              </CardContent>
-            </Card>
-            <Card className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl">
-              <CardContent className="text-center py-3">
-                <div className="text-lg font-bold text-[#C9082A]">NA</div>
-                <div className="text-[10px] uppercase tracking-widest font-semibold text-[#7B7F9E] mt-0.5">Region</div>
-              </CardContent>
-            </Card>
           </div>
-          <Card className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl">
-            <CardContent className="py-4">
-              <p className="text-[11px] uppercase tracking-widest font-semibold text-[#7B7F9E] mb-3">Roles</p>
-              <div className="space-y-2.5">
-                <div className="flex items-center gap-3">
-                  <Image src={POSITION_ICONS.mid} alt="Mid" width={20} height={20} className="opacity-80" />
-                  <div>
-                    <div className="text-sm font-medium text-[#E8E8ED]">Mid Lane</div>
-                    <div className="text-[10px] text-[#7B7F9E]">Primary</div>
+        </div>
+
+        {/* Right Column: Stats & Socials */}
+        <div className="space-y-6">
+          <Card className="bg-white/5 backdrop-blur-xl border-white/10">
+            <CardContent className="p-6">
+              <h3 className="font-serif text-xl font-bold text-white mb-5 flex items-center gap-2">
+                <Swords className="w-5 h-5 text-[#C9082A]" /> Combat Profile
+              </h3>
+              
+              <div className="space-y-4">
+                <div className="flex justify-between items-center p-3 rounded-lg bg-white/5 border border-white/5">
+                  <div className="flex items-center gap-2 text-[#7B7F9E]">
+                    <Image src={POSITION_ICONS.mid} alt="Mid" width={16} height={16} className="opacity-70" />
+                    <span>Primary Role</span>
                   </div>
+                  <span className="font-bold text-white">Mid Lane</span>
                 </div>
-                <div className="flex items-center gap-3">
-                  <Image src={POSITION_ICONS.top} alt="Top" width={20} height={20} className="opacity-80" />
-                  <div>
-                    <div className="text-sm font-medium text-[#E8E8ED]">Top Lane</div>
-                    <div className="text-[10px] text-[#7B7F9E]">Secondary</div>
+                
+                <div className="flex justify-between items-center p-3 rounded-lg bg-white/5 border border-white/5">
+                  <div className="flex items-center gap-2 text-[#7B7F9E]">
+                    <Image src={POSITION_ICONS.top} alt="Top" width={16} height={16} className="opacity-70" />
+                    <span>Secondary Role</span>
                   </div>
+                  <span className="font-bold text-white">Top Lane</span>
+                </div>
+
+                <div className="flex justify-between items-center p-3 rounded-lg bg-white/5 border border-white/5">
+                  <div className="flex items-center gap-2 text-[#7B7F9E]">
+                    <Trophy className="w-4 h-4" />
+                    <span>Signature</span>
+                  </div>
+                  <span className="font-bold text-white">Yasuo / Yone</span>
                 </div>
               </div>
             </CardContent>
           </Card>
-        </div>
-      </div>
 
-      {/* Story + Socials */}
-      <div className="grid lg:grid-cols-[1fr_320px] gap-4">
-        <div className="space-y-3">
-          <p className="text-[11px] uppercase tracking-widest font-semibold text-[#7B7F9E]">My Journey</p>
-          <Card className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl">
-            <CardContent className="space-y-3 text-sm leading-relaxed text-[#E8E8ED]">
-              <p>
-                I&apos;ve been playing League for years, focusing almost exclusively on Yasuo and Yone.
-                I hit Challenger and peaked at Rank 16 — learning every matchup the hard way through
-                thousands of games and replays.
-              </p>
-              <p>
-                This website is my way of giving back. Every guide comes from real experience
-                at the highest level of solo queue.
-              </p>
-              <p>
-                I&apos;m planning to collaborate with other top Yasuo and Yone players around
-                the world to make this the most comprehensive resource for our champions.
-              </p>
+          <Card className="bg-white/5 backdrop-blur-xl border-white/10">
+            <CardContent className="p-6">
+              <h3 className="font-serif text-xl font-bold text-white mb-5">Connect</h3>
+              <div className="space-y-3">
+                <a href="#" className="flex items-center gap-3 p-3 rounded-lg bg-white/5 border border-white/5 hover:bg-white/10 hover:border-[#C9082A]/50 transition-all group">
+                  <Youtube className="w-5 h-5 text-[#7B7F9E] group-hover:text-[#C9082A]" />
+                  <span className="font-medium text-[#E8E8ED] group-hover:text-white">YouTube</span>
+                </a>
+                <a href="#" className="flex items-center gap-3 p-3 rounded-lg bg-white/5 border border-white/5 hover:bg-white/10 hover:border-[#C9082A]/50 transition-all group">
+                  <Twitch className="w-5 h-5 text-[#7B7F9E] group-hover:text-[#C9082A]" />
+                  <span className="font-medium text-[#E8E8ED] group-hover:text-white">Twitch</span>
+                </a>
+                <a href="#" className="flex items-center gap-3 p-3 rounded-lg bg-white/5 border border-white/5 hover:bg-white/10 hover:border-[#C9082A]/50 transition-all group">
+                  <Twitter className="w-5 h-5 text-[#7B7F9E] group-hover:text-[#C9082A]" />
+                  <span className="font-medium text-[#E8E8ED] group-hover:text-white">Twitter / X</span>
+                </a>
+              </div>
             </CardContent>
           </Card>
         </div>
-
-        <div className="space-y-3">
-          <p className="text-[11px] uppercase tracking-widest font-semibold text-[#7B7F9E]">Connect</p>
-          <div className="space-y-2">
-            {socials.map((s) => (
-              <a key={s.name} href={s.href} target="_blank" rel="noopener noreferrer" className="group block">
-                <Card className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl transition-colors hover:bg-white/10">
-                  <CardContent className="flex items-center justify-between py-3">
-                    <span className="font-medium text-sm text-[#E8E8ED]">{s.name}</span>
-                    <ExternalLink className="w-4 h-4 text-[#7B7F9E] group-hover:text-[#C9082A] transition-colors" />
-                  </CardContent>
-                </Card>
-              </a>
-            ))}
-          </div>
-        </div>
+        
       </div>
-    </div>
+    </main>
   );
 }
