@@ -105,7 +105,7 @@ export default async function MatchupDetailPage({ params }: PageProps) {
         </div>
 
         {/* Dashboard Grid */}
-        <div className={`grid grid-cols-1 ${hasVideos ? "lg:grid-cols-[1.2fr_1fr] xl:grid-cols-[1.5fr_1fr]" : "max-w-2xl"} gap-8 xl:gap-12 items-start pb-16`}>
+        <div className={`grid grid-cols-1 ${hasVideos ? "lg:grid-cols-[1.1fr_1fr] xl:grid-cols-[1.3fr_1fr]" : "max-w-2xl"} gap-8 xl:gap-12 items-start pb-16`}>
           
           {/* Left Column: Details & Strategy */}
           <div className="space-y-8">
@@ -128,7 +128,7 @@ export default async function MatchupDetailPage({ params }: PageProps) {
                 </section>
               )}
 
-              <div className="flex flex-col justify-between flex-1 min-w-0 gap-8">
+              <div className="flex flex-col justify-between flex-1 min-w-0 gap-6">
                 {/* Summoner Spells */}
                 {hasSpells && (
                   <section className="space-y-3">
