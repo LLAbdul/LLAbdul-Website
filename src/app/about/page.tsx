@@ -6,7 +6,7 @@ import { RANK_EMBLEMS, POSITION_ICONS } from "@/lib/constants";
 
 export default function About() {
   return (
-    <main className="min-h-screen w-full flex flex-col py-12 px-4 md:px-8 lg:px-12 max-w-5xl mx-auto">
+    <main className="min-h-screen w-full flex flex-col py-12 px-4 sm:px-6 lg:px-8 max-w-[1600px] mx-auto">
       {/* Header Section */}
       <div className="flex flex-col items-center text-center mb-16 relative">
         {/* Glow effect */}
@@ -35,7 +35,7 @@ export default function About() {
       </div>
 
       {/* Main Content Grid */}
-      <div className="grid md:grid-cols-[1.5fr_1fr] gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-[1.15fr_1fr] xl:grid-cols-[1.4fr_1fr] gap-8 xl:gap-12 items-start">
         
         {/* Left Column: The Story */}
         <div className="space-y-8">
