@@ -30,6 +30,7 @@ export default async function Home() {
               src="/resources/images/NightBringerYasuo.png"
               alt=""
               fill
+              sizes="55vw"
               className="object-cover object-right-top"
               priority
             />
@@ -41,6 +42,7 @@ export default async function Home() {
               src="/resources/images/YoneDefault.png"
               alt=""
               fill
+              sizes="55vw"
               className="object-cover object-left-top"
               priority
             />
