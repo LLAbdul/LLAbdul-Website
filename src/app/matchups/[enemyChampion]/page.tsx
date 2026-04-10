@@ -189,14 +189,14 @@ export default async function MatchupDetailPage({ params }: PageProps) {
 
                 {/* Build Path */}
                 {hasBuild && (
-                  <section className="space-y-3">
+                  <section className="space-y-3 flex-1 flex flex-col">
                     <div className="flex items-center gap-2 px-1">
                       <div className="w-1 h-5 bg-[#E8E8ED] rounded-full shadow-[0_0_8px_rgba(232,232,237,0.5)]" />
                       <h2 className="font-serif text-xl font-bold text-white tracking-wide">
                         Build Path
                       </h2>
                     </div>
-                    <Card className="w-full bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden shadow-lg hover:bg-white/[0.06] transition-colors">
+                    <Card className="w-full bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden shadow-lg hover:bg-white/[0.06] transition-colors flex-1 flex flex-col justify-center">
                       <CardContent className="p-4 space-y-3">
                         {matchup.startItems.length > 0 && (
                           <BuildDisplay items={matchup.startItems} label="Starting Items" />
