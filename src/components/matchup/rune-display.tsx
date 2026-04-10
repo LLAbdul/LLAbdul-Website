@@ -19,22 +19,20 @@ function PerkIcon({
   return (
     <TooltipProvider delayDuration={0}>
       <Tooltip>
-        <TooltipTrigger asChild>
-          <div
-            className={`rounded-full flex items-center justify-center transition-all ${
-              selected
-                ? "ring-2 ring-[#0070F3] ring-offset-2 ring-offset-[#030509]" // u.gg blue ring
-                : "opacity-20 grayscale hover:grayscale-0 hover:opacity-100 cursor-pointer"
-            }`}
-          >
-            <Image
-              src={perk.icon}
-              alt={perk.name}
-              width={size}
-              height={size}
-              className="rounded-full"
-            />
-          </div>
+        <TooltipTrigger
+          className={`rounded-full flex items-center justify-center transition-all ${
+            selected
+              ? "ring-2 ring-[#0070F3] ring-offset-2 ring-offset-[#030509]" // u.gg blue ring
+              : "opacity-20 grayscale hover:grayscale-0 hover:opacity-100 cursor-pointer"
+          }`}
+        >
+          <Image
+            src={perk.icon}
+            alt={perk.name}
+            width={size}
+            height={size}
+            className="rounded-full"
+          />
         </TooltipTrigger>
         <TooltipContent 
           side="top" 
