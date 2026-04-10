@@ -135,7 +135,12 @@ export function RuneDisplay({ runes }: { runes: ResolvedRunePage | null }) {
 
         {/* Shards */}
         {primaryTree.shards && primaryTree.shards.map((tier, i) => (
-          <RuneRow key={i} perks={tier.perks} selectedNames={allSelected} size={24} />
+          <RuneRow 
+            key={i} 
+            perks={tier.perks} 
+            selectedNames={new Set([shardNames[i]?.toLowerCase()])} 
+            size={24} 
+          />
         ))}
       </div>
     </div>
