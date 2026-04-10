@@ -36,12 +36,12 @@ export function BuildDisplay({ items, label, showArrows = false }: BuildDisplayP
                       <Image
                         src={item.icon}
                         alt={item.name}
-                        width={24}
-                        height={24}
+                        width={28}
+                        height={28}
                         className="rounded-md border border-[#1E2A4A] shadow-md hover:border-white/20 transition-colors"
                       />
                     ) : (
-                      <div className="w-[24px] h-[24px] rounded-md bg-[#1A2340] border border-[#1E2A4A] flex items-center justify-center text-[9px] text-[#7B7F9E] shadow-md hover:border-white/20 transition-colors">
+                      <div className="w-[28px] h-[28px] rounded-md bg-[#1A2340] border border-[#1E2A4A] flex items-center justify-center text-[9px] text-[#7B7F9E] shadow-md hover:border-white/20 transition-colors">
                         {item.name.slice(0, 2)}
                       </div>
                     )}
