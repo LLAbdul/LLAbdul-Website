@@ -15,7 +15,7 @@ function PerkIcon({
       className={`rounded-full flex items-center justify-center transition-all ${
         selected
           ? "ring-2 ring-[#0070F3] ring-offset-2 ring-offset-[#030509]" // u.gg blue ring
-          : "opacity-30 grayscale hover:grayscale-0 hover:opacity-100 cursor-pointer"
+          : "opacity-20 grayscale hover:grayscale-0 hover:opacity-100 cursor-pointer"
       }`}
       title={perk.name}
     >
@@ -30,28 +30,27 @@ function PerkIcon({
   );
 }
 
-function RuneRow({ perks, selectedNames, size, isShard = false }: { perks: PerkInfo[], selectedNames: Set<string>, size: number, isShard?: boolean }) {
+function RuneRow({ perks, selectedNames, size }: { perks: PerkInfo[], selectedNames: Set<string>, size: number }) {
   const hasSelection = perks.some((p) => selectedNames.has(p.name.toLowerCase()));
   
   return (
-    <div className="flex items-center gap-4 w-full">
+    <div className="flex items-center py-1">
       {/* Left indicator dot */}
-      <div className={`w-2 h-2 rounded-full shrink-0 ${hasSelection ? "bg-white" : "bg-white/20"}`} />
+      <div className="w-8 sm:w-12 flex justify-center shrink-0">
+        <div className={`w-2 h-2 rounded-full ${hasSelection ? "bg-[#E8E8ED]" : "bg-white/10"}`} />
+      </div>
       
       {/* Icons container */}
-      <div className="flex flex-1 justify-between items-center px-4">
+      <div className="flex gap-4 sm:gap-6">
         {perks.map((p) => (
-          <PerkIcon
-            key={p.id}
-            perk={p}
-            selected={selectedNames.has(p.name.toLowerCase())}
-            size={size}
-          />
+          <div key={p.id} className="w-10 flex justify-center items-center">
+            <PerkIcon
+              perk={p}
+              selected={selectedNames.has(p.name.toLowerCase())}
+              size={size}
+            />
+          </div>
         ))}
-        {/* Placeholder if row only has 3 perks but needs to align with 4 (like keystone row) */}
-        {!isShard && perks.length === 3 && (
-          <div style={{ width: size }} className="opacity-0 pointer-events-none" />
-        )}
       </div>
     </div>
   );
@@ -67,19 +66,25 @@ export function RuneDisplay({ runes }: { runes: ResolvedRunePage | null }) {
   for (const s of shardNames) allSelected.add(s.toLowerCase());
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 p-4">
+    <div className="flex flex-col xl:flex-row gap-8 xl:gap-16 pt-2 pb-4">
       {/* Left Column: Primary Tree */}
-      <div className="flex flex-col space-y-4">
+      <div className="flex flex-col space-y-2">
         {/* Header */}
-        <div className="flex items-center justify-center gap-3">
-          <Image src={primaryTree.icon} alt={primaryTree.name} width={28} height={28} className="rounded-full" />
-          <span className="font-serif text-lg font-bold text-[#E8E8ED] tracking-wide">{primaryTree.name}</span>
+        <div className="flex items-center mb-3">
+          <div className="w-8 sm:w-12 shrink-0" />
+          <div className="flex items-center gap-3 px-2">
+            <Image src={primaryTree.icon} alt={primaryTree.name} width={28} height={28} className="rounded-full" />
+            <span className="font-serif text-xl font-bold text-[#E8E8ED] tracking-wide">{primaryTree.name}</span>
+          </div>
         </div>
         
         {/* Keystones */}
         <RuneRow perks={primaryTree.keystones} selectedNames={allSelected} size={40} />
         
-        <div className="h-px w-full bg-white/10 my-2" />
+        <div className="flex">
+          <div className="w-8 sm:w-12 shrink-0" />
+          <div className="h-px w-full max-w-[240px] bg-white/10 my-2" />
+        </div>
         
         {/* Primary Tiers */}
         {primaryTree.tiers.map((tier, i) => (
@@ -88,13 +93,16 @@ export function RuneDisplay({ runes }: { runes: ResolvedRunePage | null }) {
       </div>
 
       {/* Right Column: Secondary Tree & Shards */}
-      <div className="flex flex-col space-y-4">
+      <div className="flex flex-col space-y-2">
         {secondaryTree && (
           <>
             {/* Header */}
-            <div className="flex items-center justify-center gap-3">
-              <Image src={secondaryTree.icon} alt={secondaryTree.name} width={28} height={28} className="rounded-full" />
-              <span className="font-serif text-lg font-bold text-[#E8E8ED] tracking-wide">{secondaryTree.name}</span>
+            <div className="flex items-center mb-3">
+              <div className="w-8 sm:w-12 shrink-0" />
+              <div className="flex items-center gap-3 px-2">
+                <Image src={secondaryTree.icon} alt={secondaryTree.name} width={28} height={28} className="rounded-full" />
+                <span className="font-serif text-xl font-bold text-[#E8E8ED] tracking-wide">{secondaryTree.name}</span>
+              </div>
             </div>
 
             {/* Secondary Tiers */}
@@ -102,15 +110,18 @@ export function RuneDisplay({ runes }: { runes: ResolvedRunePage | null }) {
               <RuneRow key={i} perks={tier.perks} selectedNames={allSelected} size={32} />
             ))}
             
-            <div className="h-px w-full bg-white/10 my-2" />
+            <div className="flex">
+              <div className="w-8 sm:w-12 shrink-0" />
+              <div className="h-px w-full max-w-[240px] bg-white/10 my-2" />
+            </div>
           </>
         )}
 
         {/* Shards */}
         {primaryTree.shards && primaryTree.shards.length > 0 && (
-          <div className="flex flex-col space-y-4 pt-1">
+          <div className="flex flex-col space-y-2 pt-1">
             {primaryTree.shards.map((tier, i) => (
-              <RuneRow key={i} perks={tier.perks} selectedNames={allSelected} size={24} isShard />
+              <RuneRow key={i} perks={tier.perks} selectedNames={allSelected} size={24} />
             ))}
           </div>
         )}
