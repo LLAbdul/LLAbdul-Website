@@ -55,7 +55,7 @@ function RuneRow({ perks, selectedNames, size }: { perks: PerkInfo[], selectedNa
   const hasSelection = perks.some((p) => selectedNames.has(p.name.toLowerCase()));
   
   return (
-    <div className="flex items-center py-0.5">
+    <div className="flex items-center py-1">
       {/* Left indicator dot */}
       <div className="w-8 sm:w-12 flex justify-center shrink-0">
         <div className={`w-2 h-2 rounded-full ${hasSelection ? "bg-[#E8E8ED]" : "bg-white/10"}`} />
