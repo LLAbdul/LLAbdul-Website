@@ -64,36 +64,36 @@ export default async function ChampionGuidePage({ params }: PageProps) {
         />
       </div>
 
-      <div className="relative z-10 w-full max-w-5xl mx-auto px-4 sm:px-8 lg:px-12 py-12 lg:py-20">
+      <div className="relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
         <Link
           href="/guides"
-          className="group inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[#7B7F9E] hover:text-white transition-colors mb-12"
+          className="group inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[#7B7F9E] hover:text-white transition-colors mb-8"
         >
           <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
           Masterclass Library
         </Link>
 
         {/* Editorial Hero */}
-        <header className="flex flex-col md:flex-row items-start md:items-end gap-8 mb-20 border-b border-white/5 pb-12">
+        <header className="flex flex-col md:flex-row items-start md:items-end gap-6 mb-16 border-b border-white/5 pb-10">
           {champ.icon && (
             <div className="relative shrink-0">
-              <div className="absolute inset-0 bg-[#C9082A] blur-3xl opacity-20" />
+              <div className="absolute inset-0 bg-[#C9082A] blur-2xl opacity-20" />
               <ChampionIcon 
                 src={champ.icon} 
                 name={champ.name} 
-                size={140} 
-                className="relative rounded-3xl shadow-2xl border border-white/10" 
+                size={100} 
+                className="relative rounded-2xl shadow-xl border border-white/10" 
               />
             </div>
           )}
-          <div className="flex-1 space-y-3">
-            <h1 className="text-6xl sm:text-8xl font-serif text-white font-black tracking-tight leading-none drop-shadow-xl">
+          <div className="flex-1 space-y-2">
+            <h1 className="text-5xl sm:text-6xl font-serif text-white font-black tracking-tight leading-none drop-shadow-lg">
               {champ.name}
             </h1>
             {champ.title && (
-              <p className="text-xl text-[#FFD700] font-serif italic tracking-wide">{champ.title}</p>
+              <p className="text-lg text-[#FFD700] font-serif italic tracking-wide">{champ.title}</p>
             )}
-            <p className="text-sm font-medium text-[#7B7F9E] tracking-[0.2em] uppercase mt-2">
+            <p className="text-xs font-medium text-[#7B7F9E] tracking-[0.15em] uppercase mt-2">
               Advanced Execution & Macro
             </p>
           </div>
@@ -101,14 +101,14 @@ export default async function ChampionGuidePage({ params }: PageProps) {
 
         {/* Strategy Section */}
         {hasGuide && (
-          <section className="mb-24">
-            <div className="flex items-center gap-4 mb-10">
-              <h2 className="text-3xl font-serif font-bold text-white uppercase tracking-wide">
+          <section className="mb-16">
+            <div className="flex items-center gap-4 mb-8">
+              <h2 className="text-2xl font-serif font-bold text-white uppercase tracking-wide">
                 Tactical Flow
               </h2>
               <div className="h-px flex-1 bg-gradient-to-r from-white/10 to-transparent" />
             </div>
-            <div className="grid gap-6">
+            <div className="grid gap-4">
               {guide.early && <PhaseStrategy phase="early" content={guide.early} />}
               {guide.mid && <PhaseStrategy phase="mid" content={guide.mid} />}
               {guide.late && <PhaseStrategy phase="late" content={guide.late} />}
@@ -118,39 +118,39 @@ export default async function ChampionGuidePage({ params }: PageProps) {
 
         {/* Mechanics Section */}
         {hasMechanics && (
-          <section className="mb-24">
-            <div className="flex items-center gap-4 mb-10">
-              <h2 className="text-3xl font-serif font-bold text-white uppercase tracking-wide">
+          <section className="mb-16">
+            <div className="flex items-center gap-4 mb-8">
+              <h2 className="text-2xl font-serif font-bold text-white uppercase tracking-wide">
                 Mechanics
               </h2>
               <div className="h-px flex-1 bg-gradient-to-r from-white/10 to-transparent" />
             </div>
             
-            <div className="grid gap-16">
+            <div className="grid gap-12">
               {mechanics.map((mech) => (
-                <article key={mech._id} className="group relative pl-0 sm:pl-8 border-l border-transparent sm:hover:border-white/10 transition-colors">
+                <article key={mech._id} className="group relative pl-0 sm:pl-6 border-l border-transparent sm:hover:border-white/10 transition-colors">
                   {/* Subtle hover line */}
-                  <div className="hidden sm:block absolute -left-0.5 top-0 bottom-0 w-1 bg-[#FFD700] opacity-0 group-hover:opacity-100 transition-all rounded-full" />
+                  <div className="hidden sm:block absolute -left-px top-0 bottom-0 w-[2px] bg-[#FFD700] opacity-0 group-hover:opacity-100 transition-all rounded-full" />
                   
-                  <div className="flex flex-wrap items-baseline justify-between gap-4 mb-4">
-                    <h3 className="font-serif text-2xl sm:text-3xl text-white font-bold group-hover:text-[#FFD700] transition-colors">
+                  <div className="flex flex-wrap items-baseline justify-between gap-4 mb-3">
+                    <h3 className="font-serif text-xl sm:text-2xl text-white font-bold group-hover:text-[#FFD700] transition-colors">
                       {mech.title}
                     </h3>
-                    <span className={`text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full border ${difficultyStyles[mech.difficulty] || difficultyStyles.BASIC}`}>
+                    <span className={`text-[10px] font-bold uppercase tracking-widest px-2.5 py-0.5 rounded-full border ${difficultyStyles[mech.difficulty] || difficultyStyles.BASIC}`}>
                       {mech.difficulty}
                     </span>
                   </div>
                   
                   {mech.description && (
-                    <p className="text-lg text-[#E8E8ED]/80 font-light leading-relaxed mb-8 max-w-3xl">
+                    <p className="text-base text-[#E8E8ED]/80 font-light leading-relaxed mb-6 max-w-3xl">
                       {mech.description}
                     </p>
                   )}
                   
                   {mech.videos.length > 0 && (
-                    <div className="grid sm:grid-cols-2 gap-6">
+                    <div className="grid sm:grid-cols-2 gap-4">
                       {mech.videos.map((url, i) => (
-                        <div key={i} className="rounded-2xl overflow-hidden border border-white/5 shadow-2xl bg-black/40 relative group-hover:border-white/10 transition-colors">
+                        <div key={i} className="rounded-xl overflow-hidden border border-white/5 shadow-lg bg-black/40 relative group-hover:border-white/10 transition-colors">
                           <VideoEmbed url={url} />
                         </div>
                       ))}
@@ -164,16 +164,16 @@ export default async function ChampionGuidePage({ params }: PageProps) {
 
         {/* Guide Videos */}
         {guide?.videos && guide.videos.length > 0 && (
-          <section className="mb-24">
-            <div className="flex items-center gap-4 mb-10">
-              <h2 className="text-3xl font-serif font-bold text-white uppercase tracking-wide">
+          <section className="mb-16">
+            <div className="flex items-center gap-4 mb-8">
+              <h2 className="text-2xl font-serif font-bold text-white uppercase tracking-wide">
                 VOD Analysis
               </h2>
               <div className="h-px flex-1 bg-gradient-to-r from-white/10 to-transparent" />
             </div>
-            <div className="grid gap-8 sm:grid-cols-2">
+            <div className="grid gap-6 sm:grid-cols-2">
               {guide.videos.map((url, i) => (
-                <div key={i} className="rounded-2xl overflow-hidden border border-white/5 shadow-2xl bg-black/40">
+                <div key={i} className="rounded-xl overflow-hidden border border-white/5 shadow-lg bg-black/40">
                   <VideoEmbed url={url} />
                 </div>
               ))}
