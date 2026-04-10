@@ -11,6 +11,8 @@ export interface PerkInfo {
   id: number;
   name: string;
   icon: string;
+  shortDesc?: string;
+  longDesc?: string;
 }
 
 export interface RuneTreeTier {
@@ -48,6 +50,8 @@ async function loadRuneData() {
       id: p.id,
       name: p.name,
       icon: resolveIcon(p.iconPath),
+      shortDesc: p.shortDesc,
+      longDesc: p.longDesc,
     };
     perkById.set(p.id, info);
     perkByName.set(p.name.toLowerCase(), info);

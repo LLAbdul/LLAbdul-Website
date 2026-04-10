@@ -1,5 +1,11 @@
 import Image from "next/image";
 import type { ResolvedRunePage, RuneTree, PerkInfo, RuneTreeTier } from "@/lib/rune-trees";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 function PerkIcon({
   perk,
@@ -11,22 +17,37 @@ function PerkIcon({
   size?: number;
 }) {
   return (
-    <div
-      className={`rounded-full flex items-center justify-center transition-all ${
-        selected
-          ? "ring-2 ring-[#0070F3] ring-offset-2 ring-offset-[#030509]" // u.gg blue ring
-          : "opacity-20 grayscale hover:grayscale-0 hover:opacity-100 cursor-pointer"
-      }`}
-      title={perk.name}
-    >
-      <Image
-        src={perk.icon}
-        alt={perk.name}
-        width={size}
-        height={size}
-        className="rounded-full"
-      />
-    </div>
+    <TooltipProvider delayDuration={0}>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <div
+            className={`rounded-full flex items-center justify-center transition-all ${
+              selected
+                ? "ring-2 ring-[#0070F3] ring-offset-2 ring-offset-[#030509]" // u.gg blue ring
+                : "opacity-20 grayscale hover:grayscale-0 hover:opacity-100 cursor-pointer"
+            }`}
+          >
+            <Image
+              src={perk.icon}
+              alt={perk.name}
+              width={size}
+              height={size}
+              className="rounded-full"
+            />
+          </div>
+        </TooltipTrigger>
+        <TooltipContent 
+          side="top" 
+          className="max-w-xs bg-[#030509]/95 backdrop-blur-xl border border-white/10 text-[#E8E8ED] p-3 rounded-xl shadow-2xl z-50"
+        >
+          <p className="font-bold text-white mb-1.5">{perk.name}</p>
+          <div 
+            className="text-xs text-[#7B7F9E] leading-relaxed [&>scaleLevel]:text-white [&>gold]:text-[#FFD700] [&>truedamage]:text-white" 
+            dangerouslySetInnerHTML={{ __html: perk.shortDesc || perk.longDesc || "" }} 
+          />
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
   );
 }
 
@@ -41,9 +62,9 @@ function RuneRow({ perks, selectedNames, size }: { perks: PerkInfo[], selectedNa
       </div>
       
       {/* Icons container */}
-      <div className="flex gap-4 sm:gap-6">
+      <div className="flex gap-4">
         {perks.map((p) => (
-          <div key={p.id} className="w-10 flex justify-center items-center">
+          <div key={p.id} className="w-9 sm:w-10 flex justify-center items-center">
             <PerkIcon
               perk={p}
               selected={selectedNames.has(p.name.toLowerCase())}
@@ -66,11 +87,11 @@ export function RuneDisplay({ runes }: { runes: ResolvedRunePage | null }) {
   for (const s of shardNames) allSelected.add(s.toLowerCase());
 
   return (
-    <div className="flex flex-col xl:flex-row gap-8 xl:gap-16 pt-2 pb-4">
+    <div className="flex flex-col xl:flex-row gap-8 xl:gap-16 pt-2 pb-4 items-stretch">
       {/* Left Column: Primary Tree */}
-      <div className="flex flex-col space-y-2">
+      <div className="flex flex-col justify-between h-full min-h-[340px]">
         {/* Header */}
-        <div className="flex items-center mb-3">
+        <div className="flex items-center">
           <div className="w-8 sm:w-12 shrink-0" />
           <div className="flex items-center gap-3 px-2">
             <Image src={primaryTree.icon} alt={primaryTree.name} width={28} height={28} className="rounded-full" />
@@ -83,7 +104,7 @@ export function RuneDisplay({ runes }: { runes: ResolvedRunePage | null }) {
         
         <div className="flex">
           <div className="w-8 sm:w-12 shrink-0" />
-          <div className="h-px w-full max-w-[240px] bg-white/10 my-2" />
+          <div className="h-px w-full max-w-[240px] bg-white/10" />
         </div>
         
         {/* Primary Tiers */}
@@ -93,11 +114,11 @@ export function RuneDisplay({ runes }: { runes: ResolvedRunePage | null }) {
       </div>
 
       {/* Right Column: Secondary Tree & Shards */}
-      <div className="flex flex-col space-y-2">
+      <div className="flex flex-col justify-between h-full min-h-[340px]">
         {secondaryTree && (
           <>
             {/* Header */}
-            <div className="flex items-center mb-3">
+            <div className="flex items-center">
               <div className="w-8 sm:w-12 shrink-0" />
               <div className="flex items-center gap-3 px-2">
                 <Image src={secondaryTree.icon} alt={secondaryTree.name} width={28} height={28} className="rounded-full" />
@@ -112,19 +133,15 @@ export function RuneDisplay({ runes }: { runes: ResolvedRunePage | null }) {
             
             <div className="flex">
               <div className="w-8 sm:w-12 shrink-0" />
-              <div className="h-px w-full max-w-[240px] bg-white/10 my-2" />
+              <div className="h-px w-full max-w-[240px] bg-white/10" />
             </div>
           </>
         )}
 
         {/* Shards */}
-        {primaryTree.shards && primaryTree.shards.length > 0 && (
-          <div className="flex flex-col space-y-2 pt-1">
-            {primaryTree.shards.map((tier, i) => (
-              <RuneRow key={i} perks={tier.perks} selectedNames={allSelected} size={24} />
-            ))}
-          </div>
-        )}
+        {primaryTree.shards && primaryTree.shards.map((tier, i) => (
+          <RuneRow key={i} perks={tier.perks} selectedNames={allSelected} size={24} />
+        ))}
       </div>
     </div>
   );
