@@ -60,10 +60,10 @@ export default async function MatchupDetailPage({ params }: PageProps) {
       {/* Additional gradient overlay to make sure text is super readable */}
       <div className="absolute inset-x-0 top-0 h-[800px] z-0 pointer-events-none bg-gradient-to-b from-transparent via-[#030509]/80 to-[#030509]" />
 
-      <div className="relative z-10 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12 space-y-10 text-[#E8E8ED]">
+      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-10 space-y-8 text-[#E8E8ED]">
         
         {/* Navigation & Header Section */}
-        <div className="space-y-6">
+        <div className="space-y-4">
           <Link
             href="/matchups"
             className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-[#7B7F9E] hover:text-[#C9082A] transition-colors"
@@ -73,32 +73,30 @@ export default async function MatchupDetailPage({ params }: PageProps) {
           </Link>
 
           {/* Header Card */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 sm:gap-8 bg-white/5 backdrop-blur-xl p-6 sm:p-10 rounded-[2rem] border border-white/10 shadow-2xl relative overflow-hidden group">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-[#C9082A] rounded-full mix-blend-multiply filter blur-[128px] opacity-20 group-hover:opacity-40 transition-opacity duration-700" />
-            <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#FFD700] rounded-full mix-blend-multiply filter blur-[128px] opacity-10 group-hover:opacity-20 transition-opacity duration-700" />
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5 sm:gap-6 bg-white/5 backdrop-blur-xl p-5 sm:p-8 rounded-2xl border border-white/10 shadow-xl relative overflow-hidden group">
+            <div className="absolute top-0 right-0 w-48 h-48 bg-[#C9082A] rounded-full mix-blend-multiply filter blur-[100px] opacity-20 group-hover:opacity-30 transition-opacity duration-700" />
+            <div className="absolute bottom-0 left-0 w-48 h-48 bg-[#FFD700] rounded-full mix-blend-multiply filter blur-[100px] opacity-10 group-hover:opacity-20 transition-opacity duration-700" />
             
             {enemyChamp?.icon && (
               <ChampionIcon 
                 src={enemyChamp.icon} 
                 name={enemyChamp.name} 
-                size={128} 
-                className="rounded-3xl shrink-0 shadow-2xl border border-white/10 z-10" 
+                size={80} 
+                className="rounded-2xl shrink-0 shadow-xl border border-white/10 z-10" 
               />
             )}
-            <div className="flex-1 min-w-0 flex flex-col justify-center space-y-3 z-10">
-              <p className="text-[11px] sm:text-xs uppercase tracking-[0.25em] font-bold text-[#C9082A]">
+            <div className="flex-1 min-w-0 flex flex-col justify-center space-y-1 z-10">
+              <p className="text-[10px] uppercase tracking-[0.2em] font-bold text-[#C9082A] mb-1">
                 Tactical Matchup Guide
               </p>
-              <div className="flex items-center gap-4 flex-wrap">
-                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-serif font-black text-white tracking-wide">
-                  {matchup.champion.name} <span className="text-white/20 font-light mx-2 italic">vs</span> {decoded}
+              <div className="flex items-center gap-3 flex-wrap">
+                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-black text-white tracking-wide">
+                  {matchup.champion.name} <span className="text-white/20 font-light mx-1 italic">vs</span> {decoded}
                 </h1>
-                <div className="scale-110 origin-left">
-                  <DifficultyBadge difficulty={matchup.difficulty} />
-                </div>
+                <DifficultyBadge difficulty={matchup.difficulty} />
               </div>
               {enemyChamp?.title && (
-                <p className="text-sm sm:text-base text-[#7B7F9E] italic tracking-wide font-serif capitalize">
+                <p className="text-sm text-[#7B7F9E] italic tracking-wide font-serif capitalize mt-1">
                   {enemyChamp.title}
                 </p>
               )}
@@ -107,21 +105,21 @@ export default async function MatchupDetailPage({ params }: PageProps) {
         </div>
 
         {/* Dashboard Grid */}
-        <div className="grid grid-cols-1 xl:grid-cols-[440px_1fr] gap-8 xl:gap-12 items-start pb-24">
+        <div className="grid grid-cols-1 xl:grid-cols-[380px_1fr] gap-6 xl:gap-10 items-start pb-16">
           
           {/* Left Column: Optimal Setup (Runes, Spells, Build) */}
-          <div className="space-y-8">
+          <div className="space-y-6">
             {/* Runes */}
             {hasRunes && (
-              <section className="space-y-5">
-                <div className="flex items-center gap-3 px-1">
-                  <div className="w-1.5 h-6 bg-[#C9082A] rounded-full shadow-[0_0_10px_rgba(201,8,42,0.5)]" />
-                  <h2 className="font-serif text-2xl font-bold text-white tracking-wide">
+              <section className="space-y-3">
+                <div className="flex items-center gap-2 px-1">
+                  <div className="w-1 h-5 bg-[#C9082A] rounded-full shadow-[0_0_8px_rgba(201,8,42,0.5)]" />
+                  <h2 className="font-serif text-xl font-bold text-white tracking-wide">
                     Optimal Runes
                   </h2>
                 </div>
-                <Card className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl overflow-hidden shadow-2xl hover:bg-white/[0.07] transition-colors">
-                  <CardContent className="p-6">
+                <Card className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden shadow-lg hover:bg-white/[0.06] transition-colors">
+                  <CardContent className="p-5">
                     <RuneDisplay runes={matchup.runes} />
                   </CardContent>
                 </Card>
@@ -130,30 +128,30 @@ export default async function MatchupDetailPage({ params }: PageProps) {
 
             {/* Summoner Spells */}
             {hasSpells && (
-              <section className="space-y-5">
-                <div className="flex items-center gap-3 px-1">
-                  <div className="w-1.5 h-6 bg-[#FFD700] rounded-full shadow-[0_0_10px_rgba(255,215,0,0.5)]" />
-                  <h2 className="font-serif text-2xl font-bold text-white tracking-wide">
+              <section className="space-y-3">
+                <div className="flex items-center gap-2 px-1">
+                  <div className="w-1 h-5 bg-[#FFD700] rounded-full shadow-[0_0_8px_rgba(255,215,0,0.5)]" />
+                  <h2 className="font-serif text-xl font-bold text-white tracking-wide">
                     Summoner Spells
                   </h2>
                 </div>
-                <Card className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl overflow-hidden shadow-2xl hover:bg-white/[0.07] transition-colors">
-                  <CardContent className="p-6 flex gap-4">
+                <Card className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden shadow-lg hover:bg-white/[0.06] transition-colors">
+                  <CardContent className="p-5 flex gap-3">
                     {matchup.summonerSpells.map((spell) => (
                       <div key={spell.name} title={spell.name} className="relative group">
                         {spell.icon ? (
                           <div className="relative">
-                            <div className="absolute inset-0 bg-[#FFD700] rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition-opacity" />
+                            <div className="absolute inset-0 bg-[#FFD700] rounded-xl blur-md opacity-0 group-hover:opacity-30 transition-opacity" />
                             <Image
                               src={spell.icon}
                               alt={spell.name}
-                              width={64}
-                              height={64}
-                              className="relative rounded-2xl border border-white/10 shadow-lg group-hover:border-[#FFD700]/50 transition-colors z-10"
+                              width={48}
+                              height={48}
+                              className="relative rounded-xl border border-white/10 shadow-md group-hover:border-[#FFD700]/50 transition-colors z-10"
                             />
                           </div>
                         ) : (
-                          <div className="w-16 h-16 rounded-2xl bg-black/40 border border-white/10 flex items-center justify-center text-xs font-bold text-[#7B7F9E] shadow-lg">
+                          <div className="w-12 h-12 rounded-xl bg-black/40 border border-white/10 flex items-center justify-center text-[10px] font-bold text-[#7B7F9E] shadow-md">
                             {spell.name.slice(0, 3)}
                           </div>
                         )}
@@ -166,15 +164,15 @@ export default async function MatchupDetailPage({ params }: PageProps) {
 
             {/* Build Path */}
             {hasBuild && (
-              <section className="space-y-5">
-                <div className="flex items-center gap-3 px-1">
-                  <div className="w-1.5 h-6 bg-[#E8E8ED] rounded-full shadow-[0_0_10px_rgba(232,232,237,0.5)]" />
-                  <h2 className="font-serif text-2xl font-bold text-white tracking-wide">
+              <section className="space-y-3">
+                <div className="flex items-center gap-2 px-1">
+                  <div className="w-1 h-5 bg-[#E8E8ED] rounded-full shadow-[0_0_8px_rgba(232,232,237,0.5)]" />
+                  <h2 className="font-serif text-xl font-bold text-white tracking-wide">
                     Build Path
                   </h2>
                 </div>
-                <Card className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl overflow-hidden shadow-2xl hover:bg-white/[0.07] transition-colors">
-                  <CardContent className="p-6 sm:p-8 space-y-8">
+                <Card className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden shadow-lg hover:bg-white/[0.06] transition-colors">
+                  <CardContent className="p-5 space-y-6">
                     {matchup.startItems.length > 0 && (
                       <BuildDisplay items={matchup.startItems} label="Starting Items" />
                     )}
@@ -191,17 +189,17 @@ export default async function MatchupDetailPage({ params }: PageProps) {
           </div>
 
           {/* Right Column: Game Plan Strategy & Videos */}
-          <div className="space-y-8">
+          <div className="space-y-6">
             {/* Strategy */}
             {hasStrategy && (
-              <section className="space-y-5">
-                <div className="flex items-center gap-3 px-1">
-                  <div className="w-1.5 h-6 bg-[#C9082A] rounded-full shadow-[0_0_10px_rgba(201,8,42,0.5)]" />
-                  <h2 className="font-serif text-2xl font-bold text-white tracking-wide">
+              <section className="space-y-3">
+                <div className="flex items-center gap-2 px-1">
+                  <div className="w-1 h-5 bg-[#C9082A] rounded-full shadow-[0_0_8px_rgba(201,8,42,0.5)]" />
+                  <h2 className="font-serif text-xl font-bold text-white tracking-wide">
                     Game Plan Strategy
                   </h2>
                 </div>
-                <div className="flex flex-col gap-6">
+                <div className="flex flex-col gap-4">
                   {matchup.early && <PhaseStrategy phase="early" content={matchup.early} />}
                   {matchup.mid && <PhaseStrategy phase="mid" content={matchup.mid} />}
                   {matchup.late && <PhaseStrategy phase="late" content={matchup.late} />}
@@ -211,16 +209,16 @@ export default async function MatchupDetailPage({ params }: PageProps) {
 
             {/* Videos */}
             {hasVideos && (
-              <section className="space-y-5 pt-4">
-                <div className="flex items-center gap-3 px-1">
-                  <div className="w-1.5 h-6 bg-[#FFD700] rounded-full shadow-[0_0_10px_rgba(255,215,0,0.5)]" />
-                  <h2 className="font-serif text-2xl font-bold text-white tracking-wide">
+              <section className="space-y-3 pt-2">
+                <div className="flex items-center gap-2 px-1">
+                  <div className="w-1 h-5 bg-[#FFD700] rounded-full shadow-[0_0_8px_rgba(255,215,0,0.5)]" />
+                  <h2 className="font-serif text-xl font-bold text-white tracking-wide">
                     VOD Reviews & Examples
                   </h2>
                 </div>
-                <div className="grid gap-6 sm:grid-cols-2">
+                <div className="grid gap-4 sm:grid-cols-2">
                   {matchup.videos.map((url, i) => (
-                    <div key={i} className="rounded-3xl overflow-hidden border border-white/10 shadow-2xl bg-black/40 group hover:border-white/20 transition-colors">
+                    <div key={i} className="rounded-2xl overflow-hidden border border-white/10 shadow-lg bg-black/40 group hover:border-white/20 transition-colors">
                        <VideoEmbed url={url} />
                     </div>
                   ))}
