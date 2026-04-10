@@ -36,10 +36,10 @@ function PerkIcon({
         </TooltipTrigger>
         <TooltipContent 
           side="top" 
-          className="max-w-[400px] bg-[#030509]/95 backdrop-blur-xl border border-white/10 text-[#E8E8ED] p-5 rounded-2xl shadow-2xl z-50"
+          className="max-w-[360px] bg-[#030509]/95 backdrop-blur-xl border border-white/10 text-[#E8E8ED] p-4 rounded-xl shadow-2xl z-50"
         >
-          <div className="mb-2">
-            <p className="font-serif text-lg font-bold text-white tracking-wide">{perk.name}</p>
+          <div className="mb-1.5">
+            <p className="font-serif text-[17px] font-bold text-white tracking-wide">{perk.name}</p>
           </div>
           <div 
             className="text-[13px] text-[#7B7F9E] leading-relaxed [&_scaleLevel]:text-white [&_gold]:text-[#FFD700] [&_truedamage]:text-white [&_hr]:hidden" 
@@ -93,7 +93,7 @@ export function RuneDisplay({ runes }: { runes: ResolvedRunePage | null }) {
         {/* Header */}
         <div className="flex items-center">
           <div className="w-8 sm:w-12 shrink-0" />
-          <div className="flex items-center gap-3 px-2">
+          <div className="flex items-center gap-3 px-1.5">
             <Image src={primaryTree.icon} alt={primaryTree.name} width={28} height={28} className="rounded-full" />
             <span className="font-serif text-xl font-bold text-[#E8E8ED] tracking-wide">{primaryTree.name}</span>
           </div>
@@ -116,7 +116,7 @@ export function RuneDisplay({ runes }: { runes: ResolvedRunePage | null }) {
             {/* Header */}
             <div className="flex items-center">
               <div className="w-8 sm:w-12 shrink-0" />
-              <div className="flex items-center gap-3 px-2">
+              <div className="flex items-center gap-3 px-1.5">
                 <Image src={secondaryTree.icon} alt={secondaryTree.name} width={28} height={28} className="rounded-full" />
                 <span className="font-serif text-xl font-bold text-[#E8E8ED] tracking-wide">{secondaryTree.name}</span>
               </div>
