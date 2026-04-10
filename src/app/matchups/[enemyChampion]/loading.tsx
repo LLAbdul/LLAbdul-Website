@@ -24,7 +24,7 @@ export default function MatchupDetailLoading() {
         </div>
 
         {/* Dashboard Grid */}
-        <div className="grid lg:grid-cols-[1.2fr_1fr] xl:grid-cols-[1.5fr_1fr] gap-8 xl:gap-12 items-start pb-16">
+        <div className="grid lg:grid-cols-[1.1fr_1fr] xl:grid-cols-[1.3fr_1fr] gap-8 xl:gap-12 items-start pb-16">
           
           {/* Left Column: Details & Strategy */}
           <div className="space-y-8">
