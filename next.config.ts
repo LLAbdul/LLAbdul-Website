@@ -9,6 +9,10 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
+        hostname: "ddragon.leagueoflegends.com",
+      },
+      {
+        protocol: "https",
         hostname: "cdn.discordapp.com",
       },
     ],
