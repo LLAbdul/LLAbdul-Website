@@ -82,15 +82,27 @@ export default function MatchupDetailLoading() {
                 <div className="w-1 h-5 bg-white/10 rounded-full animate-pulse" />
                 <Skeleton className="bg-white/10 h-7 w-56" />
               </div>
-              <div className="flex flex-col gap-4">
+              <div className="flex flex-col">
                 {[...Array(3)].map((_, i) => (
-                  <div key={i} className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-5 space-y-3 animate-pulse">
-                    <Skeleton className="bg-white/10 h-5 w-24" />
-                    <div className="space-y-2">
-                      <Skeleton className="bg-white/10 h-3 w-full" />
-                      <Skeleton className="bg-white/10 h-3 w-[90%]" />
-                      <Skeleton className="bg-white/10 h-3 w-[95%]" />
-                      <Skeleton className="bg-white/10 h-3 w-[80%]" />
+                  <div key={i} className="relative pl-8 pb-8">
+                    {/* Vertical Line */}
+                    {i !== 2 && (
+                      <div className="absolute left-[11px] top-6 bottom-[-24px] w-[2px] bg-white/10" />
+                    )}
+                    
+                    {/* Dot */}
+                    <div className="absolute left-0 top-[6px] w-6 h-6 rounded-full border-4 border-[#030509] flex items-center justify-center shadow-lg bg-white/20 animate-pulse">
+                      <div className="w-1.5 h-1.5 rounded-full bg-white opacity-50" />
+                    </div>
+
+                    <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-5 space-y-3 animate-pulse">
+                      <Skeleton className="bg-white/10 h-5 w-24" />
+                      <div className="space-y-2">
+                        <Skeleton className="bg-white/10 h-3 w-full" />
+                        <Skeleton className="bg-white/10 h-3 w-[90%]" />
+                        <Skeleton className="bg-white/10 h-3 w-[95%]" />
+                        <Skeleton className="bg-white/10 h-3 w-[80%]" />
+                      </div>
                     </div>
                   </div>
                 ))}

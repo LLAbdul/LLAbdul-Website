@@ -197,10 +197,10 @@ export default async function MatchupDetailPage({ params }: PageProps) {
                     Game Plan Strategy
                   </h2>
                 </div>
-                <div className="flex flex-col gap-4">
-                  {matchup.early && <PhaseStrategy phase="early" content={matchup.early} />}
-                  {matchup.mid && <PhaseStrategy phase="mid" content={matchup.mid} />}
-                  {matchup.late && <PhaseStrategy phase="late" content={matchup.late} />}
+                <div className="flex flex-col">
+                  {matchup.early && <PhaseStrategy phase="early" content={matchup.early} isLast={!matchup.mid && !matchup.late} />}
+                  {matchup.mid && <PhaseStrategy phase="mid" content={matchup.mid} isLast={!matchup.late} />}
+                  {matchup.late && <PhaseStrategy phase="late" content={matchup.late} isLast={true} />}
                 </div>
               </section>
             )}
