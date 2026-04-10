@@ -26,31 +26,30 @@ export function BuildDisplay({ items, label, showArrows = false }: BuildDisplayP
         <TooltipProvider delayDuration={0}>
           <div className="flex flex-wrap gap-1">
             {items.map((item, i) => (
-              <div key={`${item.name}-${i}`} className="flex items-center gap-1">
+              <div key={`${item.name}-${i}`} className="flex items-center gap-0.5 sm:gap-1">
                 {showArrows && i > 0 && (
-                  <ArrowRight className="w-3 h-3 text-[#7B7F9E] shrink-0" />
+                  <ArrowRight className="w-2.5 h-2.5 text-[#7B7F9E] shrink-0" />
                 )}
                 <Tooltip>
-                  <TooltipTrigger asChild>
-                    <div>
-                      {item.icon ? (
-                        <Image
-                          src={item.icon}
-                          alt={item.name}
-                          width={26}
-                          height={26}
-                          className="rounded-md border border-[#1E2A4A] shadow-md hover:border-white/20 transition-colors"
-                        />
-                      ) : (
-                        <div className="w-[26px] h-[26px] rounded-md bg-[#1A2340] border border-[#1E2A4A] flex items-center justify-center text-[10px] text-[#7B7F9E] shadow-md hover:border-white/20 transition-colors">
-                          {item.name.slice(0, 2)}
-                        </div>
-                      )}
-                    </div>
+                  <TooltipTrigger className="outline-none focus:outline-none">
+                    {item.icon ? (
+                      <Image
+                        src={item.icon}
+                        alt={item.name}
+                        width={24}
+                        height={24}
+                        className="rounded-md border border-[#1E2A4A] shadow-md hover:border-white/20 transition-colors"
+                      />
+                    ) : (
+                      <div className="w-[24px] h-[24px] rounded-md bg-[#1A2340] border border-[#1E2A4A] flex items-center justify-center text-[9px] text-[#7B7F9E] shadow-md hover:border-white/20 transition-colors">
+                        {item.name.slice(0, 2)}
+                      </div>
+                    )}
                   </TooltipTrigger>
                   <TooltipContent 
                     side="top" 
-                    className="bg-[#030509]/95 backdrop-blur-xl border border-white/10 text-white px-3 py-2 rounded-lg shadow-xl z-50 font-medium text-[13px] tracking-wide"
+                    sideOffset={8}
+                    className="bg-[#030509]/95 backdrop-blur-xl border border-white/10 text-white px-4 py-2.5 rounded-xl shadow-2xl z-50 font-serif text-[15px] font-bold tracking-wide"
                   >
                     {item.name}
                   </TooltipContent>

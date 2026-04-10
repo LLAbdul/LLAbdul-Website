@@ -151,8 +151,7 @@ export default async function MatchupDetailPage({ params }: PageProps) {
                             {matchup.summonerSpells.map((spell) => (
                               <div key={spell.name} className="relative group">
                                 <Tooltip>
-                                  <TooltipTrigger asChild>
-                                    <div>
+                                  <TooltipTrigger className="outline-none focus:outline-none">
                                       {spell.icon ? (
                                         <div className="relative">
                                           <div className="absolute inset-0 bg-[#FFD700] rounded-xl blur-md opacity-0 group-hover:opacity-30 transition-opacity" />
@@ -169,11 +168,11 @@ export default async function MatchupDetailPage({ params }: PageProps) {
                                           {spell.name.slice(0, 3)}
                                         </div>
                                       )}
-                                    </div>
                                   </TooltipTrigger>
                                   <TooltipContent 
                                     side="top" 
-                                    className="bg-[#030509]/95 backdrop-blur-xl border border-white/10 text-white px-3 py-2 rounded-lg shadow-xl z-50 font-medium text-sm tracking-wide"
+                                    sideOffset={8}
+                                    className="bg-[#030509]/95 backdrop-blur-xl border border-white/10 text-white px-4 py-2.5 rounded-xl shadow-2xl z-50 font-serif text-[15px] font-bold tracking-wide"
                                   >
                                     {spell.name}
                                   </TooltipContent>
@@ -197,7 +196,7 @@ export default async function MatchupDetailPage({ params }: PageProps) {
                       </h2>
                     </div>
                     <Card className="w-full bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden shadow-lg hover:bg-white/[0.06] transition-colors flex-1 flex flex-col justify-center">
-                      <CardContent className="p-3.5 space-y-3">
+                      <CardContent className="p-3 space-y-3">
                         {matchup.startItems.length > 0 && (
                           <BuildDisplay items={matchup.startItems} label="Starting Items" />
                         )}
